@@ -31,7 +31,8 @@ namespace VRCAvatars3Validator
             {
                 new TestRule("01"),
                 new ControllerLayerWeightRule("02"),
-                new HaveExParamsInControllersRule("03")
+                new HaveExParamsInControllersRule("03"),
+                new HaveTransformAnimationRule("04")
             };
 
             enableRules = Enumerable.Range(0, rules.Length).Select(_ => true).ToArray();
