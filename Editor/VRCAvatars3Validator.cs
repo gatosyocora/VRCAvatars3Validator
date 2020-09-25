@@ -15,7 +15,7 @@ namespace VRCAvatars3Validator
         private bool[] enableRules;
 
         private RuleBase[] rules;
-        private List<Error> errors;
+        private List<ValidateResult> errors;
 
         private Vector2 scrollPos = Vector2.zero;
 
@@ -108,9 +108,9 @@ namespace VRCAvatars3Validator
 
         }
 
-        private List<Error> ValidateAvatars3(VRCAvatarDescriptor avatar, IEnumerable<RuleBase> rules)
+        private List<ValidateResult> ValidateAvatars3(VRCAvatarDescriptor avatar, IEnumerable<RuleBase> rules)
         {
-            var errors = new List<Error>();
+            var errors = new List<ValidateResult>();
             foreach (var rule in rules)
             {
                 errors.AddRange(rule.Validate(avatar));

@@ -17,16 +17,16 @@ namespace VRCAvatars3Validator.Rules
 
         public ControllerLayerWeightRule(string id) : base(id) { }
 
-        public override IEnumerable<Error> Validate(VRCAvatarDescriptor avatar)
+        public override IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar)
         {
             var controllers =  avatar.baseAnimationLayers
                                 .Select(l => l.animatorController)
                                 .Where(c => c != null)
                                 .ToArray();
 
-            if (!controllers.Any()) return Array.Empty<Error>();
+            if (!controllers.Any()) return Array.Empty<ValidateResult>();
 
-            var errors = new List<Error>();
+            var errors = new List<ValidateResult>();
             foreach (AnimatorController controller in controllers)
             {
                 if (controller is null) continue;
@@ -37,7 +37,7 @@ namespace VRCAvatars3Validator.Rules
                     var layer = controller.layers[i];
                     if (layer.defaultWeight == 0)
                     {
-                        errors.Add(new Error(
+                        errors.Add(new ValidateResult(
                                     Id,
                                     controller,
                                     $"{layer.name} Layer in {controller.name} is weight 0."));

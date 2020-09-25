@@ -15,11 +15,11 @@ namespace VRCAvatars3Validator.Rules
 
         public TestRule(string id) : base(id) { }
 
-        public override IEnumerable<Error> Validate(VRCAvatarDescriptor avatar)
+        public override IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar)
         {
             return Enumerable.Range(0, 3)
                         .Select(i =>
-                        new Error(
+                        new ValidateResult(
                             Id,
                             avatar.gameObject,
                             $"Test Error {i}",

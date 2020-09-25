@@ -16,6 +16,6 @@ namespace VRCAvatars3Validator
             Id = id;
         }
 
-        public abstract IEnumerable<Error> Validate(VRCAvatarDescriptor avatar);
+        public abstract IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar);
     }
 }

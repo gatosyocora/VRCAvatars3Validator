@@ -18,17 +18,17 @@ namespace VRCAvatars3Validator.Rules
 
         public HaveExParamsInControllersRule(string id) : base(id) { }
 
-        public override IEnumerable<Error> Validate(VRCAvatarDescriptor avatar)
+        public override IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar)
         {
             var exParamsAsset = avatar.expressionParameters;
 
-            if (exParamsAsset is null) return Array.Empty<Error>();
+            if (exParamsAsset is null) return Array.Empty<ValidateResult>();
 
             var exParams = exParamsAsset.parameters.Where(p => !string.IsNullOrEmpty(p.name)).ToArray();
 
-            if (!exParams.Any()) return Array.Empty<Error>();
+            if (!exParams.Any()) return Array.Empty<ValidateResult>();
 
-            var errors = new List<Error>();
+            var errors = new List<ValidateResult>();
 
             var parameterlist = GetParameterList(avatar.baseAnimationLayers.Select(l => l.animatorController).Where(l => l != null).ToArray());
 
@@ -51,7 +51,7 @@ namespace VRCAvatars3Validator.Rules
                 }
                 if (!found)
                 {
-                    errors.Add(new Error(
+                    errors.Add(new ValidateResult(
                                 Id,
                                 exParamsAsset,
                                 $"{exParamName} is not found in AnimatorControllers"));

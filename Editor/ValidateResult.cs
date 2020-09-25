@@ -7,7 +7,7 @@ using Object = UnityEngine.Object;
 
 namespace VRCAvatars3Validator
 {
-    public class Error
+    public class ValidateResult
     {
         public string RuleId { get; set; }
 
@@ -19,7 +19,7 @@ namespace VRCAvatars3Validator
 
         public Action AutoFix { get; private set; }
 
-        public Error(string ruleId, Object target, string result, string solution = "", Action autoFix = null)
+        public ValidateResult(string ruleId, Object target, string result, string solution = "", Action autoFix = null)
         {
             RuleId = ruleId;
             Target = target;
