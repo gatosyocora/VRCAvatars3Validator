@@ -1,0 +1,1 @@
+# VRCAvatars3Validator
