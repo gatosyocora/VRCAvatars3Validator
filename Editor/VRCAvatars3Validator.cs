@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
@@ -8,12 +9,13 @@ using VRCAvatars3Validator.Rules;
 
 namespace VRCAvatars3Validator
 {
-    public class VRCAvatars3Validator : EditorWindow 
+    public class VRCAvatars3Validator : EditorWindow
     {
         private VRCAvatarDescriptor avatar;
 
         private bool[] enableRules;
 
+        private ValidationRules ruleAssets;
         private RuleBase[] rules;
         private List<ValidateResult> errors;
 
@@ -27,13 +29,14 @@ namespace VRCAvatars3Validator
 
         public void OnEnable()
         {
-            rules = new RuleBase[]
-            {
-                new TestRule("01"),
-                new ControllerLayerWeightRule("02"),
-                new HaveExParamsInControllersRule("03"),
-                new HaveTransformAnimationRule("04")
-            };
+            ruleAssets = AssetDatabase.LoadAssetAtPath<ValidationRules>("Assets/VRCAvatars3Validator/Rules.asset");
+            rules = ruleAssets.rules
+                        .Select((ruleAsset, index) =>
+                        {
+                            var type = ruleAsset.GetClass();
+                            var args = new object[] { (index + 1).ToString("00") };
+                            return Activator.CreateInstance(type, args) as RuleBase;
+                        }).ToArray();
 
             enableRules = Enumerable.Range(0, rules.Length).Select(_ => true).ToArray();
         }
