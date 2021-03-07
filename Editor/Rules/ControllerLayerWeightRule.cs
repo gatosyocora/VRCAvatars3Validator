@@ -40,6 +40,7 @@ namespace VRCAvatars3Validator.Rules
                         errors.Add(new ValidateResult(
                                     Id,
                                     controller,
+                                    ValidateResult.ValidateResultType.Warning,
                                     $"{layer.name} Layer in {controller.name} is weight 0."));
                     }
                 }

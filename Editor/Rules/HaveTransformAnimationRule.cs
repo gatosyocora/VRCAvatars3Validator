@@ -53,6 +53,7 @@ namespace VRCAvatars3Validator.Rules
                             errors.Add(new ValidateResult(
                                 Id,
                                 clip,
+                                ValidateResult.ValidateResultType.Error,
                                 $"{clip.name} have key changed other than Transform"));
                         }
                     }

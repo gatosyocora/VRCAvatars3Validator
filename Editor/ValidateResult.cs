@@ -9,9 +9,18 @@ namespace VRCAvatars3Validator
 {
     public class ValidateResult
     {
+        public enum ValidateResultType
+        {
+            Success,
+            Warning,
+            Error,
+        }
+
         public string RuleId { get; set; }
 
         public Object Target { get; private set; }
+
+        public ValidateResultType ResultType { get; private set; }
 
         public string Result { get; private set; }
         public string Solution { get; private set; }
@@ -19,10 +28,11 @@ namespace VRCAvatars3Validator
 
         public Action AutoFix { get; private set; }
 
-        public ValidateResult(string ruleId, Object target, string result, string solution = "", Action autoFix = null)
+        public ValidateResult(string ruleId, Object target, ValidateResultType resultType, string result, string solution = "", Action autoFix = null)
         {
             RuleId = ruleId;
             Target = target;
+            ResultType = resultType;
             Result = result;
             Solution = solution;
             AutoFix = autoFix;

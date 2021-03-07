@@ -22,6 +22,7 @@ namespace VRCAvatars3Validator.Rules
                         new ValidateResult(
                             Id,
                             avatar.gameObject,
+                            ValidateResult.ValidateResultType.Warning,
                             $"Test Error {i}",
                             "Press AutoFix",
                             () => Debug.Log($"Test{i}")))

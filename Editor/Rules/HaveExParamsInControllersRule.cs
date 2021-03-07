@@ -54,6 +54,7 @@ namespace VRCAvatars3Validator.Rules
                     errors.Add(new ValidateResult(
                                 Id,
                                 exParamsAsset,
+                                ValidateResult.ValidateResultType.Error,
                                 $"{exParamName} is not found in AnimatorControllers"));
                 }
             }
