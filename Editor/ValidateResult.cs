@@ -16,8 +16,6 @@ namespace VRCAvatars3Validator
             Error,
         }
 
-        public string RuleId { get; set; }
-
         public Object Target { get; private set; }
 
         public ValidateResultType ResultType { get; private set; }
@@ -28,9 +26,8 @@ namespace VRCAvatars3Validator
 
         public Action AutoFix { get; private set; }
 
-        public ValidateResult(string ruleId, Object target, ValidateResultType resultType, string result, string solution = "", Action autoFix = null)
+        public ValidateResult(Object target, ValidateResultType resultType, string result, string solution = "", Action autoFix = null)
         {
-            RuleId = ruleId;
             Target = target;
             ResultType = resultType;
             Result = result;

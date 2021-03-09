@@ -9,23 +9,20 @@ namespace VRCAvatars3Validator.Rules
     /// <summary>
     /// Test用のルール
     /// </summary>
-    public class TestRule : RuleBase
+    public class TestRule : IRule
     {
-        public override string RuleSummary => "Test Rule";
+        public string RuleSummary => "Test Rule";
 
-        public TestRule(string id) : base(id) { }
-
-        public override IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar)
+        public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar)
         {
             return Enumerable.Range(0, 3)
                         .Select(i =>
                         new ValidateResult(
-                            Id,
-                            avatar.gameObject,
-                            ValidateResult.ValidateResultType.Warning,
-                            $"Test Error {i}",
-                            "Press AutoFix",
-                            () => Debug.Log($"Test{i}")));
+                                avatar.gameObject,
+                                ValidateResult.ValidateResultType.Warning,
+                                $"Test Error {i}",
+                                "Press AutoFix",
+                                () => Debug.Log($"Test{i}")));
         }
     }
 }

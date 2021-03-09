@@ -11,13 +11,11 @@ namespace VRCAvatars3Validator.Rules
     /// <summary>
     /// Weight0のレイヤーを持つかどうか
     /// </summary>
-    public class ControllerLayerWeightRule : RuleBase
+    public class ControllerLayerWeightRule : IRule
     {
-        public override string RuleSummary => "Have weight 0 layer";
+        public string RuleSummary => "Have weight 0 layer";
 
-        public ControllerLayerWeightRule(string id) : base(id) { }
-
-        public override IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar)
+        public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar)
         {
             var controllers = avatar.baseAnimationLayers
                                 .Select(l => l.animatorController as AnimatorController)
@@ -32,10 +30,9 @@ namespace VRCAvatars3Validator.Rules
                     if (layer.defaultWeight == 0)
                     {
                         yield return new ValidateResult(
-                                    Id,
-                                    controller,
-                                    ValidateResult.ValidateResultType.Warning,
-                                    $"{layer.name} Layer in {controller.name} is weight 0.");
+                                        controller,
+                                        ValidateResult.ValidateResultType.Warning,
+                                        $"{layer.name} Layer in {controller.name} is weight 0.");
                     }
                 }
             }

@@ -9,22 +9,17 @@ using UnityEditor;
 
 namespace VRCAvatars3Validator.Rules
 {
-    public class HaveTransformAnimationRule : RuleBase
+    public class HaveTransformAnimationRule : IRule
     {
-        public override string RuleSummary => "Have other than Transform Animation in other than FX";
+        public string RuleSummary => "Have other than Transform Animation in other than FX";
 
-        private string[] humanoidBoneNames;
-
-        public HaveTransformAnimationRule(string id) : base(id) 
+        public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar)
         {
-            humanoidBoneNames = Enum.GetNames(typeof(HumanBodyBones))
-                                    .SelectMany(n => new string[] { n, ToContainSpace(n) })
-                                    .Distinct()
-                                    .ToArray();
-        }
+            var humanoidBoneNames = Enum.GetNames(typeof(HumanBodyBones))
+                                        .SelectMany(n => new string[] { n, ToContainSpace(n) })
+                                        .Distinct()
+                                        .ToArray();
 
-        public override IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar)
-        {
             var playableLayers = avatar.baseAnimationLayers.Where(l => l.animatorController != null);
 
             if (!playableLayers.Any()) yield break;
@@ -50,7 +45,6 @@ namespace VRCAvatars3Validator.Rules
                             !(binding.type == typeof(Animator) && humanoidBoneNames.Any(n => binding.propertyName.StartsWith(n))))
                         {
                             yield return new ValidateResult(
-                                Id,
                                 clip,
                                 ValidateResult.ValidateResultType.Error,
                                 $"{clip.name} have key changed other than Transform");

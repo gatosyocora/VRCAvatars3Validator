@@ -12,13 +12,11 @@ namespace VRCAvatars3Validator.Rules
     /// <summary>
     /// ExpressionParametersに設定されているAnimatorParameterがどのControllerにもない
     /// </summary>
-    public class HaveExParamsInControllersRule : RuleBase
+    public class HaveExParamsInControllersRule : IRule
     {
-        public override string RuleSummary => "Missing Expression Parameter";
+        public string RuleSummary => "Missing Expression Parameter";
 
-        public HaveExParamsInControllersRule(string id) : base(id) { }
-
-        public override IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar)
+        public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar)
         {
             var exParamsAsset = avatar.expressionParameters;
 
@@ -50,10 +48,9 @@ namespace VRCAvatars3Validator.Rules
                 if (!found)
                 {
                     yield return new ValidateResult(
-                                Id,
-                                exParamsAsset,
-                                ValidateResult.ValidateResultType.Error,
-                                $"{exParamName} is not found in AnimatorControllers");
+                                    exParamsAsset,
+                                    ValidateResult.ValidateResultType.Error,
+                                    $"{exParamName} is not found in AnimatorControllers");
                 }
             }
         }
