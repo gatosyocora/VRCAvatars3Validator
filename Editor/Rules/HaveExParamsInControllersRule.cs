@@ -22,15 +22,13 @@ namespace VRCAvatars3Validator.Rules
         {
             var exParamsAsset = avatar.expressionParameters;
 
-            if (exParamsAsset is null) return Array.Empty<ValidateResult>();
+            if (exParamsAsset is null) yield break;
 
             var exParams = exParamsAsset.parameters.Where(p => !string.IsNullOrEmpty(p.name)).ToArray();
 
-            if (!exParams.Any()) return Array.Empty<ValidateResult>();
+            if (!exParams.Any()) yield break;
 
-            var errors = new List<ValidateResult>();
-
-            var parameterlist = GetParameterList(avatar.baseAnimationLayers.Select(l => l.animatorController).Where(l => l != null).ToArray());
+            var parameterlist = GetParameters(avatar.baseAnimationLayers.Select(l => l.animatorController).Where(l => l != null).ToArray());
 
             bool found = false;
             foreach (var exParam in exParams)
@@ -51,28 +49,26 @@ namespace VRCAvatars3Validator.Rules
                 }
                 if (!found)
                 {
-                    errors.Add(new ValidateResult(
+                    yield return new ValidateResult(
                                 Id,
                                 exParamsAsset,
                                 ValidateResult.ValidateResultType.Error,
-                                $"{exParamName} is not found in AnimatorControllers"));
+                                $"{exParamName} is not found in AnimatorControllers");
                 }
             }
-
-            return errors;
         }
 
-        private AnimatorControllerParameter[] GetParameterList(IEnumerable<RuntimeAnimatorController> controllers)
+        private IEnumerable<AnimatorControllerParameter> GetParameters(IEnumerable<RuntimeAnimatorController> controllers)
         {
-            var parameterList = new List<AnimatorControllerParameter>();
             foreach (AnimatorController controller in controllers)
             {
                 if (controller is null) continue;
 
-                parameterList.AddRange(controller.parameters);
+                foreach (var parameter in controller.parameters)
+                {
+                    yield return parameter;
+                }
             }
-
-            return parameterList.ToArray();
         }
     }
 }

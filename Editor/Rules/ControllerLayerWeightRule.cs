@@ -19,33 +19,26 @@ namespace VRCAvatars3Validator.Rules
 
         public override IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar)
         {
-            var controllers =  avatar.baseAnimationLayers
-                                .Select(l => l.animatorController)
-                                .Where(c => c != null)
-                                .ToArray();
+            var controllers = avatar.baseAnimationLayers
+                                .Select(l => l.animatorController as AnimatorController)
+                                .Where(c => c != null);
 
-            if (!controllers.Any()) return Array.Empty<ValidateResult>();
-
-            var errors = new List<ValidateResult>();
             foreach (AnimatorController controller in controllers)
             {
-                if (controller is null) continue;
-
                 // 一番上のLayerは内部的にweight0であっても強制的に1になるので調べない
                 for (int i = 1; i < controller.layers.Length; i++)
                 {
                     var layer = controller.layers[i];
                     if (layer.defaultWeight == 0)
                     {
-                        errors.Add(new ValidateResult(
+                        yield return new ValidateResult(
                                     Id,
                                     controller,
                                     ValidateResult.ValidateResultType.Warning,
-                                    $"{layer.name} Layer in {controller.name} is weight 0."));
+                                    $"{layer.name} Layer in {controller.name} is weight 0.");
                     }
                 }
             }
-            return errors;
         }
     }
 }

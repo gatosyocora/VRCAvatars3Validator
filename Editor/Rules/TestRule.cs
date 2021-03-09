@@ -25,8 +25,7 @@ namespace VRCAvatars3Validator.Rules
                             ValidateResult.ValidateResultType.Warning,
                             $"Test Error {i}",
                             "Press AutoFix",
-                            () => Debug.Log($"Test{i}")))
-                        .ToArray();
+                            () => Debug.Log($"Test{i}")));
         }
     }
 }

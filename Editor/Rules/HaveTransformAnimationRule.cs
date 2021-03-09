@@ -27,9 +27,8 @@ namespace VRCAvatars3Validator.Rules
         {
             var playableLayers = avatar.baseAnimationLayers.Where(l => l.animatorController != null);
 
-            if (!playableLayers.Any()) return Array.Empty<ValidateResult>();
+            if (!playableLayers.Any()) yield break;
 
-            var errors = new List<ValidateResult>();
             foreach (var playableLayer in playableLayers)
             {
                 if (playableLayer.type == VRCAvatarDescriptor.AnimLayerType.FX) continue;
@@ -50,17 +49,15 @@ namespace VRCAvatars3Validator.Rules
                         if (binding.type != typeof(Transform) &&
                             !(binding.type == typeof(Animator) && humanoidBoneNames.Any(n => binding.propertyName.StartsWith(n))))
                         {
-                            errors.Add(new ValidateResult(
+                            yield return new ValidateResult(
                                 Id,
                                 clip,
                                 ValidateResult.ValidateResultType.Error,
-                                $"{clip.name} have key changed other than Transform"));
+                                $"{clip.name} have key changed other than Transform");
                         }
                     }
                 }
             }
-
-            return errors;
         }
 
         private string ToContainSpace(string input)
