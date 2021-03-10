@@ -19,10 +19,10 @@ namespace VRCAvatars3Validator.Rules
         {
             if (avatar.expressionsMenu is null) return Enumerable.Empty<ValidateResult>();
 
-            return validateExpressionsMenu(avatar.expressionsMenu);
+            return ValidateExpressionsMenu(avatar.expressionsMenu);
         }
 
-        private IEnumerable<ValidateResult> validateExpressionsMenu(VRCExpressionsMenu expressionsMenu)
+        private IEnumerable<ValidateResult> ValidateExpressionsMenu(VRCExpressionsMenu expressionsMenu)
         {
             foreach (var control in expressionsMenu.controls)
             {
@@ -38,7 +38,7 @@ namespace VRCAvatars3Validator.Rules
                 else
                 {
                     // Validating recursively.
-                    foreach (var validateResult in validateExpressionsMenu(control.subMenu))
+                    foreach (var validateResult in ValidateExpressionsMenu(control.subMenu))
                     {
                         yield return validateResult;
                     }
