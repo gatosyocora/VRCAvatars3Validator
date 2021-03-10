@@ -27,5 +27,9 @@ namespace VRCAvatars3Validator.Utilities
 
         public static VRCExpressionParameters GetExpressionParametersAsset(VRCAvatarDescriptor avatar)
                         => avatar.expressionParameters;
+
+        public static IEnumerable<AnimationClip> GetAnimationClips(VRCAvatarDescriptor avatar)
+                        => GetControllers(avatar)
+                            .SelectMany(controller => controller.animationClips);
     }
 }
