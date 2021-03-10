@@ -72,7 +72,7 @@ namespace VRCAvatars3Validator
                 //}
                 foreach (var ruleItem in ruleDictionary)
                 {
-                    ruleItem.Value.Enabled = EditorGUILayout.ToggleLeft($"[{ruleItem.Key}]{ruleItem.Value.Rule.RuleSummary}", ruleItem.Value.Enabled);
+                    ruleItem.Value.Enabled = EditorGUILayout.ToggleLeft($"[{ruleItem.Key}] {ruleItem.Value.Rule.RuleSummary}", ruleItem.Value.Enabled);
                 }
             }
 
@@ -106,7 +106,7 @@ namespace VRCAvatars3Validator
                         {
                             using (new EditorGUILayout.HorizontalScope())
                             {
-                                EditorGUILayout.HelpBox($"[{ruleId}]{result.Result}",
+                                EditorGUILayout.HelpBox($"[{ruleId}] {result.Result}",
                                     result.ResultType == ValidateResult.ValidateResultType.Error ? MessageType.Error :
                                     result.ResultType == ValidateResult.ValidateResultType.Warning ? MessageType.Warning : MessageType.None);
 
