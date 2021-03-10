@@ -43,7 +43,7 @@ namespace VRCAvatars3Validator.Tests
             var results = new TestRule().Validate(avatar).ToArray();
             for (int i = 0; i < results.Length; i++)
             {
-                Assert.AreEqual($"Test Error {i}", results[i].Result);
+                Assert.AreEqual($"Test Error {i}", results[i].ResultMessage);
             }
         }
 
@@ -56,7 +56,7 @@ namespace VRCAvatars3Validator.Tests
             var results = new TestRule().Validate(avatar).ToArray();
             for (int i = 0; i < results.Length; i++)
             {
-                Assert.AreEqual("Press AutoFix", results[i].Solution);
+                Assert.AreEqual("Press AutoFix", results[i].SolutionMessage);
             }
         }
     }

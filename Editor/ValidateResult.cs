@@ -25,12 +25,12 @@ namespace VRCAvatars3Validator
         /// <summary>
         /// Result message
         /// </summary>
-        public string Result { get; private set; }
+        public string ResultMessage { get; private set; }
 
         /// <summary>
         /// Way to fix
         /// </summary>
-        public string Solution { get; private set; }
+        public string SolutionMessage { get; private set; }
 
         /// <summary>
         /// Can use auto fix function
@@ -42,12 +42,12 @@ namespace VRCAvatars3Validator
         /// </summary>
         public Action AutoFix { get; private set; }
 
-        public ValidateResult(Object target, ValidateResultType resultType, string result, string solution = "", Action autoFix = null)
+        public ValidateResult(Object target, ValidateResultType resultType, string resultMessage, string solutionMessage = "", Action autoFix = null)
         {
             Target = target;
             ResultType = resultType;
-            Result = result;
-            Solution = solution;
+            ResultMessage = resultMessage;
+            SolutionMessage = solutionMessage;
             AutoFix = autoFix;
         }
     }

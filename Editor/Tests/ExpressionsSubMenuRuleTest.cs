@@ -36,10 +36,10 @@ namespace VRCAvatars3Validator.Tests
                 var result = results[i];
                 var expected = expecteds[i];
 
-                Assert.AreEqual(expected.Result, result.Result);
+                Assert.AreEqual(expected.ResultMessage, result.ResultMessage);
                 Assert.AreEqual(expected.ResultType, result.ResultType);
                 Assert.AreEqual(expected.Target, result.Target);
-                Assert.AreEqual(expected.Solution, result.Solution);
+                Assert.AreEqual(expected.SolutionMessage, result.SolutionMessage);
                 Assert.AreEqual(expected.CanAutoFix, result.CanAutoFix);
                 Assert.AreEqual(expected.AutoFix, result.AutoFix);
             }

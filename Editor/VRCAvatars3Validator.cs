@@ -102,7 +102,7 @@ namespace VRCAvatars3Validator
                         {
                             using (new EditorGUILayout.HorizontalScope())
                             {
-                                EditorGUILayout.HelpBox($"[{ruleId}] {result.Result}",
+                                EditorGUILayout.HelpBox($"[{ruleId}] {result.ResultMessage}",
                                     result.ResultType == ValidateResult.ValidateResultType.Error ? MessageType.Error :
                                     result.ResultType == ValidateResult.ValidateResultType.Warning ? MessageType.Warning : MessageType.None);
 
