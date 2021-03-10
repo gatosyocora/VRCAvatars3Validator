@@ -36,6 +36,7 @@ namespace VRCAvatars3Validator
         public void OnEnable()
         {
             var rules = Directory.EnumerateFiles(RULES_FOLDER_PATH, "*.cs", SearchOption.AllDirectories)
+                                    .Where(filePath => !Path.GetFileNameWithoutExtension(filePath).Equals("TemplateRule"))
                                     .Select((filePath, index) =>
                                     {
                                         var ruleAsset = AssetDatabase.LoadAssetAtPath<MonoScript>(filePath);
