@@ -10,5 +10,5 @@ VRChatのAvatars3.0のアバターで起きがちなミスをチェックできるEditor拡張です。
 
 ## ルールの追加
 1. Rulesフォルダにルールの例があるのでそれを元にルールスクリプトを作成する
-2. VRCAvatars3ValidatorフォルダにあるRules.assetのRulesのSizeを増やし作成したスクリプトを追加する
+2. VRCAvatars3ValidatorフォルダにあるRulesフォルダに作成したルールスクリプトをいれる
 3. 専用ウィンドウを開きなおす
