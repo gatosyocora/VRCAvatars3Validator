@@ -22,7 +22,7 @@ namespace VRCAvatars3Validator.Tests
         }
 
         [Test]
-        public void ResuleTypeIsWarnning()
+        public void ResultTypeIsWarnning()
         {
             var avatarObject = new GameObject();
             var avatar = avatarObject.AddComponent<VRCAvatarDescriptor>();
