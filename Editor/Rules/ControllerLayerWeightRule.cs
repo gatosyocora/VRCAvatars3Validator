@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEditor.Animations;
 using UnityEngine;
 using VRC.SDK3.Avatars.Components;
+using VRCAvatars3Validator.Utilities;
 
 namespace VRCAvatars3Validator.Rules
 {
@@ -17,11 +18,9 @@ namespace VRCAvatars3Validator.Rules
 
         public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar)
         {
-            var controllers = avatar.baseAnimationLayers
-                                .Select(l => l.animatorController as AnimatorController)
-                                .Where(c => c != null);
+            var controllers = VRCAvatarUtility.GetControllers(avatar);
 
-            foreach (AnimatorController controller in controllers)
+            foreach (var controller in controllers)
             {
                 // 一番上のLayerは内部的にweight0であっても強制的に1になるので調べない
                 for (int i = 1; i < controller.layers.Length; i++)

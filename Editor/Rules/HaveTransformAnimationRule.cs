@@ -6,6 +6,7 @@ using UnityEngine;
 using VRC.SDK3.Avatars.Components;
 using UnityEditor.Animations;
 using UnityEditor;
+using VRCAvatars3Validator.Utilities;
 
 namespace VRCAvatars3Validator.Rules
 {
@@ -20,7 +21,7 @@ namespace VRCAvatars3Validator.Rules
                                         .Distinct()
                                         .ToArray();
 
-            var playableLayers = avatar.baseAnimationLayers.Where(l => l.animatorController != null);
+            var playableLayers = VRCAvatarUtility.GetBaseAnimationLayers(avatar);
 
             if (!playableLayers.Any()) yield break;
 

@@ -6,6 +6,7 @@ using UnityEditor.Animations;
 using UnityEngine;
 using VRC.SDK3.Avatars.Components;
 using VRC.SDK3.Avatars.ScriptableObjects;
+using VRCAvatars3Validator.Utilities;
 
 namespace VRCAvatars3Validator.Rules
 {
@@ -18,7 +19,7 @@ namespace VRCAvatars3Validator.Rules
 
         public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar)
         {
-            var exParamsAsset = avatar.expressionParameters;
+            var exParamsAsset = VRCAvatarUtility.GetExpressionParametersAsset(avatar);
 
             if (exParamsAsset is null) yield break;
 
@@ -26,7 +27,7 @@ namespace VRCAvatars3Validator.Rules
 
             if (!exParams.Any()) yield break;
 
-            var parameterlist = GetParameters(avatar.baseAnimationLayers.Select(l => l.animatorController).Where(l => l != null).ToArray());
+            var parameterlist = VRCAvatarUtility.GetParameters(avatar.baseAnimationLayers.Select(l => l.animatorController as AnimatorController));
 
             bool found = false;
             foreach (var exParam in exParams)
@@ -51,19 +52,6 @@ namespace VRCAvatars3Validator.Rules
                                     exParamsAsset,
                                     ValidateResult.ValidateResultType.Error,
                                     $"{exParamName} is not found in AnimatorControllers");
-                }
-            }
-        }
-
-        private IEnumerable<AnimatorControllerParameter> GetParameters(IEnumerable<RuntimeAnimatorController> controllers)
-        {
-            foreach (AnimatorController controller in controllers)
-            {
-                if (controller is null) continue;
-
-                foreach (var parameter in controller.parameters)
-                {
-                    yield return parameter;
                 }
             }
         }
