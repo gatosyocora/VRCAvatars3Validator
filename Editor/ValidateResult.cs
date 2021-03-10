@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace VRCAvatars3Validator
@@ -11,19 +7,39 @@ namespace VRCAvatars3Validator
     {
         public enum ValidateResultType
         {
-            Success,
-            Warning,
-            Error,
+            Success, // No Problem
+            Warning, // May need to fix
+            Error, // Should fix
         }
 
+        /// <summary>
+        /// Fix target
+        /// </summary>
         public Object Target { get; private set; }
 
+        /// <summary>
+        /// Fix proposal level
+        /// </summary>
         public ValidateResultType ResultType { get; private set; }
 
+        /// <summary>
+        /// Result message
+        /// </summary>
         public string Result { get; private set; }
-        public string Solution { get; private set; }
-        public bool CanAutoFix { get; private set; }
 
+        /// <summary>
+        /// Way to fix
+        /// </summary>
+        public string Solution { get; private set; }
+
+        /// <summary>
+        /// Can use auto fix function
+        /// </summary>
+        public bool CanAutoFix { get => AutoFix != null; }
+
+        /// <summary>
+        /// auto fix function
+        /// </summary>
         public Action AutoFix { get; private set; }
 
         public ValidateResult(Object target, ValidateResultType resultType, string result, string solution = "", Action autoFix = null)
@@ -33,13 +49,6 @@ namespace VRCAvatars3Validator
             Result = result;
             Solution = solution;
             AutoFix = autoFix;
-            CanAutoFix = autoFix != null;
-        }
-
-        public void FocusTarget()
-        {
-            Selection.activeObject = Target;
-            EditorGUIUtility.PingObject(Target);
         }
     }
 }

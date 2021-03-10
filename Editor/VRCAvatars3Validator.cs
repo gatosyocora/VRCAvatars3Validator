@@ -114,7 +114,7 @@ namespace VRCAvatars3Validator
                                 {
                                     if (GUILayout.Button("Select", GUILayout.Width(60f)))
                                     {
-                                        result.FocusTarget();
+                                        FocusTarget(result);
                                     }
 
                                     using (new EditorGUI.DisabledGroupScope(!result.CanAutoFix))
@@ -144,6 +144,12 @@ namespace VRCAvatars3Validator
                 var results = rulePair.Value.Rule.Validate(avatar);
                 return new KeyValuePair<int, IEnumerable<ValidateResult>>(rulePair.Key, results);
             }).ToDictionary(resultPair => resultPair.Key, resultPair => resultPair.Value);
+        }
+
+        public void FocusTarget(ValidateResult result)
+        {
+            Selection.activeObject = result.Target;
+            EditorGUIUtility.PingObject(result.Target);
         }
     }
 }
