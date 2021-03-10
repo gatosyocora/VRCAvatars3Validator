@@ -66,10 +66,6 @@ namespace VRCAvatars3Validator
 
             using (new EditorGUI.IndentLevelScope())
             {
-                //for (int i = 0; i < ruleDictionary.Count; i++)
-                //{
-                //    ruleDictionary[i].Enabled = EditorGUILayout.ToggleLeft($"[{ruleDictionary.}]{ruleDictionary[i].Rule.RuleSummary}", ruleDictionary[i].Enabled);
-                //}
                 foreach (var ruleItem in ruleDictionary)
                 {
                     ruleItem.Value.Enabled = EditorGUILayout.ToggleLeft($"[{ruleItem.Key}] {ruleItem.Value.Rule.RuleSummary}", ruleItem.Value.Enabled);
