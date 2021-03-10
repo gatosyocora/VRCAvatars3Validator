@@ -1,25 +1,31 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using VRC.SDK3.Avatars.Components;
-using VRCAvatars3Validator.Rules;
 
 namespace VRCAvatars3Validator
 {
-    public class VRCAvatars3Validator : EditorWindow
+    public sealed class VRCAvatars3Validator : EditorWindow
     {
+        private const string RULES_FOLDER_PATH = "Assets/VRCAvatars3Validator/Editor/Rules";
+
         private VRCAvatarDescriptor avatar;
 
-        private bool[] enableRules;
-
-        private ValidationRules ruleAssets;
-        private RuleBase[] rules;
-        private List<ValidateResult> errors;
+        private Dictionary<int, IEnumerable<ValidateResult>> resultDictionary;
 
         private Vector2 scrollPos = Vector2.zero;
+
+        private readonly Dictionary<int, RuleItem> ruleDictionary = new Dictionary<int, RuleItem>();
+
+        private class RuleItem
+        {
+            public IRule Rule { get; set; }
+            public bool Enabled { get; set; }
+        }
 
         [MenuItem("VRCAvatars3Validator/Editor")]
         public static void Open()
@@ -29,16 +35,23 @@ namespace VRCAvatars3Validator
 
         public void OnEnable()
         {
-            ruleAssets = AssetDatabase.LoadAssetAtPath<ValidationRules>("Assets/VRCAvatars3Validator/Rules.asset");
-            rules = ruleAssets.rules
-                        .Select((ruleAsset, index) =>
-                        {
-                            var type = ruleAsset.GetClass();
-                            var args = new object[] { (index + 1).ToString("00") };
-                            return Activator.CreateInstance(type, args) as RuleBase;
-                        }).ToArray();
+            var rules = Directory.EnumerateFiles(RULES_FOLDER_PATH, "*.cs", SearchOption.AllDirectories)
+                                    .Select((filePath, index) =>
+                                    {
+                                        var ruleAsset = AssetDatabase.LoadAssetAtPath<MonoScript>(filePath);
+                                        var type = ruleAsset.GetClass();
+                                        return Activator.CreateInstance(type) as IRule;
+                                    })
+                                    .ToArray();
 
-            enableRules = Enumerable.Range(0, rules.Length).Select(_ => true).ToArray();
+            for (int i = 0; i < rules.Length; i++)
+            {
+                ruleDictionary.Add(i + 1, new RuleItem
+                {
+                    Enabled = true,
+                    Rule = rules[i]
+                });
+            }
         }
 
         public void OnGUI()
@@ -53,9 +66,13 @@ namespace VRCAvatars3Validator
 
             using (new EditorGUI.IndentLevelScope())
             {
-                for (int i = 0; i < rules.Length; i++)
+                //for (int i = 0; i < ruleDictionary.Count; i++)
+                //{
+                //    ruleDictionary[i].Enabled = EditorGUILayout.ToggleLeft($"[{ruleDictionary.}]{ruleDictionary[i].Rule.RuleSummary}", ruleDictionary[i].Enabled);
+                //}
+                foreach (var ruleItem in ruleDictionary)
                 {
-                    enableRules[i] = EditorGUILayout.ToggleLeft($"[{rules[i].Id}]{rules[i].RuleSummary}", enableRules[i]);
+                    ruleItem.Value.Enabled = EditorGUILayout.ToggleLeft($"[{ruleItem.Key}]{ruleItem.Value.Rule.RuleSummary}", ruleItem.Value.Enabled);
                 }
             }
 
@@ -65,7 +82,7 @@ namespace VRCAvatars3Validator
             {
                 if (GUILayout.Button("Validate"))
                 {
-                    errors = ValidateAvatars3(avatar, rules.Where((r, i) => enableRules[i]));
+                    resultDictionary = ValidateAvatars3(avatar, ruleDictionary.Where(ruleItem => ruleItem.Value.Enabled));
                 }
             }
 
@@ -73,33 +90,39 @@ namespace VRCAvatars3Validator
 
             EditorGUILayout.LabelField("Errors", EditorStyles.boldLabel);
 
-            if (errors is null) return;
+            if (resultDictionary is null) return;
 
-            if (errors.Any())
+            if (resultDictionary.Any())
             {
                 using (var scroll = new EditorGUILayout.ScrollViewScope(scrollPos))
                 {
                     scrollPos = scroll.scrollPosition;
-                    foreach (var error in errors)
+                    foreach (var resultPair in resultDictionary)
                     {
-                        using (new EditorGUILayout.HorizontalScope())
+                        var ruleId = resultPair.Key;
+                        var results = resultPair.Value;
+
+                        foreach (var result in results)
                         {
-                            EditorGUILayout.HelpBox($"[{error.RuleId}]{error.Result}", 
-                                error.ResultType == ValidateResult.ValidateResultType.Error ? MessageType.Error :
-                                error.ResultType == ValidateResult.ValidateResultType.Warning ? MessageType.Warning : MessageType.None );
-
-                            using (new EditorGUILayout.VerticalScope(GUILayout.Width(60f)))
+                            using (new EditorGUILayout.HorizontalScope())
                             {
-                                if (GUILayout.Button("Select", GUILayout.Width(60f)))
-                                {
-                                    error.FocusTarget();
-                                }
+                                EditorGUILayout.HelpBox($"[{ruleId}]{result}",
+                                    result.ResultType == ValidateResult.ValidateResultType.Error ? MessageType.Error :
+                                    result.ResultType == ValidateResult.ValidateResultType.Warning ? MessageType.Warning : MessageType.None);
 
-                                using (new EditorGUI.DisabledGroupScope(!error.CanAutoFix))
+                                using (new EditorGUILayout.VerticalScope(GUILayout.Width(60f)))
                                 {
-                                    if (GUILayout.Button("AutoFix", GUILayout.Width(60f)))
+                                    if (GUILayout.Button("Select", GUILayout.Width(60f)))
                                     {
-                                        error.AutoFix();
+                                        result.FocusTarget();
+                                    }
+
+                                    using (new EditorGUI.DisabledGroupScope(!result.CanAutoFix))
+                                    {
+                                        if (GUILayout.Button("AutoFix", GUILayout.Width(60f)))
+                                        {
+                                            result.AutoFix();
+                                        }
                                     }
                                 }
                             }
@@ -114,15 +137,13 @@ namespace VRCAvatars3Validator
 
         }
 
-        private List<ValidateResult> ValidateAvatars3(VRCAvatarDescriptor avatar, IEnumerable<RuleBase> rules)
+        private Dictionary<int, IEnumerable<ValidateResult>> ValidateAvatars3(VRCAvatarDescriptor avatar, IEnumerable<KeyValuePair<int, RuleItem>> ruleDictionary)
         {
-            var errors = new List<ValidateResult>();
-            foreach (var rule in rules)
+            return ruleDictionary.Select(rulePair =>
             {
-                errors.AddRange(rule.Validate(avatar));
-            }
-
-            return errors;
+                var results = rulePair.Value.Rule.Validate(avatar);
+                return new KeyValuePair<int, IEnumerable<ValidateResult>>(rulePair.Key, results);
+            }).ToDictionary(resultPair => resultPair.Key, resultPair => resultPair.Value);
         }
     }
 }
