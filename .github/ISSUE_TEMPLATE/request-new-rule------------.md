@@ -1,7 +1,7 @@
 ---
 name: Request new rule (新しいルールを提案)
 about: Request new rule to validate avatar of avatars3.0. (Avatars3.0のアバターを検証するための新しいルールを提案する)
-title: "[Rule] Paramenter count is bigger than 255."
+title: "[Rule] "
 labels: rule
 assignees: ''
 
