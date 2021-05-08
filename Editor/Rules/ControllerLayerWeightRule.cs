@@ -31,7 +31,7 @@ namespace VRCAvatars3Validator.Rules
                         yield return new ValidateResult(
                                         controller,
                                         ValidateResult.ValidateResultType.Warning,
-                                        $"{layer.name} Layer in {controller.name} is weight 0.");
+                                        $"`{layer.name}` Layer in {controller.name} is weight 0.");
                     }
                 }
             }
