@@ -57,6 +57,12 @@ namespace VRCAvatars3Validator
 
         public void OnGUI()
         {
+            if (!avatar && Selection.activeGameObject)
+            {
+                avatar = Selection.activeGameObject.GetComponent<VRCAvatarDescriptor>();
+                resultDictionary = ValidateAvatars3(avatar, ruleDictionary);
+            }
+
             EditorGUILayout.Space();
 
             avatar = EditorGUILayout.ObjectField("Avatar", avatar, typeof(VRCAvatarDescriptor), true) as VRCAvatarDescriptor;
