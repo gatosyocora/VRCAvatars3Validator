@@ -12,8 +12,6 @@ namespace VRCAvatars3Validator
 {
     public sealed class VRCAvatars3Validator : EditorWindow, IVRCSDKBuildRequestedCallback
     {
-        private const string RULES_FOLDER_PATH = "Assets/VRCAvatars3Validator/Editor/Rules";
-
         private VRCAvatarDescriptor avatar;
 
         private Dictionary<int, IEnumerable<ValidateResult>> resultDictionary;
@@ -38,7 +36,7 @@ namespace VRCAvatars3Validator
 
         public void OnEnable()
         {
-            var rules = Directory.EnumerateFiles(RULES_FOLDER_PATH, "*.cs", SearchOption.AllDirectories)
+            var rules = Directory.EnumerateFiles(ValidatorSettings.RULES_FOLDER_PATH, "*.cs", SearchOption.AllDirectories)
                                     .Where(filePath => !Path.GetFileNameWithoutExtension(filePath).Equals("TemplateRule"))
                                     .Select((filePath, index) =>
                                     {
