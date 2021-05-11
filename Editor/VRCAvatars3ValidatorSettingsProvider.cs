@@ -17,6 +17,23 @@ namespace VRCAvatars3Validator
                     var settings = ValidatorSettings.GetOrCreateSettings();
                     settings.validateOnUploadAvatar = EditorGUILayout.Toggle("Validate OnUploadAvatar", settings.validateOnUploadAvatar);
 
+                    EditorGUILayout.Space();
+
+                    EditorGUILayout.LabelField("Enable Rules", EditorStyles.boldLabel);
+
+                    foreach (var ruleName in settings.validateRuleDictionary.Keys)
+                    {
+                        var validateRule = settings.validateRuleDictionary[ruleName];
+                        using (var check = new EditorGUI.ChangeCheckScope())
+                        {
+                            var valid = EditorGUILayout.ToggleLeft(ruleName, validateRule);
+
+                            if (check.changed)
+                            {
+                                settings.validateRuleDictionary[ruleName] = valid;
+                            }
+                        }
+                    }
                 }
             };
         }
