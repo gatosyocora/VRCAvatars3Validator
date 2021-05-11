@@ -6,10 +6,11 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using VRC.SDK3.Avatars.Components;
+using VRC.SDKBase.Editor.BuildPipeline;
 
 namespace VRCAvatars3Validator
 {
-    public sealed class VRCAvatars3Validator : EditorWindow
+    public sealed class VRCAvatars3Validator : EditorWindow, IVRCSDKBuildRequestedCallback
     {
         private const string RULES_FOLDER_PATH = "Assets/VRCAvatars3Validator/Editor/Rules";
 
@@ -20,6 +21,8 @@ namespace VRCAvatars3Validator
         private Vector2 scrollPos = Vector2.zero;
 
         private readonly Dictionary<int, RuleItem> ruleDictionary = new Dictionary<int, RuleItem>();
+
+        public int callbackOrder => -1;
 
         private class RuleItem
         {
@@ -153,6 +156,29 @@ namespace VRCAvatars3Validator
         {
             Selection.activeObject = result.Target;
             EditorGUIUtility.PingObject(result.Target);
+        }
+
+        public bool OnBuildRequested(VRCSDKRequestedBuildType requestedBuildType)
+        {
+            // アバターが取得できなかったときValidationしない
+            var avatarGameObject = Selection.activeObject as GameObject;
+            if (avatarGameObject == null) return true;
+
+            avatar = avatarGameObject.GetComponent<VRCAvatarDescriptor>();
+            if (avatar == null) return true;
+
+            resultDictionary = ValidateAvatars3(avatar, ruleDictionary);
+
+            if (resultDictionary
+                    .Any(result => result.Value.Any(
+                        r => r.ResultType == ValidateResult.ValidateResultType.Error ||
+                            r.ResultType == ValidateResult.ValidateResultType.Warning)))
+            {
+                Open();
+                return false;
+            }
+
+            return true;
         }
     }
 }
