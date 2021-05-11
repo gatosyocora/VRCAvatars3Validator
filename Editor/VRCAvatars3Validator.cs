@@ -160,6 +160,8 @@ namespace VRCAvatars3Validator
 
         public bool OnBuildRequested(VRCSDKRequestedBuildType requestedBuildType)
         {
+            if (!ValidatorSettings.GetOrCreateSettings().validateOnUploadAvatar) return true;
+
             // アバターが取得できなかったときValidationしない
             var avatarGameObject = Selection.activeObject as GameObject;
             if (avatarGameObject == null) return true;
