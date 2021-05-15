@@ -14,7 +14,7 @@ namespace VRCAvatars3Validator
                 keywords = new HashSet<string>(new string[] { "VRChat", "VRC", "Avatars3.0" }),
                 guiHandler = (searchContext) =>
                 {
-                    var settings = ValidatorSettings.GetOrCreateSettings();
+                    var settings = ValidatorSettingsService.GetOrCreateSettings();
                     settings.validateOnUploadAvatar = EditorGUILayout.Toggle("Validate OnUploadAvatar", settings.validateOnUploadAvatar);
 
                     EditorGUILayout.Space();
