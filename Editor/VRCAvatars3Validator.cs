@@ -20,6 +20,8 @@ namespace VRCAvatars3Validator
 
         private readonly Dictionary<int, RuleItem> ruleDictionary = new Dictionary<int, RuleItem>();
 
+        private ValidatorSettings validatorSettings;
+
         public int callbackOrder => -1;
 
         private class RuleItem
@@ -37,33 +39,32 @@ namespace VRCAvatars3Validator
         public void OnEnable()
         {
             var rules = RuleManager.GetRules().ToArray();
-            var validatorSettings = ValidatorSettingsService.GetOrCreateSettings();
-            var validateRuleDictionary = validatorSettings.validateRuleDictionary;
 
             for (int i = 0; i < rules.Length; i++)
             {
-                var rule = rules[i];
-                var ruleName = rule.ToString().Split('.').Last();
-                if (!validateRuleDictionary.TryGetValue(ruleName, out var enabled))
-                {
-                    enabled = true;
-                }
-
                 ruleDictionary.Add(i + 1, new RuleItem
                 {
-                    Enabled = enabled,
-                    Rule = rule
+                    Enabled = true,
+                    Rule = rules[i]
                 });
             }
+            FetchRuleValidateEnabled();
         }
 
-        public void OnGUI()
+        private void OnOpen()
         {
             if (!avatar && Selection.activeGameObject)
             {
                 avatar = Selection.activeGameObject.GetComponent<VRCAvatarDescriptor>();
                 resultDictionary = ValidateAvatars3(avatar, ruleDictionary);
             }
+
+            FetchRuleValidateEnabled();
+        }
+
+        public void OnGUI()
+        {
+            OnOpen();
 
             EditorGUILayout.Space();
 
@@ -180,6 +181,28 @@ namespace VRCAvatars3Validator
             }
 
             return true;
+        }
+
+
+        private void FetchRuleValidateEnabled()
+        {
+            if (validatorSettings == null)
+            {
+                validatorSettings = ValidatorSettingsService.GetOrCreateSettings();
+            }
+            var validateRuleDictionary = validatorSettings.validateRuleDictionary;
+
+            for (int i = 0; i < ruleDictionary.Count; i++ )
+            {
+                var rule = ruleDictionary[i];
+                var ruleName = rule.ToString().Split('.').Last();
+                if (!validateRuleDictionary.TryGetValue(ruleName, out var enabled))
+                {
+                    enabled = true;
+                }
+
+                ruleDictionary[i].Enabled = enabled;
+            }
         }
     }
 }
