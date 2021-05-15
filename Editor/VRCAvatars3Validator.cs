@@ -36,7 +36,7 @@ namespace VRCAvatars3Validator
 
         public void OnEnable()
         {
-            var rules = RuleManager.GetRules();
+            var rules = RuleManager.GetRules().ToArray();
 
             for (int i = 0; i < rules.Length; i++)
             {
