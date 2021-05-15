@@ -37,13 +37,22 @@ namespace VRCAvatars3Validator
         public void OnEnable()
         {
             var rules = RuleManager.GetRules().ToArray();
+            var validatorSettings = ValidatorSettingsService.GetOrCreateSettings();
+            var validateRuleDictionary = validatorSettings.validateRuleDictionary;
 
             for (int i = 0; i < rules.Length; i++)
             {
+                var rule = rules[i];
+                var ruleName = rule.ToString().Split('.').Last();
+                if (!validateRuleDictionary.TryGetValue(ruleName, out var enabled))
+                {
+                    enabled = true;
+                }
+
                 ruleDictionary.Add(i + 1, new RuleItem
                 {
-                    Enabled = true,
-                    Rule = rules[i]
+                    Enabled = enabled,
+                    Rule = rule
                 });
             }
         }
