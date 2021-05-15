@@ -110,28 +110,7 @@ namespace VRCAvatars3Validator
 
                         foreach (var result in results)
                         {
-                            using (new EditorGUILayout.HorizontalScope())
-                            {
-                                EditorGUILayout.HelpBox($"[{ruleId}] {result.ResultMessage}",
-                                    result.ResultType == ValidateResult.ValidateResultType.Error ? MessageType.Error :
-                                    result.ResultType == ValidateResult.ValidateResultType.Warning ? MessageType.Warning : MessageType.None);
-
-                                using (new EditorGUILayout.VerticalScope(GUILayout.Width(60f)))
-                                {
-                                    if (GUILayout.Button("Select", GUILayout.Width(60f)))
-                                    {
-                                        FocusTarget(result);
-                                    }
-
-                                    using (new EditorGUI.DisabledGroupScope(!result.CanAutoFix))
-                                    {
-                                        if (GUILayout.Button("AutoFix", GUILayout.Width(60f)))
-                                        {
-                                            result.AutoFix();
-                                        }
-                                    }
-                                }
-                            }
+                            DrawResultItem(ruleId, result);
                         }
                     }
                 }
@@ -141,6 +120,32 @@ namespace VRCAvatars3Validator
                 EditorGUILayout.HelpBox("No Error", MessageType.Info);
             }
 
+        }
+
+        private void DrawResultItem(int ruleId, ValidateResult result)
+        {
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                EditorGUILayout.HelpBox($"[{ruleId}] {result.ResultMessage}",
+                    result.ResultType == ValidateResult.ValidateResultType.Error ? MessageType.Error :
+                    result.ResultType == ValidateResult.ValidateResultType.Warning ? MessageType.Warning : MessageType.None);
+
+                using (new EditorGUILayout.VerticalScope(GUILayout.Width(60f)))
+                {
+                    if (GUILayout.Button("Select", GUILayout.Width(60f)))
+                    {
+                        FocusTarget(result);
+                    }
+
+                    using (new EditorGUI.DisabledGroupScope(!result.CanAutoFix))
+                    {
+                        if (GUILayout.Button("AutoFix", GUILayout.Width(60f)))
+                        {
+                            result.AutoFix();
+                        }
+                    }
+                }
+            }
         }
 
         private Dictionary<int, IEnumerable<ValidateResult>> ValidateAvatars3(VRCAvatarDescriptor avatar, IEnumerable<KeyValuePair<int, RuleItem>> ruleDictionary)
