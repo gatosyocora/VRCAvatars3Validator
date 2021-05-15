@@ -21,7 +21,10 @@ namespace VRCAvatars3Validator
 
                     EditorGUILayout.LabelField("Enable Rules", EditorStyles.boldLabel);
 
-                    foreach (var ruleName in settings.validateRuleDictionary.Keys)
+                    var ruleNames = new string[settings.validateRuleDictionary.Keys.Count];
+                    settings.validateRuleDictionary.Keys.CopyTo(ruleNames, 0);
+
+                    foreach (var ruleName in ruleNames)
                     {
                         var validateRule = settings.validateRuleDictionary[ruleName];
                         using (var check = new EditorGUI.ChangeCheckScope())
