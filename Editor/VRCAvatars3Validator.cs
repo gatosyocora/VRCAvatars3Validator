@@ -199,14 +199,15 @@ namespace VRCAvatars3Validator
 
             for (int i = 0; i < ruleDictionary.Count; i++ )
             {
-                var rule = ruleDictionary[i];
+                var ruleId = i + 1;
+                var rule = ruleDictionary[ruleId];
                 var ruleName = rule.ToString().Split('.').Last();
                 if (!validateRuleDictionary.TryGetValue(ruleName, out var enabled))
                 {
                     enabled = true;
                 }
 
-                ruleDictionary[i].Enabled = enabled;
+                ruleDictionary[ruleId].Enabled = enabled;
             }
         }
     }
