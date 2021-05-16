@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using System.Linq;
+using UnityEditor;
 
 namespace VRCAvatars3Validator
 {
@@ -30,10 +31,15 @@ namespace VRCAvatars3Validator
 
             settings.validateOnUploadAvatar = true;
 
-            var ruleNames = RuleManager.GetRuleNames();
-            foreach (var ruleName in ruleNames)
+            var rules = RuleManager.GetRules();
+            foreach (var rule in rules)
             {
-                settings.validateRuleDictionary.Add(ruleName, true);
+                settings.rules.Add(new RuleItem
+                {
+                    Name = rule.ToString().Split('.').Last(),
+                    Enabled = true,
+                    Rule = rule,
+                });
             }
 
             AssetDatabase.CreateAsset(settings, SETTINGS_FILE_PATH);
