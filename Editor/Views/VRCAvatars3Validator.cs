@@ -58,8 +58,9 @@ namespace VRCAvatars3Validator
             {
                 for (int i = 0; i < _settings.rules.Count; i++)
                 {
+                    var rule = RuleManager.FilePath2IRule(_settings.rules[i].FilePath);
                     _settings.rules[i].Enabled = EditorGUILayout.ToggleLeft(
-                                                            $"[{i + 1}] {_settings.rules[i].Rule.RuleSummary}",
+                                                            $"[{i + 1}] {rule.RuleSummary}",
                                                             _settings.rules[i].Enabled);
                 }
             }
@@ -136,7 +137,8 @@ namespace VRCAvatars3Validator
                 .Where(rulePair => rulePair.Rule.Enabled)
                 .Select(rulePair =>
                 {
-                    var results = rulePair.Rule.Rule.Validate(avatar);
+                    var rule = RuleManager.FilePath2IRule(rulePair.Rule.FilePath);
+                    var results = rule.Validate(avatar);
                     return new KeyValuePair<int, IEnumerable<ValidateResult>>(rulePair.Index + 1, results);
                 })
                 .ToDictionary(resultPair => resultPair.Key, resultPair => resultPair.Value);
