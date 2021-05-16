@@ -28,11 +28,15 @@ namespace VRCAvatars3Validator
 
         public static ValidatorSettings GetOrCreateSettings()
         {
-            ValidatorSettings settings;
-            settings = AssetDatabase.LoadAssetAtPath<ValidatorSettings>(SETTINGS_FILE_PATH);
+            var settings = AssetDatabase.LoadAssetAtPath<ValidatorSettings>(SETTINGS_FILE_PATH);
             if (settings) return settings;
 
-            settings = CreateInstance<ValidatorSettings>();
+            return CreateSettings();
+        }
+
+        private static ValidatorSettings CreateSettings()
+        {
+            var settings = CreateInstance<ValidatorSettings>();
             AssetDatabase.CreateAsset(settings, SETTINGS_FILE_PATH);
             AssetDatabase.SaveAssets();
             return settings;
