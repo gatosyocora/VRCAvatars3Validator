@@ -53,6 +53,11 @@ namespace VRCAvatars3Validator
 
         private void OnOpen()
         {
+            if (validatorSettings == null)
+            {
+                validatorSettings = ValidatorSettingsService.GetOrCreateSettings();
+            }
+
             if (!avatar && Selection.activeGameObject)
             {
                 avatar = Selection.activeGameObject.GetComponent<VRCAvatarDescriptor>();
