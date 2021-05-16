@@ -18,7 +18,7 @@ namespace VRCAvatars3Validator
 
         private Vector2 scrollPos = Vector2.zero;
 
-        private ValidatorSettings validatorSettings;
+        private ValidatorSettings _settings;
 
         public int callbackOrder => -1;
 
@@ -30,15 +30,15 @@ namespace VRCAvatars3Validator
 
         private void OnOpen()
         {
-            if (validatorSettings == null)
+            if (_settings == null)
             {
-                validatorSettings = ValidatorSettingsService.GetOrCreateSettings();
+                _settings = ValidatorSettingsService.GetOrCreateSettings();
             }
 
             if (!avatar && Selection.activeGameObject)
             {
                 avatar = Selection.activeGameObject.GetComponent<VRCAvatarDescriptor>();
-                resultDictionary = ValidateAvatars3(avatar, validatorSettings.rules);
+                resultDictionary = ValidateAvatars3(avatar, _settings.rules);
             }
         }
 
@@ -56,11 +56,11 @@ namespace VRCAvatars3Validator
 
             using (new EditorGUI.IndentLevelScope())
             {
-                for (int i = 0; i < validatorSettings.rules.Count; i++)
+                for (int i = 0; i < _settings.rules.Count; i++)
                 {
-                    validatorSettings.rules[i].Enabled = EditorGUILayout.ToggleLeft(
-                                                            $"[{i + 1}] {validatorSettings.rules[i].Rule.RuleSummary}",
-                                                            validatorSettings.rules[i].Enabled);
+                    _settings.rules[i].Enabled = EditorGUILayout.ToggleLeft(
+                                                            $"[{i + 1}] {_settings.rules[i].Rule.RuleSummary}",
+                                                            _settings.rules[i].Enabled);
                 }
             }
 
@@ -70,7 +70,7 @@ namespace VRCAvatars3Validator
             {
                 if (GUILayout.Button("Validate"))
                 {
-                    resultDictionary = ValidateAvatars3(avatar, validatorSettings.rules);
+                    resultDictionary = ValidateAvatars3(avatar, _settings.rules);
                 }
             }
 
@@ -159,7 +159,7 @@ namespace VRCAvatars3Validator
             avatar = avatarGameObject.GetComponent<VRCAvatarDescriptor>();
             if (avatar == null) return true;
 
-            resultDictionary = ValidateAvatars3(avatar, validatorSettings.rules);
+            resultDictionary = ValidateAvatars3(avatar, _settings.rules);
 
             if (resultDictionary
                     .Any(result => result.Value.Any(
