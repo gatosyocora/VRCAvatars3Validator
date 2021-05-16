@@ -31,14 +31,14 @@ namespace VRCAvatars3Validator
 
             settings.validateOnUploadAvatar = true;
 
-            var rules = RuleManager.GetRules();
-            foreach (var rule in rules)
+            var filePaths = RuleManager.GetRuleFilePaths();
+            foreach (var filePath in filePaths)
             {
                 settings.rules.Add(new RuleItem
                 {
-                    Name = rule.ToString().Split('.').Last(),
+                    Name = RuleManager.FilePath2RuleName(filePath),
                     Enabled = true,
-                    Rule = rule,
+                    FilePath = filePath,
                 });
             }
 
