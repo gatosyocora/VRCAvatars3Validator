@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 
 namespace VRCAvatars3Validator
@@ -21,20 +22,15 @@ namespace VRCAvatars3Validator
 
                     EditorGUILayout.LabelField("Enable Rules", EditorStyles.boldLabel);
 
-                    var ruleNames = new string[settings.validateRuleDictionary.Keys.Count];
-                    settings.validateRuleDictionary.Keys.CopyTo(ruleNames, 0);
+                    var ruleNames = settings.rules.Select(rule => rule.Name).ToArray();
 
-                    foreach (var ruleName in ruleNames)
+                    for (int i = 0; i < ruleNames.Length; i++)
                     {
-                        var validateRule = settings.validateRuleDictionary[ruleName];
+                        var validateRule = settings.rules[i].Enabled;
+                        var ruleName = ruleNames[i];
                         using (var check = new EditorGUI.ChangeCheckScope())
                         {
-                            var valid = EditorGUILayout.ToggleLeft(ruleName, validateRule);
-
-                            if (check.changed)
-                            {
-                                settings.validateRuleDictionary[ruleName] = valid;
-                            }
+                            settings.rules[i].Enabled = EditorGUILayout.ToggleLeft(ruleName, validateRule);
                         }
                     }
                 }

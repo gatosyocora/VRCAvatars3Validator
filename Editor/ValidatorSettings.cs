@@ -11,6 +11,6 @@ namespace VRCAvatars3Validator
     {
         public bool validateOnUploadAvatar = true;
 
-        public Dictionary<string, bool> validateRuleDictionary = new Dictionary<string, bool>();
+        public List<RuleItem> rules = new List<RuleItem>();
     }
 }

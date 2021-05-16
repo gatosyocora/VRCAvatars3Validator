@@ -18,37 +18,14 @@ namespace VRCAvatars3Validator
 
         private Vector2 scrollPos = Vector2.zero;
 
-        private readonly Dictionary<int, RuleItem> ruleDictionary = new Dictionary<int, RuleItem>();
-
         private ValidatorSettings validatorSettings;
 
         public int callbackOrder => -1;
-
-        private class RuleItem
-        {
-            public IRule Rule { get; set; }
-            public bool Enabled { get; set; }
-        }
 
         [MenuItem("VRCAvatars3Validator/Editor")]
         public static void Open()
         {
             GetWindow<VRCAvatars3Validator>(nameof(VRCAvatars3Validator));
-        }
-
-        public void OnEnable()
-        {
-            var rules = RuleManager.GetRules().ToArray();
-
-            for (int i = 0; i < rules.Length; i++)
-            {
-                ruleDictionary.Add(i + 1, new RuleItem
-                {
-                    Enabled = true,
-                    Rule = rules[i]
-                });
-            }
-            FetchRuleValidateEnabled();
         }
 
         private void OnOpen()
@@ -61,10 +38,8 @@ namespace VRCAvatars3Validator
             if (!avatar && Selection.activeGameObject)
             {
                 avatar = Selection.activeGameObject.GetComponent<VRCAvatarDescriptor>();
-                resultDictionary = ValidateAvatars3(avatar, ruleDictionary);
+                resultDictionary = ValidateAvatars3(avatar, validatorSettings.rules);
             }
-
-            FetchRuleValidateEnabled();
         }
 
         public void OnGUI()
@@ -81,9 +56,11 @@ namespace VRCAvatars3Validator
 
             using (new EditorGUI.IndentLevelScope())
             {
-                foreach (var ruleItem in ruleDictionary)
+                for (int i = 0; i < validatorSettings.rules.Count; i++)
                 {
-                    ruleItem.Value.Enabled = EditorGUILayout.ToggleLeft($"[{ruleItem.Key}] {ruleItem.Value.Rule.RuleSummary}", ruleItem.Value.Enabled);
+                    validatorSettings.rules[i].Enabled = EditorGUILayout.ToggleLeft(
+                                                            $"[{i + 1}] {validatorSettings.rules[i].Rule.RuleSummary}",
+                                                            validatorSettings.rules[i].Enabled);
                 }
             }
 
@@ -93,7 +70,7 @@ namespace VRCAvatars3Validator
             {
                 if (GUILayout.Button("Validate"))
                 {
-                    resultDictionary = ValidateAvatars3(avatar, ruleDictionary.Where(ruleItem => ruleItem.Value.Enabled));
+                    resultDictionary = ValidateAvatars3(avatar, validatorSettings.rules);
                 }
             }
 
@@ -153,13 +130,16 @@ namespace VRCAvatars3Validator
             }
         }
 
-        private Dictionary<int, IEnumerable<ValidateResult>> ValidateAvatars3(VRCAvatarDescriptor avatar, IEnumerable<KeyValuePair<int, RuleItem>> ruleDictionary)
+        private Dictionary<int, IEnumerable<ValidateResult>> ValidateAvatars3(VRCAvatarDescriptor avatar, IEnumerable<RuleItem> rules)
         {
-            return ruleDictionary.Select(rulePair =>
-            {
-                var results = rulePair.Value.Rule.Validate(avatar);
-                return new KeyValuePair<int, IEnumerable<ValidateResult>>(rulePair.Key, results);
-            }).ToDictionary(resultPair => resultPair.Key, resultPair => resultPair.Value);
+            return rules.Select((rule, index) => new { Rule = rule, Index = index})
+                .Where(rulePair => rulePair.Rule.Enabled)
+                .Select(rulePair =>
+                {
+                    var results = rulePair.Rule.Rule.Validate(avatar);
+                    return new KeyValuePair<int, IEnumerable<ValidateResult>>(rulePair.Index + 1, results);
+                })
+                .ToDictionary(resultPair => resultPair.Key, resultPair => resultPair.Value);
         }
 
         public void FocusTarget(ValidateResult result)
@@ -179,7 +159,7 @@ namespace VRCAvatars3Validator
             avatar = avatarGameObject.GetComponent<VRCAvatarDescriptor>();
             if (avatar == null) return true;
 
-            resultDictionary = ValidateAvatars3(avatar, ruleDictionary);
+            resultDictionary = ValidateAvatars3(avatar, validatorSettings.rules);
 
             if (resultDictionary
                     .Any(result => result.Value.Any(
@@ -191,29 +171,6 @@ namespace VRCAvatars3Validator
             }
 
             return true;
-        }
-
-
-        private void FetchRuleValidateEnabled()
-        {
-            if (validatorSettings == null)
-            {
-                validatorSettings = ValidatorSettingsService.GetOrCreateSettings();
-            }
-            var validateRuleDictionary = validatorSettings.validateRuleDictionary;
-
-            for (int i = 0; i < ruleDictionary.Count; i++ )
-            {
-                var ruleId = i + 1;
-                var rule = ruleDictionary[ruleId];
-                var ruleName = rule.ToString().Split('.').Last();
-                if (!validateRuleDictionary.TryGetValue(ruleName, out var enabled))
-                {
-                    enabled = true;
-                }
-
-                ruleDictionary[ruleId].Enabled = enabled;
-            }
         }
     }
 }
