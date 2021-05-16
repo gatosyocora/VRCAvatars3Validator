@@ -14,16 +14,6 @@ namespace VRCAvatars3Validator
             {
                 _validatorSettings = GetOrCreateSettings();
             }
-
-            if (_validatorSettings.validateRuleDictionary.Count <= 0)
-            {
-                var ruleNames = RuleManager.GetRuleNames();
-
-                foreach (var ruleName in ruleNames)
-                {
-                    _validatorSettings.validateRuleDictionary.Add(ruleName, true);
-                }
-            }
         }
 
         public static ValidatorSettings GetOrCreateSettings()
@@ -37,6 +27,15 @@ namespace VRCAvatars3Validator
         private static ValidatorSettings CreateSettings()
         {
             var settings = CreateInstance<ValidatorSettings>();
+
+            settings.validateOnUploadAvatar = true;
+
+            var ruleNames = RuleManager.GetRuleNames();
+            foreach (var ruleName in ruleNames)
+            {
+                settings.validateRuleDictionary.Add(ruleName, true);
+            }
+
             AssetDatabase.CreateAsset(settings, SETTINGS_FILE_PATH);
             AssetDatabase.SaveAssets();
             return settings;
