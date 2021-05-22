@@ -4,6 +4,7 @@ using UnityEditor;
 using VRC.SDK3.Avatars.Components;
 using VRC.SDKBase.Editor;
 using VRC.SDKBase.Editor.BuildPipeline;
+using VRCAvatars3Validator.Views;
 
 namespace VRCAvatars3Validator
 {
@@ -30,7 +31,7 @@ namespace VRCAvatars3Validator
                         r => r.ResultType == ValidateResult.ValidateResultType.Error ||
                             r.ResultType == ValidateResult.ValidateResultType.Warning)))
             {
-                VRCAvatars3Validator.Open();
+                VRCAvatars3ValidatorView.Open();
                 return false;
             }
 
