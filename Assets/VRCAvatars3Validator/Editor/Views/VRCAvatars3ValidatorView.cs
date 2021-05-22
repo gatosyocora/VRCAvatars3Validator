@@ -3,40 +3,23 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using VRC.SDK3.Avatars.Components;
+using VRCAvatars3Validator.ViewModels;
 
 namespace VRCAvatars3Validator.Views
 {
     public class VRCAvatars3ValidatorView : EditorWindow
     {
-        private VRCAvatarDescriptor avatar;
-
-        private Dictionary<int, IEnumerable<ValidateResult>> resultDictionary;
+        private VRCAvatars3ValidatorViewModel _viewModel = new VRCAvatars3ValidatorViewModel();
 
         private Vector2 scrollPos = Vector2.zero;
-
-        private ValidatorSettings _settings;
-
-        private static string EDITOR_NAME = "VRCAvatars3Validator";
 
         [MenuItem("VRCAvatars3Validator/Editor")]
         public static void Open()
         {
-            GetWindow<VRCAvatars3ValidatorView>(EDITOR_NAME);
+            GetWindow<VRCAvatars3ValidatorView>(VRCAvatars3ValidatorViewModel.EDITOR_NAME);
         }
 
-        private void OnOpen()
-        {
-            if (_settings == null)
-            {
-                _settings = ValidatorSettingsService.GetOrCreateSettings();
-            }
-
-            if (!avatar && Selection.activeGameObject)
-            {
-                avatar = Selection.activeGameObject.GetComponent<VRCAvatarDescriptor>();
-                resultDictionary = VRCAvatars3Validator.ValidateAvatars3(avatar, _settings.rules);
-            }
-        }
+        private void OnOpen() => _viewModel.OnOpen();
 
         public void OnGUI()
         {
@@ -44,7 +27,19 @@ namespace VRCAvatars3Validator.Views
 
             EditorGUILayout.Space();
 
-            avatar = EditorGUILayout.ObjectField("Avatar", avatar, typeof(VRCAvatarDescriptor), true) as VRCAvatarDescriptor;
+            using (var check = new EditorGUI.ChangeCheckScope())
+            {
+                var avatar = EditorGUILayout.ObjectField(
+                                "Avatar",
+                                _viewModel.avatar,
+                                typeof(VRCAvatarDescriptor),
+                                true) as VRCAvatarDescriptor;
+
+                if (check.changed)
+                {
+                    _viewModel.OnSwitchAvatar(avatar);
+                }
+            }
 
             EditorGUILayout.Space();
 
@@ -52,22 +47,22 @@ namespace VRCAvatars3Validator.Views
 
             using (new EditorGUI.IndentLevelScope())
             {
-                for (int i = 0; i < _settings.rules.Count; i++)
+                for (int i = 0; i < _viewModel.settings.rules.Count; i++)
                 {
-                    var rule = RuleManager.FilePath2IRule(_settings.rules[i].FilePath);
-                    _settings.rules[i].Enabled = EditorGUILayout.ToggleLeft(
+                    var rule = RuleManager.FilePath2IRule(_viewModel.settings.rules[i].FilePath);
+                    _viewModel.settings.rules[i].Enabled = EditorGUILayout.ToggleLeft(
                                                             $"[{i + 1}] {rule.RuleSummary}",
-                                                            _settings.rules[i].Enabled);
+                                                            _viewModel.settings.rules[i].Enabled);
                 }
             }
 
             EditorGUILayout.Space();
 
-            using (new EditorGUI.DisabledGroupScope(avatar is null))
+            using (new EditorGUI.DisabledGroupScope(_viewModel.IsSelectionAvatar()))
             {
                 if (GUILayout.Button("Validate"))
                 {
-                    resultDictionary = VRCAvatars3Validator.ValidateAvatars3(avatar, _settings.rules);
+                    _viewModel.OnValidateClick();
                 }
             }
 
@@ -75,14 +70,14 @@ namespace VRCAvatars3Validator.Views
 
             EditorGUILayout.LabelField("Errors", EditorStyles.boldLabel);
 
-            if (resultDictionary is null) return;
+            if (_viewModel.HasNeverValided) return;
 
-            if (resultDictionary.Any())
+            if (_viewModel.ExistValidationResult())
             {
                 using (var scroll = new EditorGUILayout.ScrollViewScope(scrollPos))
                 {
                     scrollPos = scroll.scrollPosition;
-                    foreach (var resultPair in resultDictionary)
+                    foreach (var resultPair in _viewModel.resultDictionary)
                     {
                         var ruleId = resultPair.Key;
                         var results = resultPair.Value;
@@ -113,24 +108,18 @@ namespace VRCAvatars3Validator.Views
                 {
                     if (GUILayout.Button("Select", GUILayout.Width(60f)))
                     {
-                        FocusTarget(result);
+                        _viewModel.OnSelectClick(result);
                     }
 
                     using (new EditorGUI.DisabledGroupScope(!result.CanAutoFix))
                     {
                         if (GUILayout.Button("AutoFix", GUILayout.Width(60f)))
                         {
-                            result.AutoFix();
+                            _viewModel.OnAutoFixClick(result);
                         }
                     }
                 }
             }
-        }
-
-        public void FocusTarget(ValidateResult result)
-        {
-            Selection.activeObject = result.Target;
-            EditorGUIUtility.PingObject(result.Target);
         }
     }
 }
