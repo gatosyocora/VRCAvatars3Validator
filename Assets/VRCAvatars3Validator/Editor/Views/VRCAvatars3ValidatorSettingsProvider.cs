@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEditor;
 
-namespace VRCAvatars3Validator
+namespace VRCAvatars3Validator.Views
 {
     public class VRCAvatars3ValidatorSettingsProvider : Editor
     {
