@@ -166,6 +166,7 @@ namespace VRCAvatars3Validator
             var field = type.GetField("_selectedAvatar", BindingFlags.InvokeMethod | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
             avatar = field.GetValue(null) as VRCAvatarDescriptor;
             if (avatar == null) return true;
+            Selection.activeObject = avatar.gameObject;
 
             resultDictionary = ValidateAvatars3(avatar, _settings.rules);
 
