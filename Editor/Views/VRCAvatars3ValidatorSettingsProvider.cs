@@ -28,9 +28,10 @@ namespace VRCAvatars3Validator
                     {
                         var validateRule = settings.rules[i].Enabled;
                         var ruleName = ruleNames[i];
+                        var ruleSummary = RuleManager.FilePath2IRule(settings.rules[i].FilePath).RuleSummary;
                         using (var check = new EditorGUI.ChangeCheckScope())
                         {
-                            settings.rules[i].Enabled = EditorGUILayout.ToggleLeft(ruleName, validateRule);
+                            settings.rules[i].Enabled = EditorGUILayout.ToggleLeft($"[{ruleName}] {ruleSummary}", validateRule);
                         }
                     }
                 }
