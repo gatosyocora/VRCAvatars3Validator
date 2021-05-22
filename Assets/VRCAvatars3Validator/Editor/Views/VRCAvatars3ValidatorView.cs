@@ -4,9 +4,9 @@ using UnityEditor;
 using UnityEngine;
 using VRC.SDK3.Avatars.Components;
 
-namespace VRCAvatars3Validator
+namespace VRCAvatars3Validator.Views
 {
-    public sealed class VRCAvatars3Validator : EditorWindow
+    public class VRCAvatars3ValidatorView : EditorWindow
     {
         private VRCAvatarDescriptor avatar;
 
@@ -16,10 +16,12 @@ namespace VRCAvatars3Validator
 
         private ValidatorSettings _settings;
 
+        private static string EDITOR_NAME = "VRCAvatars3Validator";
+
         [MenuItem("VRCAvatars3Validator/Editor")]
         public static void Open()
         {
-            GetWindow<VRCAvatars3Validator>(nameof(VRCAvatars3Validator));
+            GetWindow<VRCAvatars3ValidatorView>(EDITOR_NAME);
         }
 
         private void OnOpen()
@@ -32,7 +34,7 @@ namespace VRCAvatars3Validator
             if (!avatar && Selection.activeGameObject)
             {
                 avatar = Selection.activeGameObject.GetComponent<VRCAvatarDescriptor>();
-                resultDictionary = ValidateAvatars3(avatar, _settings.rules);
+                resultDictionary = VRCAvatars3Validator.ValidateAvatars3(avatar, _settings.rules);
             }
         }
 
@@ -65,7 +67,7 @@ namespace VRCAvatars3Validator
             {
                 if (GUILayout.Button("Validate"))
                 {
-                    resultDictionary = ValidateAvatars3(avatar, _settings.rules);
+                    resultDictionary = VRCAvatars3Validator.ValidateAvatars3(avatar, _settings.rules);
                 }
             }
 
@@ -123,19 +125,6 @@ namespace VRCAvatars3Validator
                     }
                 }
             }
-        }
-
-        public static Dictionary<int, IEnumerable<ValidateResult>> ValidateAvatars3(VRCAvatarDescriptor avatar, IEnumerable<RuleItem> rules)
-        {
-            return rules.Select((rule, index) => new { Rule = rule, Index = index})
-                .Where(rulePair => rulePair.Rule.Enabled)
-                .Select(rulePair =>
-                {
-                    var rule = RuleManager.FilePath2IRule(rulePair.Rule.FilePath);
-                    var results = rule.Validate(avatar);
-                    return new KeyValuePair<int, IEnumerable<ValidateResult>>(rulePair.Index + 1, results);
-                })
-                .ToDictionary(resultPair => resultPair.Key, resultPair => resultPair.Value);
         }
 
         public void FocusTarget(ValidateResult result)
