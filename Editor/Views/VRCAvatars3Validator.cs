@@ -3,10 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 using VRC.SDK3.Avatars.Components;
+using VRC.SDKBase.Editor;
 using VRC.SDKBase.Editor.BuildPipeline;
+using VRCAvatars3Validator.Utilities;
 
 namespace VRCAvatars3Validator
 {
@@ -159,11 +162,9 @@ namespace VRCAvatars3Validator
 
             if (!_settings.validateOnUploadAvatar) return true;
 
-            // アバターが取得できなかったときValidationしない
-            var avatarGameObject = Selection.activeObject as GameObject;
-            if (avatarGameObject == null) return true;
-
-            avatar = avatarGameObject.GetComponent<VRCAvatarDescriptor>();
+            var type = typeof(VRCSdkControlPanelAvatarBuilder);
+            var field = type.GetField("_selectedAvatar", BindingFlags.InvokeMethod | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
+            avatar = field.GetValue(null) as VRCAvatarDescriptor;
             if (avatar == null) return true;
 
             resultDictionary = ValidateAvatars3(avatar, _settings.rules);
