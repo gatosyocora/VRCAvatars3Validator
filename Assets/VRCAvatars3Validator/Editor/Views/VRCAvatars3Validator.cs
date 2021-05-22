@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 using VRC.SDK3.Avatars.Components;
-using VRC.SDKBase.Editor;
-using VRC.SDKBase.Editor.BuildPipeline;
-using VRCAvatars3Validator.Utilities;
 
 namespace VRCAvatars3Validator
 {
-    public sealed class VRCAvatars3Validator : EditorWindow, IVRCSDKBuildRequestedCallback
+    public sealed class VRCAvatars3Validator : EditorWindow
     {
         private VRCAvatarDescriptor avatar;
 
@@ -22,8 +15,6 @@ namespace VRCAvatars3Validator
         private Vector2 scrollPos = Vector2.zero;
 
         private ValidatorSettings _settings;
-
-        public int callbackOrder => -1;
 
         [MenuItem("VRCAvatars3Validator/Editor")]
         public static void Open()
@@ -134,7 +125,7 @@ namespace VRCAvatars3Validator
             }
         }
 
-        private Dictionary<int, IEnumerable<ValidateResult>> ValidateAvatars3(VRCAvatarDescriptor avatar, IEnumerable<RuleItem> rules)
+        public static Dictionary<int, IEnumerable<ValidateResult>> ValidateAvatars3(VRCAvatarDescriptor avatar, IEnumerable<RuleItem> rules)
         {
             return rules.Select((rule, index) => new { Rule = rule, Index = index})
                 .Where(rulePair => rulePair.Rule.Enabled)
@@ -151,35 +142,6 @@ namespace VRCAvatars3Validator
         {
             Selection.activeObject = result.Target;
             EditorGUIUtility.PingObject(result.Target);
-        }
-
-        public bool OnBuildRequested(VRCSDKRequestedBuildType requestedBuildType)
-        {
-            if (_settings == null)
-            {
-                _settings = ValidatorSettingsService.GetOrCreateSettings();
-            }
-
-            if (!_settings.validateOnUploadAvatar) return true;
-
-            var type = typeof(VRCSdkControlPanelAvatarBuilder);
-            var field = type.GetField("_selectedAvatar", BindingFlags.InvokeMethod | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
-            avatar = field.GetValue(null) as VRCAvatarDescriptor;
-            if (avatar == null) return true;
-            Selection.activeObject = avatar.gameObject;
-
-            resultDictionary = ValidateAvatars3(avatar, _settings.rules);
-
-            if (resultDictionary
-                    .Any(result => result.Value.Any(
-                        r => r.ResultType == ValidateResult.ValidateResultType.Error ||
-                            r.ResultType == ValidateResult.ValidateResultType.Warning)))
-            {
-                Open();
-                return false;
-            }
-
-            return true;
         }
     }
 }
