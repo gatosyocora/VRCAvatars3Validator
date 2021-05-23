@@ -58,3 +58,9 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+Assets/*
+!Assets/VRCAvatars3Validator
+!Assets/ScriptTemplates
+
+Assets/VRCAvatars3Validator/Editor/Settings.asset
+Assets/VRCAvatars3Validator/Editor/Settings.asset.meta
