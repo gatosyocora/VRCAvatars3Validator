@@ -61,6 +61,7 @@ crashlytics-build.properties
 Assets/*
 !Assets/VRCAvatars3Validator
 !Assets/ScriptTemplates
+!Assets/UnityPackageExporter.*
 
 Assets/VRCAvatars3Validator/Editor/Settings.asset
 Assets/VRCAvatars3Validator/Editor/Settings.asset.meta
