@@ -1,9 +1,7 @@
-name: Release Preparation
+name: Release
 
 on:
   push:
-    branches:
-      - master
     tags:
       - 'v*'
 
