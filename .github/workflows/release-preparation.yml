@@ -4,11 +4,13 @@ on:
   push:
     branches:
       - master
-    tags: "v*"
+    tags:
+      - 'v*'
   pull_request:
     branches:
       - master
-    tags: "v*"
+    tags:
+      - 'v*'
 
   workflow_dispatch:
 
