@@ -29,6 +29,8 @@ jobs:
       - name: copy & checkout to release branch
         run: |
           git switch -c release
+          git pull origin release
+          git pull origin master
           git merge master
       - name: copy readme & license
         run: |
