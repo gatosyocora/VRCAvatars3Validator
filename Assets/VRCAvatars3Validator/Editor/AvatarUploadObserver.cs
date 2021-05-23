@@ -5,6 +5,7 @@ using VRC.SDK3.Avatars.Components;
 using VRC.SDKBase.Editor;
 using VRC.SDKBase.Editor.BuildPipeline;
 using VRCAvatars3Validator.Models;
+using VRCAvatars3Validator.Utilities;
 using VRCAvatars3Validator.Views;
 
 namespace VRCAvatars3Validator
@@ -15,7 +16,7 @@ namespace VRCAvatars3Validator
 
         public bool OnBuildRequested(VRCSDKRequestedBuildType requestedBuildType)
         {
-            var settings = ValidatorSettingsService.GetOrCreateSettings();
+            var settings = ValidatorSettingsUtility.GetOrCreateSettings();
 
             if (!settings.validateOnUploadAvatar) return true;
 

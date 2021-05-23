@@ -2,23 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
+using UnityEngine;
 using VRCAvatars3Validator.Models;
 
-namespace VRCAvatars3Validator
+namespace VRCAvatars3Validator.Utilities
 {
-    public class ValidatorSettingsService : Editor
+    public class ValidatorSettingsUtility
     {
         private const string SETTINGS_FILE_PATH = "Assets/VRCAvatars3Validator/Editor/Settings.asset";
-
-        private ValidatorSettings _validatorSettings;
-
-        public void OnEnable()
-        {
-            if (_validatorSettings == null)
-            {
-                _validatorSettings = GetOrCreateSettings();
-            }
-        }
 
         public static ValidatorSettings GetOrCreateSettings()
         {
@@ -34,11 +25,11 @@ namespace VRCAvatars3Validator
 
         private static ValidatorSettings CreateSettings()
         {
-            var settings = CreateInstance<ValidatorSettings>();
+            var settings = ScriptableObject.CreateInstance<ValidatorSettings>();
 
             settings.validateOnUploadAvatar = true;
 
-            var filePaths = RuleManager.GetRuleFilePaths();
+            var filePaths = RuleUtility.GetRuleFilePaths();
             foreach (var filePath in filePaths)
             {
                 AddRule(settings, filePath);
@@ -55,7 +46,7 @@ namespace VRCAvatars3Validator
             {
                 settings = GetOrCreateSettings();
             }
-            var currentRuleFilePaths = RuleManager.GetRuleFilePaths().ToArray();
+            var currentRuleFilePaths = RuleUtility.GetRuleFilePaths().ToArray();
             var settingsFilePaths = settings.rules.Select(rule => rule.FilePath).ToArray();
 
             // 現在の設定にないものを追加する
@@ -87,7 +78,7 @@ namespace VRCAvatars3Validator
         private static void AddRule(ValidatorSettings settings, string filePath)
             => settings.rules.Add(new RuleItem
             {
-                Name = RuleManager.FilePath2RuleName(filePath),
+                Name = RuleUtility.FilePath2RuleName(filePath),
                 Enabled = true,
                 FilePath = filePath,
             });

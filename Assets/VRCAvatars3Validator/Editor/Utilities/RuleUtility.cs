@@ -4,9 +4,9 @@ using System.IO;
 using System.Linq;
 using UnityEditor;
 
-namespace VRCAvatars3Validator
+namespace VRCAvatars3Validator.Utilities
 {
-    public class RuleManager
+    public class RuleUtility
     {
         public const string RULES_FOLDER_PATH = "Assets/VRCAvatars3Validator/Editor/Rules";
         public const string IGNORE_RULE_NAME = "TemplateRule";

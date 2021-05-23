@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
+using VRCAvatars3Validator.Utilities;
 
 namespace VRCAvatars3Validator.Views
 {
@@ -15,7 +16,7 @@ namespace VRCAvatars3Validator.Views
                 keywords = new HashSet<string>(new string[] { "VRChat", "VRC", "Avatars3.0" }),
                 guiHandler = (searchContext) =>
                 {
-                    var settings = ValidatorSettingsService.GetOrCreateSettings();
+                    var settings = ValidatorSettingsUtility.GetOrCreateSettings();
                     settings.validateOnUploadAvatar = EditorGUILayout.Toggle("Validate OnUploadAvatar", settings.validateOnUploadAvatar);
 
                     EditorGUILayout.Space();
@@ -28,7 +29,7 @@ namespace VRCAvatars3Validator.Views
                     {
                         var validateRule = settings.rules[i].Enabled;
                         var ruleName = ruleNames[i];
-                        var ruleSummary = RuleManager.FilePath2IRule(settings.rules[i].FilePath).RuleSummary;
+                        var ruleSummary = RuleUtility.FilePath2IRule(settings.rules[i].FilePath).RuleSummary;
                         using (var check = new EditorGUI.ChangeCheckScope())
                         {
                             settings.rules[i].Enabled = EditorGUILayout.ToggleLeft($"[{ruleName}] {ruleSummary}", validateRule);

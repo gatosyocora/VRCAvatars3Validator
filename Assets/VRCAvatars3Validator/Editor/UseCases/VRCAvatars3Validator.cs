@@ -2,6 +2,7 @@
 using System.Linq;
 using VRC.SDK3.Avatars.Components;
 using VRCAvatars3Validator.Models;
+using VRCAvatars3Validator.Utilities;
 
 namespace VRCAvatars3Validator
 {
@@ -13,7 +14,7 @@ namespace VRCAvatars3Validator
                 .Where(rulePair => rulePair.Rule.Enabled)
                 .Select(rulePair =>
                 {
-                    var rule = RuleManager.FilePath2IRule(rulePair.Rule.FilePath);
+                    var rule = RuleUtility.FilePath2IRule(rulePair.Rule.FilePath);
                     var results = rule.Validate(avatar);
                     return new KeyValuePair<int, IEnumerable<ValidateResult>>(rulePair.Index + 1, results);
                 })
