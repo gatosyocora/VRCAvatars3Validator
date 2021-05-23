@@ -28,8 +28,7 @@ jobs:
           git remote set-url origin https://gatosyocora:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
       - name: copy & checkout to release branch
         run: |
-          git branch release
-          git switch release
+          git switch -c release
           git merge master
       - name: copy readme & license
         run: |
