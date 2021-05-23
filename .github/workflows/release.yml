@@ -2,8 +2,6 @@ name: Release
 
 on:
   push:
-    tags:
-      - v*
 
   workflow_dispatch:
 
@@ -19,27 +17,51 @@ jobs:
           git config --global user.email ${{ secrets.EMAIL }}
           git config --global user.name "github-ci"
           git remote set-url origin https://gatosyocora:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-      - name: copy & checkout to release branch
-        run: |
-          git switch -c release
-      - name: delete remote release branch
-        run: |
-          git push origin :release
+          
       - name: copy readme & license
         run: |
           cp -f README.md ./Assets/VRCAvatars3Validator/README.md
           cp -f README.md.meta ./Assets/VRCAvatars3Validator/README.md.meta
           cp -f LICENSE ./Assets/VRCAvatars3Validator/LICENSE
           cp -f LICENSE.meta ./Assets/VRCAvatars3Validator/LICENSE.meta
+          
       - name: ignore files
         run: |
           rm -r -f ./Assets/VRCAvatars3Validator/Editor/Tests
           rm -f ./Assets/VRCAvatars3Validator/Editor/Tests.meta
           rm -r -f ./Assets/ScriptTemplates
+          
       - name: git commit & push
         run: |
           git add .
           git commit -m "update files"
-          git push origin release
           
+      - name: build unitypackage
+        uses: game-ci/unity-builder@v1.5
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          unityVersion: 2018.4.20f1
+          buildMethod: UnityPackageExporter.Export
           
+      - name: create release
+        id: create-release
+        uses: actions/create-release@v1.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: test
+          release_name: test
+          draft: false
+          prerelease: false
+          
+      - name: upload unitypackage
+        id: upload-unitypackage
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create-release.outputs.upload_url }}
+          asset_path: ./VRCAvatars3Validator.zip
+          asset_name: VRCAvatars3Validator.zip
+          asset_content_type: application/zip
