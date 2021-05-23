@@ -1,7 +1,7 @@
 ﻿using System;
 using Object = UnityEngine.Object;
 
-namespace VRCAvatars3Validator
+namespace VRCAvatars3Validator.Models
 {
     public class ValidateResult
     {

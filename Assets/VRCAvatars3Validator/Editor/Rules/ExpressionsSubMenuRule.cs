@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using VRC.SDK3.Avatars.Components;
 
 using ControlType = VRC.SDK3.Avatars.ScriptableObjects.VRCExpressionsMenu.Control.ControlType;
-using ValidateResultType = VRCAvatars3Validator.ValidateResult.ValidateResultType;
+using ValidateResultType = VRCAvatars3Validator.Models.ValidateResult.ValidateResultType;
 using VRCExpressionsMenu = VRC.SDK3.Avatars.ScriptableObjects.VRCExpressionsMenu;
+using VRCAvatars3Validator.Models;
 
 namespace VRCAvatars3Validator.Rules
 {

@@ -4,6 +4,7 @@ using UnityEditor;
 using VRC.SDK3.Avatars.Components;
 using VRC.SDKBase.Editor;
 using VRC.SDKBase.Editor.BuildPipeline;
+using VRCAvatars3Validator.Models;
 using VRCAvatars3Validator.Views;
 
 namespace VRCAvatars3Validator

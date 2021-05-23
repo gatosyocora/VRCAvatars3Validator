@@ -6,6 +6,7 @@ using UnityEditor.Animations;
 using UnityEngine;
 using VRC.SDK3.Avatars.Components;
 using VRC.SDK3.Avatars.ScriptableObjects;
+using VRCAvatars3Validator.Models;
 using VRCAvatars3Validator.Utilities;
 
 namespace VRCAvatars3Validator.Rules
