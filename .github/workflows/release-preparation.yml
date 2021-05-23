@@ -29,6 +29,9 @@ jobs:
       - name: copy & checkout to release branch
         run: |
           git switch -c release
+      - name: fetch branch
+        run: |
+          git pull origin master
       - name: copy readme & license
         run: |
           cp -f README.md ./Assets/VRCAvatars3Validator/README.md
