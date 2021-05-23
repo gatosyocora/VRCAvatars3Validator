@@ -4,11 +4,8 @@ on:
   push:
     branches:
       - master
-    tags: "*"
-  pull_request:
-    branches:
-      - master
-    tags: "*"
+    tags:
+      - 'v*'
 
   workflow_dispatch:
 
@@ -26,14 +23,21 @@ jobs:
           git remote set-url origin https://gatosyocora:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
       - name: copy & checkout to release branch
         run: |
-          git switch release
-          git merge origin master
+          git switch -c release
+      - name: delete remote release branch
+        run: |
+          git push origin :release
       - name: copy readme & license
         run: |
           cp -f README.md ./Assets/VRCAvatars3Validator/README.md
           cp -f README.md.meta ./Assets/VRCAvatars3Validator/README.md.meta
           cp -f LICENSE ./Assets/VRCAvatars3Validator/LICENSE
           cp -f LICENSE.meta ./Assets/VRCAvatars3Validator/LICENSE.meta
+      - name: ignore files
+        run: |
+          rm -r -f ./Assets/VRCAvatars3Validator/Editor/Tests
+          rm -f ./Assets/VRCAvatars3Validator/Editor/Tests.meta
+          rm -r -f ./Assets/ScriptTemplates
       - name: git commit & push
         run: |
           git add .
