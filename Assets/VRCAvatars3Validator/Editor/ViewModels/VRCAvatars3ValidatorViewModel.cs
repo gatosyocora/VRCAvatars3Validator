@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEditor;
 using VRC.SDK3.Avatars.Components;
 using VRCAvatars3Validator.Models;
+using VRCAvatars3Validator.Utilities;
 
 namespace VRCAvatars3Validator.ViewModels
 {
@@ -22,7 +23,7 @@ namespace VRCAvatars3Validator.ViewModels
         {
             if (settings == null)
             {
-                settings = ValidatorSettingsService.GetOrCreateSettings();
+                settings = ValidatorSettingsUtility.GetOrCreateSettings();
             }
 
             if (!avatar && Selection.activeGameObject)

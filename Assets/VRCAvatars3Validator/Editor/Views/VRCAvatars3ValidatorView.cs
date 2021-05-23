@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using VRC.SDK3.Avatars.Components;
 using VRCAvatars3Validator.Models;
+using VRCAvatars3Validator.Utilities;
 using VRCAvatars3Validator.ViewModels;
 
 namespace VRCAvatars3Validator.Views
@@ -50,7 +51,7 @@ namespace VRCAvatars3Validator.Views
             {
                 for (int i = 0; i < _viewModel.settings.rules.Count; i++)
                 {
-                    var rule = RuleManager.FilePath2IRule(_viewModel.settings.rules[i].FilePath);
+                    var rule = RuleUtility.FilePath2IRule(_viewModel.settings.rules[i].FilePath);
                     _viewModel.settings.rules[i].Enabled = EditorGUILayout.ToggleLeft(
                                                             $"[{i + 1}] {rule.RuleSummary}",
                                                             _viewModel.settings.rules[i].Enabled);
