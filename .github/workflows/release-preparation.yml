@@ -46,7 +46,6 @@ jobs:
         run: |
           git add .
           git commit -m "update files"
-          git pull origin release
           git push origin release
           
           
