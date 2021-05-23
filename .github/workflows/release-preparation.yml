@@ -26,9 +26,10 @@ jobs:
           git config --global user.email ${{ secrets.EMAIL }}
           git config --global user.name "github-ci"
           git remote set-url origin https://gatosyocora:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git pull origin master
+          git pull origin release
       - name: copy & checkout to release branch
         run: |
-          git pull origin/master master
           git branch release
           git switch release
           git merge master
@@ -47,7 +48,6 @@ jobs:
         run: |
           git add .
           git commit -m "update files"
-          git pull origin/release release
           git push origin release
           
           
