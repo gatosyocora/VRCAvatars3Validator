@@ -65,6 +65,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: ${{ steps.version.outputs.filename }}
-          asset_name: ${{ steps.version.outputs.filename }}
+          asset_path: ./VRCAvatars3Validator.zip
+          asset_name: VRCAvatars3Validator.zip
           asset_content_type: application/zip
