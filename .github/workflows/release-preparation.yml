@@ -30,7 +30,7 @@ jobs:
         run: |
           git branch release
           git switch release
-          git merge origin master
+          git merge master
       - name: copy readme & license
         run: |
           cp -f README.md ./Assets/VRCAvatars3Validator/README.md
