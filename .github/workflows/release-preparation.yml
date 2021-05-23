@@ -31,8 +31,7 @@ jobs:
         run: |
           git switch -c release
           git pull origin release
-          git pull origin master
-          git merge master
+          git merge --allow-unrelated-histories origin/master
       - name: copy readme & license
         run: |
           cp -f README.md ./Assets/VRCAvatars3Validator/README.md
