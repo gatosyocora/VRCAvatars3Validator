@@ -24,7 +24,7 @@ jobs:
           git switch -c release
       - name: delete remote release branch
         run: |
-          git push origin :release
+          git push -f origin :release
       - name: copy readme & license
         run: |
           cp -f README.md ./Assets/VRCAvatars3Validator/README.md
