@@ -37,6 +37,11 @@ jobs:
           cp -f README.md.meta ./Assets/VRCAvatars3Validator/README.md.meta
           cp -f LICENSE ./Assets/VRCAvatars3Validator/LICENSE
           cp -f LICENSE.meta ./Assets/VRCAvatars3Validator/LICENSE.meta
+      - name: ignore files
+        run: |
+          rm -r -f ./Assets/VRCAvatars3Validator/Editor/Tests
+          rm -f ./Assets/VRCAvatars3Validator/Editor/Tests.meta
+          rm -r -f ./Assets/ScriptTemplates
       - name: git commit & push
         run: |
           git add .
