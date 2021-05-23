@@ -25,13 +25,10 @@ jobs:
         run: |
           git config --global user.email ${{ secrets.EMAIL }}
           git config --global user.name "github-ci"
-          git config --global pull.rebase false
           git remote set-url origin https://gatosyocora:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
       - name: copy & checkout to release branch
         run: |
           git switch -c release
-          git pull origin release
-          git merge --allow-unrelated-histories origin/master
       - name: copy readme & license
         run: |
           cp -f README.md ./Assets/VRCAvatars3Validator/README.md
