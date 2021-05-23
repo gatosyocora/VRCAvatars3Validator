@@ -10,7 +10,7 @@ using VRCAvatars3Validator.Views;
 
 namespace VRCAvatars3Validator
 {
-    public class AvatarUploadObserver : IVRCSDKBuildRequestedCallback
+    public class AvatarUploadWatcher : IVRCSDKBuildRequestedCallback
     {
         public int callbackOrder => -1;
 
