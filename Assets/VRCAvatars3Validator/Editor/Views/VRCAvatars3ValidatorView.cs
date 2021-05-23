@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using VRC.SDK3.Avatars.Components;
+using VRCAvatars3Validator.Models;
 using VRCAvatars3Validator.ViewModels;
 
 namespace VRCAvatars3Validator.Views

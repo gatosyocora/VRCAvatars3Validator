@@ -7,6 +7,7 @@ using VRC.SDK3.Avatars.Components;
 using UnityEditor.Animations;
 using UnityEditor;
 using VRCAvatars3Validator.Utilities;
+using VRCAvatars3Validator.Models;
 
 namespace VRCAvatars3Validator.Rules
 {

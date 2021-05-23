@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace VRCAvatars3Validator 
+namespace VRCAvatars3Validator.Models
 {
     public class ValidatorSettings : ScriptableObject
     {

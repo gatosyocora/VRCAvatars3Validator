@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using VRC.SDK3.Avatars.Components;
+using VRCAvatars3Validator.Models;
 
 namespace VRCAvatars3Validator
 {
