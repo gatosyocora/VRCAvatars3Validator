@@ -6,11 +6,6 @@ on:
       - master
     tags:
       - 'v*'
-  pull_request:
-    branches:
-      - master
-    tags:
-      - 'v*'
 
   workflow_dispatch:
 
