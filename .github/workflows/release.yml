@@ -42,7 +42,9 @@ jobs:
           git commit -m "update files"
           git push origin release
       - name: build unitypackage
-        uses: game-ci/unity-builder@v1.5
+        uses: game-ci/unity-builder@v2
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
           unityVersion: 2018.4.20f1
           buildMethod: UnityPackageExporter.Export
