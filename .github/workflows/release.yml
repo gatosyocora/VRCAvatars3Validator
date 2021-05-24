@@ -5,13 +5,16 @@ on:
 
   workflow_dispatch:
 
+env:
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
-
+      
       - name: git settings
         run: |
           git config --global user.email ${{ secrets.EMAIL }}
@@ -30,6 +33,7 @@ jobs:
           rm -r -f ./Assets/VRCAvatars3Validator/Editor/Tests
           rm -f ./Assets/VRCAvatars3Validator/Editor/Tests.meta
           rm -r -f ./Assets/ScriptTemplates
+          rm -r -f ./Assets/ScriptTemplates.meta
           
       - name: git commit & push
         run: |
@@ -38,8 +42,6 @@ jobs:
           
       - name: build unitypackage
         uses: game-ci/unity-builder@v1.5
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
           unityVersion: 2018.4.20f1
           buildMethod: UnityPackageExporter.Export
