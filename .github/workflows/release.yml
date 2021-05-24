@@ -40,7 +40,7 @@ jobs:
           git commit -m "update files"
           
       - name: build unitypackage
-        uses: game-ci/unity-builder@v2
+        uses: game-ci/unity-builder@v1.5
         with:
           unityVersion: 2018.4.20f1
           buildMethod: UnityPackageExporter.Export
