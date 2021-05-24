@@ -59,8 +59,8 @@ sysinfo.txt
 crashlytics-build.properties
 
 Assets/*
-!Assets/VRCAvatars3Validator
-!Assets/ScriptTemplates
+!Assets/VRCAvatars3Validator.?*
+!Assets/ScriptTemplates.?*
 !Assets/Editor
 !Assets/Editor/UnityPackageExporter.*
 
