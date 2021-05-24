@@ -37,7 +37,7 @@ jobs:
           git commit -m "update files"
           
       - name: build unitypackage
-        uses: game-ci/unity-builder@v1.5
+        uses: game-ci/unity-builder@v2.0-alpha-10
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
