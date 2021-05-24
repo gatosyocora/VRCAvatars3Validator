@@ -5,6 +5,9 @@ on:
 
   workflow_dispatch:
 
+env:
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -37,9 +40,7 @@ jobs:
           git commit -m "update files"
           
       - name: build unitypackage
-        uses: game-ci/unity-builder@v2.0-alpha-10
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        uses: game-ci/unity-builder@v2
         with:
           unityVersion: 2018.4.20f1
           buildMethod: UnityPackageExporter.Export
