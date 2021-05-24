@@ -33,6 +33,7 @@ jobs:
           rm -r -f ./Assets/VRCAvatars3Validator/Editor/Tests
           rm -f ./Assets/VRCAvatars3Validator/Editor/Tests.meta
           rm -r -f ./Assets/ScriptTemplates
+          rm -r -f ./Assets/ScriptTemplates.meta
           
       - name: git commit & push
         run: |
