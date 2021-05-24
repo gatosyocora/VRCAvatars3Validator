@@ -2,8 +2,6 @@ name: Release
 
 on:
   push:
-    tags:
-      - v*
 
   workflow_dispatch:
 
@@ -47,8 +45,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
+          tag_name: test
+          release_name: test
           draft: false
           prerelease: false
       - name: upload unitypackage
