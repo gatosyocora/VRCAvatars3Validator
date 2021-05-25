@@ -2,11 +2,15 @@ name: Release
 
 on:
   push:
+    tags:
+      - v*
 
   workflow_dispatch:
 
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+  TOOL_NAME: VRCAvatars3Validator
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   build:
@@ -14,6 +18,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      
+      - name: set output data
+        id: outputdata
+        run: |
+          VERSION=$(echo ${{ github.ref }} | sed -e "s#refs/tags/##g")
+          echo ::set-output name=version::$VERSION
+          echo ::set-output name=filedir::${TOOL_NAME}_$VERSION
+          echo ::set-output name=filename::${TOOL_NAME}_$VERSION.unitypackage
       
       - name: git settings
         run: |
@@ -45,25 +57,43 @@ jobs:
         with:
           unityVersion: 2018.4.20f1
           buildMethod: UnityPackageExporter.Export
+      
+      - name: rename unitypackage
+        run: |
+          mv VRCAvatars3Validator.unitypackage ${{ steps.outputdata.outputs.filename }}
+      
+      - name: zip unitypackage
+        run: |
+          DIR=$(echo ${{ steps.outputdata.outputs.filedir }})
+          mkdir $DIR
+          cp -f ${{ steps.outputdata.outputs.filename }} $DIR/${{ steps.outputdata.outputs.filename }}
+          cp -f README.md $DIR/README.md
+          cp -f LICENSE $DIR/LICENSE
+          zip -r $DIR.zip $DIR
           
       - name: create release
         id: create-release
         uses: actions/create-release@v1.0.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: test
-          release_name: test
+          tag_name: ${{ steps.outputdata.outputs.version }}
+          release_name: ${{ steps.outputdata.outputs.version }}
           draft: false
           prerelease: false
           
       - name: upload unitypackage
         id: upload-unitypackage
         uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: ./VRCAvatars3Validator.zip
-          asset_name: VRCAvatars3Validator.zip
+          asset_path: ./${{ steps.outputdata.outputs.filename }}
+          asset_name: ${{ steps.outputdata.outputs.filename }}
+          asset_content_type: application/zip
+          
+      - name: upload zip
+        id: upload-zip
+        uses: actions/upload-release-asset@v1.0.1
+        with:
+          upload_url: ${{ steps.create-release.outputs.upload_url }}
+          asset_path: ./${{ steps.outputdata.outputs.filedir }}.zip
+          asset_name: ${{ steps.outputdata.outputs.filedir }}.zip
           asset_content_type: application/zip
