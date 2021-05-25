@@ -19,7 +19,9 @@ namespace VRCAvatars3Validator.Views
 
         private Vector2 scrollPos = Vector2.zero;
 
+#if VRC_SDK_VRCSDK3
         [MenuItem("VRCAvatars3Validator/Editor")]
+#endif
         public static void Open()
         {
             GetWindow<VRCAvatars3ValidatorView>(VRCAvatars3ValidatorViewModel.EDITOR_NAME);
