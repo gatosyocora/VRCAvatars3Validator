@@ -1,10 +1,16 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
-using VRC.SDK3.Avatars.Components;
-
+#if VRC_SDK_VRCSDK3
+using VRCAvatarDescriptor = VRC.SDK3.Avatars.Components.VRCAvatarDescriptor;
 using ControlType = VRC.SDK3.Avatars.ScriptableObjects.VRCExpressionsMenu.Control.ControlType;
-using ValidateResultType = VRCAvatars3Validator.Models.ValidateResult.ValidateResultType;
 using VRCExpressionsMenu = VRC.SDK3.Avatars.ScriptableObjects.VRCExpressionsMenu;
+#else
+using VRCAvatarDescriptor = VRCAvatars3Validator.Mocks.VRCAvatarDescriptorMock;
+using ControlType = VRCAvatars3Validator.Mocks.VRCExpressionsMenuMock.Control.ControlType;
+using VRCExpressionsMenu = VRCAvatars3Validator.Mocks.VRCExpressionsMenuMock;
+#endif
+
+using ValidateResultType = VRCAvatars3Validator.Models.ValidateResult.ValidateResultType;
 using VRCAvatars3Validator.Models;
 
 namespace VRCAvatars3Validator.Rules

@@ -3,8 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor.Animations;
 using UnityEngine;
-using VRC.SDK3.Avatars.Components;
-using VRC.SDK3.Avatars.ScriptableObjects;
+#if VRC_SDK_VRCSDK3
+using VRCAvatarDescriptor = VRC.SDK3.Avatars.Components.VRCAvatarDescriptor;
+using VRCExpressionParameters = VRC.SDK3.Avatars.ScriptableObjects.VRCExpressionParameters;
+#else
+using VRCAvatarDescriptor = VRCAvatars3Validator.Mocks.VRCAvatarDescriptorMock;
+using VRCExpressionParameters = VRCAvatars3Validator.Mocks.VRCExpressionParametersMock;
+#endif
 
 namespace VRCAvatars3Validator.Utilities
 {
