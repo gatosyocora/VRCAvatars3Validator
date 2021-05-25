@@ -1,6 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using VRC.SDK3.Avatars.Components;
+#if VRC_SDK_VRCSDK3
+using VRCAvatarDescriptor = VRC.SDK3.Avatars.Components.VRCAvatarDescriptor;
+#else
+using VRCAvatarDescriptor = VRCAvatars3Validator.Mocks.VRCAvatarDescriptorMock;
+#endif
 using VRCAvatars3Validator.Models;
 using VRCAvatars3Validator.Utilities;
 

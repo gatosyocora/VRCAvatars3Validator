@@ -1,9 +1,17 @@
 ﻿using System.Linq;
 using System.Reflection;
 using UnityEditor;
-using VRC.SDK3.Avatars.Components;
-using VRC.SDKBase.Editor;
-using VRC.SDKBase.Editor.BuildPipeline;
+#if VRC_SDK_VRCSDK3
+using VRCAvatarDescriptor = VRC.SDK3.Avatars.Components.VRCAvatarDescriptor;
+using VRCSdkControlPanelAvatarBuilder = VRC.SDKBase.Editor.VRCSdkControlPanelAvatarBuilder;
+using IVRCSDKBuildRequestedCallback = VRC.SDKBase.Editor.BuildPipeline.IVRCSDKBuildRequestedCallback;
+using VRCSDKRequestedBuildType = VRC.SDKBase.Editor.BuildPipeline.VRCSDKRequestedBuildType;
+#else
+using VRCAvatarDescriptor = VRCAvatars3Validator.Mocks.VRCAvatarDescriptorMock;
+using VRCSdkControlPanelAvatarBuilder = VRCAvatars3Validator.Mocks.VRCSdkControlPanelAvatarBuilderMock;
+using IVRCSDKBuildRequestedCallback = VRCAvatars3Validator.Mocks.IVRCSDKBuildRequestedCallbackMock;
+using VRCSDKRequestedBuildType = VRCAvatars3Validator.Mocks.VRCSDKRequestedBuildTypeMock;
+#endif
 using VRCAvatars3Validator.Models;
 using VRCAvatars3Validator.Utilities;
 using VRCAvatars3Validator.Views;
