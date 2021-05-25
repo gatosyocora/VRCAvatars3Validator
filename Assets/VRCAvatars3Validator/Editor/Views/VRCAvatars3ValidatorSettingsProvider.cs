@@ -7,7 +7,9 @@ namespace VRCAvatars3Validator.Views
 {
     public class VRCAvatars3ValidatorSettingsProvider : Editor
     {
+#if VRC_SDK_VRCSDK3
         [SettingsProvider]
+#endif
         public static SettingsProvider CreateSettingsProvider()
         {
             return new SettingsProvider("Project/VRCAvatars3Validator", SettingsScope.Project)
