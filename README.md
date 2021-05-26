@@ -48,11 +48,12 @@ Unity 2018.4.20f1
 
 ## 利用規約
 
-本ツールを使用して発生した問題に対して、著作者gatosyocoraは一切の責任を負いかねますので、あらかじめご了承ください
+本ツールを使用して発生した問題に対して、  
+著作者gatosyocoraは一切の責任を負いかねますので、  
+あらかじめご了承ください
 
-本ツールはMITライセンスで運用されます
-
-詳しくは同封されている`LICENSE`をご覧ください
+本ツールはMITライセンスで運用されます  
+詳しくは[LICENSE](https://github.com/gatosyocora/VRCAvatars3Validator/blob/master/LICENSE)をご覧ください
 
 ## 連絡先
 
