@@ -1,64 +1,65 @@
 # VRCAvatars3Validator
+[![Release](https://github.com/gatosyocora/VRCAvatars3Validator/actions/workflows/release.yml/badge.svg)](https://github.com/gatosyocora/VRCAvatars3Validator/actions/workflows/release.yml)
 
 [JP](#jp) / [EN](#en)
 
 <p id="jp"></p>
-VRChat‚ÌAvatars3.0‚ÌƒAƒoƒ^[‚Å‹N‚«‚ª‚¿‚Èƒ~ƒX‚ðƒ`ƒFƒbƒN‚Å‚«‚éEditorŠg’£‚Å‚·
+VRChatã®Avatars3.0ã®ã‚¢ãƒã‚¿ãƒ¼ã§èµ·ããŒã¡ãªãƒŸã‚¹ã‚’ãƒã‚§ãƒƒã‚¯ã§ãã‚‹Editoræ‹¡å¼µã§ã™
 
-ƒ`ƒFƒbƒN‚·‚é‚½‚ß‚Ìƒ‹[ƒ‹‚ðV‹K‚Éì¬‚µ‚ÄŽ©—R‚É’Ç‰Á‚Å‚«‚Ü‚·
+ãƒã‚§ãƒƒã‚¯ã™ã‚‹ãŸã‚ã®ãƒ«ãƒ¼ãƒ«ã‚’æ–°è¦ã«ä½œæˆã—ã¦è‡ªç”±ã«è¿½åŠ ã§ãã¾ã™
 
-## Žg‚¢•û
+## ä½¿ã„æ–¹
 
-### VRCAvatars3Validatorê—pƒEƒBƒ“ƒhƒE
+### VRCAvatars3Validatorå°‚ç”¨ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦
 
-Unityã•”ƒƒjƒ…[‚Ì`VRCAvatars3Validator/Editor`‚©‚çê—p‚ÌƒEƒBƒ“ƒhƒE‚ðŠJ‚«‚Ü‚·
+Unityä¸Šéƒ¨ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®`VRCAvatars3Validator/Editor`ã‹ã‚‰å°‚ç”¨ã®ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’é–‹ãã¾ã™
 
-1. Avatar‚ÉƒZƒbƒgƒAƒbƒvÏ‚Ý‚ÌAvatars3.0‚ÌƒAƒoƒ^[‚ð‘I‘ð‚µ‚Ü‚·
-2. Rules‚ÌŒŸ¸‚µ‚½‚¢ƒ‹[ƒ‹‚Éƒ`ƒFƒbƒN‚ð“ü‚ê‚Ü‚·
-3. Validateƒ{ƒ^ƒ“‚ð‰Ÿ‚·‚ÆErrors‚ÉŒ‹‰Ê‚ª•\Ž¦‚³‚ê‚Ü‚·
-4. Select‚ð‰Ÿ‚·‚Æ‘ÎÛ‚ÌƒIƒuƒWƒFƒNƒg‚ª‘I‘ð‚³‚ê, ‰Â”\‚È‚à‚Ì‚ÍAutoFix‚Å’¼‚¹‚Ü‚·
+1. Avatarã«ã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ—æ¸ˆã¿ã®Avatars3.0ã®ã‚¢ãƒã‚¿ãƒ¼ã‚’é¸æŠžã—ã¾ã™
+2. Rulesã®æ¤œæŸ»ã—ãŸã„ãƒ«ãƒ¼ãƒ«ã«ãƒã‚§ãƒƒã‚¯ã‚’å…¥ã‚Œã¾ã™
+3. Validateãƒœã‚¿ãƒ³ã‚’æŠ¼ã™ã¨Errorsã«çµæžœãŒè¡¨ç¤ºã•ã‚Œã¾ã™
+4. Selectã‚’æŠ¼ã™ã¨å¯¾è±¡ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒé¸æŠžã•ã‚Œ, å¯èƒ½ãªã‚‚ã®ã¯AutoFixã§ç›´ã›ã¾ã™
 
-- ƒAƒoƒ^[ƒAƒbƒvƒ[ƒhŽž‚Éƒ‹[ƒ‹‚ÌŒŸ¸‚Éˆø‚Á‚©‚©‚éê‡‚ÍƒAƒbƒvƒ[ƒh‚ª’†Ž~‚³‚ê‚ÄA–{ƒEƒBƒ“ƒhƒE‚ª•\Ž¦‚³‚ê‚Ü‚·
+- ã‚¢ãƒã‚¿ãƒ¼ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰æ™‚ã«ãƒ«ãƒ¼ãƒ«ã®æ¤œæŸ»ã«å¼•ã£ã‹ã‹ã‚‹å ´åˆã¯ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ãŒä¸­æ­¢ã•ã‚Œã¦ã€æœ¬ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãŒè¡¨ç¤ºã•ã‚Œã¾ã™
 
 ### Project Settings/VRCAvatars3Validator
 
-Unityã•”ƒƒjƒ…[‚Ì`Edit> Project Settings> VRCAvatars3Validator`‚ÅŠJ‚­‚±‚Æ‚ª‚Å‚«‚éÝ’èƒEƒBƒ“ƒhƒE‚Å‚·
+Unityä¸Šéƒ¨ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®`Edit> Project Settings> VRCAvatars3Validator`ã§é–‹ãã“ã¨ãŒã§ãã‚‹è¨­å®šã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã§ã™
 
-- **Validate OnUploadAvatar** : ƒ`ƒFƒbƒN‚ð‚¢‚ê‚é‚±‚Æ‚ÅƒAƒoƒ^[ƒAƒbƒvƒ[ƒhŽž‚ÉŽ©“®ƒeƒXƒg‚ðs‚¢‚Ü‚·
-- **Enable Rules** : ƒ`ƒFƒbƒN‚ª“ü‚Á‚Ä‚¢‚éƒ‹[ƒ‹‚ÅŒŸ¸‚µ‚Ü‚·B‚±‚ê‚ç‚Ìƒ`ƒFƒbƒN‚Ì—L–³‚Íê—pƒEƒBƒ“ƒhƒE‚Æ“¯Šú‚µ‚Ü‚·
+- **Validate OnUploadAvatar** : ãƒã‚§ãƒƒã‚¯ã‚’ã„ã‚Œã‚‹ã“ã¨ã§ã‚¢ãƒã‚¿ãƒ¼ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰æ™‚ã«è‡ªå‹•ãƒ†ã‚¹ãƒˆã‚’è¡Œã„ã¾ã™
+- **Enable Rules** : ãƒã‚§ãƒƒã‚¯ãŒå…¥ã£ã¦ã„ã‚‹ãƒ«ãƒ¼ãƒ«ã§æ¤œæŸ»ã—ã¾ã™ã€‚ã“ã‚Œã‚‰ã®ãƒã‚§ãƒƒã‚¯ã®æœ‰ç„¡ã¯å°‚ç”¨ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã¨åŒæœŸã—ã¾ã™
 
-## ƒ‹[ƒ‹‚Ì’Ç‰Á
+## ãƒ«ãƒ¼ãƒ«ã®è¿½åŠ 
 
-1. ƒ‹[ƒ‹‚Ìƒeƒ“ƒvƒŒ[ƒg‚ð—p‚¢‚ÄV‹K‚Ìƒ‹[ƒ‹ƒXƒNƒŠƒvƒg‚ðì¬‚·‚éBˆÈ‰º‚Ì‚¢‚¸‚ê‚©‚Ì•û–@‚Åƒeƒ“ƒvƒŒ[ƒg‚©‚çì¬‚Å‚«‚Ü‚·
-    - ProjectƒEƒBƒ“ƒhƒE‚Å`Create> C# VRCAvatars3ValidatorRule`‚ð‘I‘ð‚·‚é
-    - Unityã•”ƒƒjƒ…[‚©‚ç`Assets> Create> C# VRCAvatars3ValidatorRule`‚ð‘I‘ð‚·‚é
-    - RulesƒtƒHƒ‹ƒ_‚É‚ ‚é`TemplateRule.cs`‚ð`‰EƒNƒŠƒbƒN> Duplicate`‚Å•¡»‚·‚é
-2. VRCAvatars3ValidatorƒtƒHƒ‹ƒ_‚É‚ ‚éRulesƒtƒHƒ‹ƒ_‚Éì¬‚µ‚½ƒ‹[ƒ‹ƒXƒNƒŠƒvƒg‚ð‚¢‚ê‚é
-3. ê—pƒEƒBƒ“ƒhƒE‚ðŠJ‚«‚È‚¨‚·
+1. ãƒ«ãƒ¼ãƒ«ã®ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã‚’ç”¨ã„ã¦æ–°è¦ã®ãƒ«ãƒ¼ãƒ«ã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’ä½œæˆã™ã‚‹ã€‚ä»¥ä¸‹ã®ã„ãšã‚Œã‹ã®æ–¹æ³•ã§ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã‹ã‚‰ä½œæˆã§ãã¾ã™
+    - Projectã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã§`Create> C# VRCAvatars3ValidatorRule`ã‚’é¸æŠžã™ã‚‹
+    - Unityä¸Šéƒ¨ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‹ã‚‰`Assets> Create> C# VRCAvatars3ValidatorRule`ã‚’é¸æŠžã™ã‚‹
+    - Rulesãƒ•ã‚©ãƒ«ãƒ€ã«ã‚ã‚‹`TemplateRule.cs`ã‚’`å³ã‚¯ãƒªãƒƒã‚¯> Duplicate`ã§è¤‡è£½ã™ã‚‹
+2. VRCAvatars3Validatorãƒ•ã‚©ãƒ«ãƒ€ã«ã‚ã‚‹Rulesãƒ•ã‚©ãƒ«ãƒ€ã«ä½œæˆã—ãŸãƒ«ãƒ¼ãƒ«ã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’ã„ã‚Œã‚‹
+3. å°‚ç”¨ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’é–‹ããªãŠã™
 
-- ƒ‹[ƒ‹‚ð’Ç‰Á‚µ‚½Û‚É‚Í‚º‚Ðgithub‚ÌƒŠƒ|ƒWƒgƒŠ‚ÉPR‚ð‚­‚¾‚³‚¢
+- ãƒ«ãƒ¼ãƒ«ã‚’è¿½åŠ ã—ãŸéš›ã«ã¯ãœã²githubã®ãƒªãƒã‚¸ãƒˆãƒªã«PRã‚’ãã ã•ã„
 <https://github.com/gatosyocora/VRCAvatars3Validator>
 
-## “®ì•ÛØŠÂ‹«
+## å‹•ä½œä¿è¨¼ç’°å¢ƒ
 
 Unity 2018.4.20f1
 
-## ˆË‘¶ƒpƒbƒP[ƒW
+## ä¾å­˜ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸
 
-‚±‚Ìƒc[ƒ‹‚ðUnity‚ÉƒCƒ“ƒXƒg[ƒ‹‚µ‚ÄŽg—p‚·‚éÛ‚É‚ÍˆÈ‰º‚Ì‚à‚Ì‚àƒCƒ“ƒXƒg[ƒ‹‚µ‚Ä‚­‚¾‚³‚¢
+ã“ã®ãƒ„ãƒ¼ãƒ«ã‚’Unityã«ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ã¦ä½¿ç”¨ã™ã‚‹éš›ã«ã¯ä»¥ä¸‹ã®ã‚‚ã®ã‚‚ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ã¦ãã ã•ã„
 
 - VRCSDK3-AVATAR-xxxx.xx.xx.xx.xx_Public.unitypackage
 
-## —˜—p‹K–ñ
+## åˆ©ç”¨è¦ç´„
 
-–{ƒc[ƒ‹‚ðŽg—p‚µ‚Ä”­¶‚µ‚½–â‘è‚É‘Î‚µ‚ÄA  
-’˜ìŽÒgatosyocora‚ÍˆêØ‚ÌÓ”C‚ð•‰‚¢‚©‚Ë‚Ü‚·‚Ì‚ÅA  
-‚ ‚ç‚©‚¶‚ß‚²—¹³‚­‚¾‚³‚¢
+æœ¬ãƒ„ãƒ¼ãƒ«ã‚’ä½¿ç”¨ã—ã¦ç™ºç”Ÿã—ãŸå•é¡Œã«å¯¾ã—ã¦ã€  
+è‘—ä½œè€…gatosyocoraã¯ä¸€åˆ‡ã®è²¬ä»»ã‚’è² ã„ã‹ã­ã¾ã™ã®ã§ã€  
+ã‚ã‚‰ã‹ã˜ã‚ã”äº†æ‰¿ãã ã•ã„
 
-–{ƒc[ƒ‹‚ÍMITƒ‰ƒCƒZƒ“ƒX‚Å‰^—p‚³‚ê‚Ü‚·  
-Ú‚µ‚­‚Í[LICENSE](https://github.com/gatosyocora/VRCAvatars3Validator/blob/master/LICENSE)‚ð‚²——‚­‚¾‚³‚¢
+æœ¬ãƒ„ãƒ¼ãƒ«ã¯MITãƒ©ã‚¤ã‚»ãƒ³ã‚¹ã§é‹ç”¨ã•ã‚Œã¾ã™  
+è©³ã—ãã¯[LICENSE](https://github.com/gatosyocora/VRCAvatars3Validator/blob/master/LICENSE)ã‚’ã”è¦§ãã ã•ã„
 
-## ˜A—æ
+## é€£çµ¡å…ˆ
 
 - Twitter : [@gatosyocora](https://twitter.com/gatosyocora)
 - Discord : gatosyocora#9575
