@@ -1,0 +1,20 @@
+{
+    "name": "net.gatosyocora.vrcavatars3validator",
+    "displayName": "VRCAvatars3Validator", 
+    "version": "1.0.0",               
+    "unity": "2018.4.20f1",
+    "description": "Unity Editor extension to detect errors of VRChat avatar",
+    "author": {
+        "name": "gatosyocora",
+        "url": "https://github.com/gatosyocora/VRCAvatars3Validator"
+    },
+
+    "keywords": [
+        "VRChat",
+        "Avatars3.0",
+        "Unity"
+    ],
+
+    "dependencies": {
+    },
+}

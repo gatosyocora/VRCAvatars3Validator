@@ -24,8 +24,8 @@ jobs:
         run: |
           VERSION=$(echo ${{ github.ref }} | sed -e "s#refs/tags/##g")
           echo ::set-output name=version::$VERSION
-          echo ::set-output name=filedir::$TOOL_NAME_$VERSION
-          echo ::set-output name=filename::$TOOL_NAME_$VERSION.unitypackage
+          echo ::set-output name=filedir::${TOOL_NAME}_$VERSION
+          echo ::set-output name=filename::${TOOL_NAME}_$VERSION.unitypackage
       
       - name: git settings
         run: |
@@ -39,13 +39,6 @@ jobs:
           cp -f README.md.meta ./Assets/VRCAvatars3Validator/README.md.meta
           cp -f LICENSE ./Assets/VRCAvatars3Validator/LICENSE
           cp -f LICENSE.meta ./Assets/VRCAvatars3Validator/LICENSE.meta
-          
-      - name: ignore files
-        run: |
-          rm -r -f ./Assets/VRCAvatars3Validator/Editor/Tests
-          rm -f ./Assets/VRCAvatars3Validator/Editor/Tests.meta
-          rm -r -f ./Assets/ScriptTemplates
-          rm -r -f ./Assets/ScriptTemplates.meta
           
       - name: git commit & push
         run: |
@@ -65,10 +58,10 @@ jobs:
       - name: zip unitypackage
         run: |
           DIR=$(echo ${{ steps.outputdata.outputs.filedir }})
-          mkdir DIR
-          cp -f ${{ steps.outputdata.outputs.filename }} $DIR
-          cp -f README.md $DIR
-          cp -f LICENSE $DIR
+          mkdir $DIR
+          cp -f ${{ steps.outputdata.outputs.filename }} $DIR/${{ steps.outputdata.outputs.filename }}
+          cp -f README.md $DIR/README.md
+          cp -f LICENSE $DIR/LICENSE
           zip -r $DIR.zip $DIR
           
       - name: create release
