@@ -43,6 +43,11 @@ namespace VRCAvatars3Validator.ViewModels
             HasNeverValided = true;
         }
 
+        public void OnSettingsClick()
+        {
+            SettingsService.OpenProjectSettings("Project/VRCAvatars3Validator");
+        }
+
         public void OnValidateClick()
         {
             Validate();
