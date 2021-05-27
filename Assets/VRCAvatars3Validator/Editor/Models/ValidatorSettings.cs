@@ -10,6 +10,7 @@ namespace VRCAvatars3Validator.Models
     public class ValidatorSettings : ScriptableObject
     {
         public bool validateOnUploadAvatar = true;
+        public bool suspendUploadingByWarningMessage = true;
 
         public List<RuleItem> rules = new List<RuleItem>();
     }
