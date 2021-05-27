@@ -39,9 +39,7 @@ namespace VRCAvatars3Validator.Rules
             foreach (var exParam in exParams)
             {
                 var exParamName = exParam.name;
-                var exParamType = exParam.valueType == VRCExpressionParameters.ValueType.Float ?
-                                    AnimatorControllerParameterType.Float :
-                                    AnimatorControllerParameterType.Int;
+                var exParamType = vrcParamType2unityParamType(exParam.valueType);
 
                 found = false;
                 foreach (var param in parameterlist)
@@ -60,6 +58,14 @@ namespace VRCAvatars3Validator.Rules
                                     $"{exParamName} is not found in AnimatorControllers");
                 }
             }
+        }
+
+        private AnimatorControllerParameterType vrcParamType2unityParamType(VRCExpressionParameters.ValueType type)
+        {
+            return type == VRCExpressionParameters.ValueType.Float ? AnimatorControllerParameterType.Float :
+                    type == VRCExpressionParameters.ValueType.Int ? AnimatorControllerParameterType.Int :
+                    type == VRCExpressionParameters.ValueType.Bool ? AnimatorControllerParameterType.Bool :
+                    throw new Exception("Not Found much type");            
         }
     }
 }
