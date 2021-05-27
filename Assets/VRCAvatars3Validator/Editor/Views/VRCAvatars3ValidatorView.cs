@@ -35,6 +35,16 @@ namespace VRCAvatars3Validator.Views
 
             EditorGUILayout.Space();
 
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                GUILayout.FlexibleSpace();
+
+                if (GUILayout.Button("Settings"))
+                {
+                    _viewModel.OnSettingsClick();
+                }
+            }
+
             using (var check = new EditorGUI.ChangeCheckScope())
             {
                 var avatar = EditorGUILayout.ObjectField(
