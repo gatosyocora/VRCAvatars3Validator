@@ -15,6 +15,7 @@ using VRCSDKRequestedBuildType = VRCAvatars3Validator.Mocks.VRCSDKRequestedBuild
 using VRCAvatars3Validator.Models;
 using VRCAvatars3Validator.Utilities;
 using VRCAvatars3Validator.Views;
+using System.Collections.Generic;
 
 namespace VRCAvatars3Validator
 {
@@ -36,10 +37,8 @@ namespace VRCAvatars3Validator
 
             var resultDictionary = VRCAvatars3Validator.ValidateAvatars3(avatar, settings.rules);
 
-            if (resultDictionary
-                    .Any(result => result.Value.Any(
-                        r => r.ResultType == ValidateResult.ValidateResultType.Error ||
-                            r.ResultType == ValidateResult.ValidateResultType.Warning)))
+            if (IncludeErrorResult(resultDictionary) || 
+                (IncludeWarningResult(resultDictionary) && settings.suspendUploadingByWarningMessage))
             {
                 VRCAvatars3ValidatorView.Open();
                 return false;
@@ -47,5 +46,11 @@ namespace VRCAvatars3Validator
 
             return true;
         }
+
+        private bool IncludeErrorResult(Dictionary<int, IEnumerable<ValidateResult>> resultDictionary)
+            => resultDictionary.Any(result => result.Value.Any(r => r.ResultType == ValidateResult.ValidateResultType.Error));
+
+        private bool IncludeWarningResult(Dictionary<int, IEnumerable<ValidateResult>> resultDictionary)
+    => resultDictionary.Any(result => result.Value.Any(r => r.ResultType == ValidateResult.ValidateResultType.Warning));
     }
 }
