@@ -39,7 +39,7 @@ namespace VRCAvatars3Validator.Rules
             foreach (var exParam in exParams)
             {
                 var exParamName = exParam.name;
-                var exParamType = vrcParamType2unityParamType(exParam.valueType);
+                var exParamType = ParamTypeMap[exParam.valueType];
 
                 found = false;
                 foreach (var param in parameterlist)
@@ -60,12 +60,11 @@ namespace VRCAvatars3Validator.Rules
             }
         }
 
-        private AnimatorControllerParameterType vrcParamType2unityParamType(VRCExpressionParameters.ValueType type)
-        {
-            return type == VRCExpressionParameters.ValueType.Float ? AnimatorControllerParameterType.Float :
-                    type == VRCExpressionParameters.ValueType.Int ? AnimatorControllerParameterType.Int :
-                    type == VRCExpressionParameters.ValueType.Bool ? AnimatorControllerParameterType.Bool :
-                    throw new Exception("Not Found much type");            
-        }
+        Dictionary<VRCExpressionParameters.ValueType, AnimatorControllerParameterType> ParamTypeMap =
+            new Dictionary<VRCExpressionParameters.ValueType, AnimatorControllerParameterType> {
+                { VRCExpressionParameters.ValueType.Int, AnimatorControllerParameterType.Int },
+                { VRCExpressionParameters.ValueType.Float, AnimatorControllerParameterType.Float },
+                { VRCExpressionParameters.ValueType.Bool, AnimatorControllerParameterType.Bool },
+            };
     }
 }
