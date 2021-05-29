@@ -39,9 +39,7 @@ namespace VRCAvatars3Validator.Rules
             foreach (var exParam in exParams)
             {
                 var exParamName = exParam.name;
-                var exParamType = exParam.valueType == VRCExpressionParameters.ValueType.Float ?
-                                    AnimatorControllerParameterType.Float :
-                                    AnimatorControllerParameterType.Int;
+                var exParamType = ParamTypeMap[exParam.valueType];
 
                 found = false;
                 foreach (var param in parameterlist)
@@ -61,5 +59,12 @@ namespace VRCAvatars3Validator.Rules
                 }
             }
         }
+
+        Dictionary<VRCExpressionParameters.ValueType, AnimatorControllerParameterType> ParamTypeMap =
+            new Dictionary<VRCExpressionParameters.ValueType, AnimatorControllerParameterType> {
+                { VRCExpressionParameters.ValueType.Int, AnimatorControllerParameterType.Int },
+                { VRCExpressionParameters.ValueType.Float, AnimatorControllerParameterType.Float },
+                { VRCExpressionParameters.ValueType.Bool, AnimatorControllerParameterType.Bool },
+            };
     }
 }
