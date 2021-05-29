@@ -35,6 +35,16 @@ namespace VRCAvatars3Validator.Views
 
             EditorGUILayout.Space();
 
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                GUILayout.FlexibleSpace();
+
+                if (GUILayout.Button("Settings"))
+                {
+                    _viewModel.OnSettingsClick();
+                }
+            }
+
             using (var check = new EditorGUI.ChangeCheckScope())
             {
                 var avatar = EditorGUILayout.ObjectField(
@@ -58,9 +68,13 @@ namespace VRCAvatars3Validator.Views
                 for (int i = 0; i < _viewModel.settings.rules.Count; i++)
                 {
                     var rule = RuleUtility.FilePath2IRule(_viewModel.settings.rules[i].FilePath);
-                    _viewModel.settings.rules[i].Enabled = EditorGUILayout.ToggleLeft(
+                    var enabled = EditorGUILayout.ToggleLeft(
                                                             $"[{i + 1}] {rule.RuleSummary}",
                                                             _viewModel.settings.rules[i].Enabled);
+                    if (enabled != _viewModel.settings.rules[i].Enabled) {
+                        EditorUtility.SetDirty(_viewModel.settings);
+                        _viewModel.settings.rules[i].Enabled = enabled;
+                    }
                 }
             }
 

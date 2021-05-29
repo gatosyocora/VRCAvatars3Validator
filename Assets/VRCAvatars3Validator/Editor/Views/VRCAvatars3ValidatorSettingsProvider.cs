@@ -23,6 +23,10 @@ namespace VRCAvatars3Validator.Views
 
                     EditorGUILayout.Space();
 
+                    settings.suspendUploadingByWarningMessage = EditorGUILayout.ToggleLeft("Suspend uploading by warning message", settings.suspendUploadingByWarningMessage);
+
+                    EditorGUILayout.Space();
+
                     EditorGUILayout.LabelField("Enable Rules", EditorStyles.boldLabel);
 
                     var ruleNames = settings.rules.Select(rule => rule.Name).ToArray();

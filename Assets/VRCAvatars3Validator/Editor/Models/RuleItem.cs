@@ -3,8 +3,8 @@
     [System.Serializable]
     public class RuleItem
     {
-        public string Name { get; set; }
-        public string FilePath { get; set; }
-        public bool Enabled { get; set; }
+        public string Name;
+        public string FilePath;
+        public bool Enabled;
     }
 }
