@@ -22,13 +22,16 @@
             WriteOptions(changeOptionsDelegate(ReadOptions<T>()));
         }
 
-        public void ChangeOptions<T>(ChangeOptionsVoidDelegate<T> changeOptionsDelegate) where T : class {
+        public void ChangeOptions<T>(ChangeOptionsVoidDelegate<T> changeOptionsDelegate, ChangeOptionsIfNullDelegate<T> changeOptionsIfNullDelegate = null) where T : class {
             var options = ReadOptions<T>();
+            if (options == null && changeOptionsIfNullDelegate != null)
+                options = changeOptionsIfNullDelegate();
             changeOptionsDelegate(options);
             WriteOptions(options);
         }
 
         public delegate T ChangeOptionsValueDelegate<T>(T options);
         public delegate void ChangeOptionsVoidDelegate<T>(T options);
+        public delegate T ChangeOptionsIfNullDelegate<T>();
     }
 }
