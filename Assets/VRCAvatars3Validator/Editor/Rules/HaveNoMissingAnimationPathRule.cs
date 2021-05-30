@@ -23,7 +23,7 @@ namespace VRCAvatars3Validator.Rules
 
         public static List<string> ignoreAnimationFileRegexsDefault = new List<string>
         {
-            "proxy_*"
+            "^proxy_*"
         };
 
         public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, ValidatorSettings settings)
