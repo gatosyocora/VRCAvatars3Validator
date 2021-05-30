@@ -32,7 +32,8 @@ namespace VRCAvatars3Validator.Tests
             };
 
             var settings = ScriptableObject.CreateInstance<ValidatorSettings>();
-            var results = new HaveNoMissingAnimationPathRule().Validate(vrcAvatarDescriptor, settings).ToArray();
+            settings.rules.Add(new RuleItem());
+            var results = new HaveNoMissingAnimationPathRule().Validate(vrcAvatarDescriptor, settings, settings.rules[0]).ToArray();
 
             Assert.AreEqual(3, results.Length);
 
