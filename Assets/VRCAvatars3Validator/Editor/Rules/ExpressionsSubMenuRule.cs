@@ -22,7 +22,7 @@ namespace VRCAvatars3Validator.Rules
     {
         public string RuleSummary => "Exists unset SubMenu";
 
-        public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar)
+        public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, ValidatorSettings settings)
         {
             if (avatar.expressionsMenu is null) return Enumerable.Empty<ValidateResult>();
 

@@ -14,12 +14,13 @@ namespace VRCAvatars3Validator
     {
         public static Dictionary<int, IEnumerable<ValidateResult>> ValidateAvatars3(VRCAvatarDescriptor avatar, IEnumerable<RuleItem> rules)
         {
+            var settings = ValidatorSettingsUtility.GetOrCreateSettings();
             return rules.Select((rule, index) => new { Rule = rule, Index = index})
                 .Where(rulePair => rulePair.Rule.Enabled)
                 .Select(rulePair =>
                 {
                     var rule = RuleUtility.FilePath2IRule(rulePair.Rule.FilePath);
-                    var results = rule.Validate(avatar);
+                    var results = rule.Validate(avatar, settings);
                     return new KeyValuePair<int, IEnumerable<ValidateResult>>(rulePair.Index + 1, results);
                 })
                 .ToDictionary(resultPair => resultPair.Key, resultPair => resultPair.Value);
