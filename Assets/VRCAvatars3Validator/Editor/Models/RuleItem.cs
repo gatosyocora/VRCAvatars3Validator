@@ -8,7 +8,7 @@
         public bool Enabled;
         public string Options;
 
-        public T LoadOptions<T>() where T : class {
+        public T ReadOptions<T>() where T : class {
             if (Options == null || Options == "")
                 return null;
             return UnityEngine.JsonUtility.FromJson<T>(Options);
