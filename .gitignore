@@ -63,6 +63,7 @@ Assets/*
 !Assets/ScriptTemplates.?*
 !Assets/Editor
 !Assets/Editor/UnityPackageExporter.*
+!Assets/VRCAV3ValidTest*
 
 Assets/VRCAvatars3Validator/Editor/Settings.asset
 Assets/VRCAvatars3Validator/Editor/Settings.asset.meta
