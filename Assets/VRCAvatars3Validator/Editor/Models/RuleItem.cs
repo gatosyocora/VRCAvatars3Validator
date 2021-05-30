@@ -22,9 +22,17 @@
             WriteOptions(changeOptionsDelegate(ReadOptions<T>()));
         }
 
-        public void ChangeOptions<T>(ChangeOptionsVoidDelegate<T> changeOptionsDelegate, ChangeOptionsIfNullDelegate<T> changeOptionsIfNullDelegate = null) where T : class {
+        public void ChangeOptions<T>(ChangeOptionsVoidDelegate<T> changeOptionsDelegate) where T : class, new() {
             var options = ReadOptions<T>();
-            if (options == null && changeOptionsIfNullDelegate != null)
+            if (options == null)
+                options = new T();
+            changeOptionsDelegate(options);
+            WriteOptions(options);
+        }
+
+        public void ChangeOptions<T>(ChangeOptionsVoidDelegate<T> changeOptionsDelegate, ChangeOptionsIfNullDelegate<T> changeOptionsIfNullDelegate) where T : class {
+            var options = ReadOptions<T>();
+            if (options == null)
                 options = changeOptionsIfNullDelegate();
             changeOptionsDelegate(options);
             WriteOptions(options);
