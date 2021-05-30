@@ -30,16 +30,29 @@ namespace VRCAvatars3Validator.Views
                     EditorGUILayout.LabelField("Enable Rules", EditorStyles.boldLabel);
 
                     var ruleNames = settings.rules.Select(rule => rule.Name).ToArray();
+                    var rules = settings.rules.Select(x => RuleUtility.FilePath2IRule(x.FilePath)).ToArray();
 
                     for (int i = 0; i < ruleNames.Length; i++)
                     {
                         var validateRule = settings.rules[i].Enabled;
                         var ruleName = ruleNames[i];
-                        var ruleSummary = RuleUtility.FilePath2IRule(settings.rules[i].FilePath).RuleSummary;
+                        var ruleSummary = rules[i].RuleSummary;
                         using (var check = new EditorGUI.ChangeCheckScope())
                         {
                             settings.rules[i].Enabled = EditorGUILayout.ToggleLeft($"[{ruleName}] {ruleSummary}", validateRule);
                         }
+                    }
+
+                    EditorGUILayout.Space();
+
+                    foreach (var rule in rules)
+                    {
+                        if (rule is Settingable settingableRule)
+                        {
+                            EditorGUILayout.LabelField(rule.GetType().Name, EditorStyles.boldLabel);
+                            settingableRule.OnGUI(settings);
+                        }
+                        EditorGUILayout.Space();
                     }
                 }
             };
