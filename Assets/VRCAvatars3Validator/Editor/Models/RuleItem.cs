@@ -17,5 +17,18 @@
         public void WriteOptions(object options) {
             Options = UnityEngine.JsonUtility.ToJson(options);
         }
+
+        public void ChangeOptions<T>(ChangeOptionsValueDelegate<T> changeOptionsDelegate) where T : class {
+            WriteOptions(changeOptionsDelegate(ReadOptions<T>()));
+        }
+
+        public void ChangeOptions<T>(ChangeOptionsVoidDelegate<T> changeOptionsDelegate) where T : class {
+            var options = ReadOptions<T>();
+            changeOptionsDelegate(options);
+            WriteOptions(options);
+        }
+
+        public delegate T ChangeOptionsValueDelegate<T>(T options);
+        public delegate void ChangeOptionsVoidDelegate<T>(T options);
     }
 }
