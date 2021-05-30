@@ -45,12 +45,13 @@ namespace VRCAvatars3Validator.Views
 
                     EditorGUILayout.Space();
 
-                    foreach (var rule in rules)
+                    for (int i = 0; i < rules.Length; i++)
                     {
+                        var rule = rules[i];
                         if (rule is Settingable settingableRule)
                         {
                             EditorGUILayout.LabelField(rule.GetType().Name, EditorStyles.boldLabel);
-                            settingableRule.OnGUI(settings);
+                            settingableRule.OnGUI(settings, settings.rules[i]);
                         }
                         EditorGUILayout.Space();
                     }
