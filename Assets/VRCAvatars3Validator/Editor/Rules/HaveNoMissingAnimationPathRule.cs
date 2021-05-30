@@ -17,7 +17,7 @@ namespace VRCAvatars3Validator.Rules
     {
         public string RuleSummary => "Exists missing path in AnimationClips";
 
-        public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, ValidatorSettings settings)
+        public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, ValidatorSettings settings, RuleItem ruleItem)
         {
             var animationClips = VRCAvatarUtility.GetAnimationClips(avatar);
             foreach (var animationClip in animationClips)

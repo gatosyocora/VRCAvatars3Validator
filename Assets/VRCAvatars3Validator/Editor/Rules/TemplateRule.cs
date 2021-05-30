@@ -15,7 +15,7 @@ namespace VRCAvatars3Validator.Rules
     {
         public string RuleSummary => "Write rule summary.";
 
-        public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, ValidatorSettings settings)
+        public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, ValidatorSettings settings, RuleItem ruleItem)
         {
             // Write validation code.
             // Return validation result if have error.

@@ -23,7 +23,7 @@ namespace VRCAvatars3Validator.Rules
     {
         public string RuleSummary => "Missing Expression Parameter";
 
-        public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, ValidatorSettings settings)
+        public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, ValidatorSettings settings, RuleItem ruleItem)
         {
             var exParamsAsset = VRCAvatarUtility.GetExpressionParametersAsset(avatar);
 
