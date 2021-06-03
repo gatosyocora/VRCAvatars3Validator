@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using VRCAvatars3Validator.Views;
 
 namespace VRCAvatars3Validator.Models
 {
@@ -9,7 +10,12 @@ namespace VRCAvatars3Validator.Models
         public string data =
         "{\n" +
             "\"dictionary\":[\n" + 
-            "{\"key\":\"hogehoge\",\"value\":\"ほげほげ\"},\n" +
+            "{\"key\":\"hogehoge\",\"value\":\"hogehoge\"}\n" +
+            ",{\"key\":\"ExpressionsSubMenuRule_summary\",\"value\":\"Exists unset SubMenu\"}\n" +
+            ",{\"key\":\"ControllerLayerWeightRule_summary\",\"value\":\"Have weight 0 layer\"}\n" +
+            ",{\"key\":\"HaveTransformAnimationRule_summary\",\"value\":\"Have other than Transform Animation in other than FX\"}\n" +
+            ",{\"key\":\"HaveExParamsInControllersRule_summary\",\"value\":\"Missing Expression Parameter\"}\n" +
+            ",{\"key\":\"HaveNoMissingAnimationPathRule_summary\",\"value\":\"Exists missing path in AnimationClips\"}\n" +
             "]\n" +
         "}";
     }

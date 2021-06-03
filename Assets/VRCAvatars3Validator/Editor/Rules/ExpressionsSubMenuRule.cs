@@ -20,7 +20,7 @@ namespace VRCAvatars3Validator.Rules
     /// </summary>
     public class ExpressionsSubMenuRule : IRule
     {
-        public string RuleSummary => "Exists unset SubMenu";
+        public string RuleSummary => Localize.Tr("ExpressionsSubMenuRule_summary");
 
         public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, ValidatorSettings settings)
         {

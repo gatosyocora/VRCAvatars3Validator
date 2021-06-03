@@ -17,7 +17,7 @@ namespace VRCAvatars3Validator.Rules
 {
     public class HaveTransformAnimationRule : IRule
     {
-        public string RuleSummary => "Have other than Transform Animation in other than FX";
+        public string RuleSummary => Localize.Tr("HaveTransformAnimationRule_summary");
 
         public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, ValidatorSettings settings)
         {
