@@ -17,7 +17,7 @@ namespace VRCAvatars3Validator.Rules
 {
     public class HaveTransformAnimationRule : IRule
     {
-        public string RuleSummary => Localize.Tr("HaveTransformAnimationRule_summary");
+        public string RuleSummary => Localize.Translate("HaveTransformAnimationRule_summary");
 
         public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, ValidatorSettings settings)
         {

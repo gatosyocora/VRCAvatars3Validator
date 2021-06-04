@@ -18,7 +18,7 @@ namespace VRCAvatars3Validator
 
         public static JsonDictionary translateDictionary;
 
-        public static string Tr(string textId)
+        public static string Translate(string textId)
         {
             if (languageType != settings.languageType)
             {

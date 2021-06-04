@@ -20,19 +20,19 @@ namespace VRCAvatars3Validator.Views
                 guiHandler = (searchContext) =>
                 {
                     var settings = ValidatorSettingsUtility.GetOrCreateSettings();
-                    settings.validateOnUploadAvatar = EditorGUILayout.Toggle(Localize.Tr("ValidateOnUploadAvatar"), settings.validateOnUploadAvatar);
+                    settings.validateOnUploadAvatar = EditorGUILayout.Toggle(Localize.Translate("ValidateOnUploadAvatar"), settings.validateOnUploadAvatar);
 
                     EditorGUILayout.Space();
 
-                    settings.suspendUploadingByWarningMessage = EditorGUILayout.ToggleLeft(Localize.Tr("SuspendWarning"), settings.suspendUploadingByWarningMessage);
+                    settings.suspendUploadingByWarningMessage = EditorGUILayout.ToggleLeft(Localize.Translate("SuspendWarning"), settings.suspendUploadingByWarningMessage);
 
                     EditorGUILayout.Space();
 
-                    settings.languageType = (LanguageType)EditorGUILayout.EnumPopup(Localize.Tr("language"), settings.languageType);
+                    settings.languageType = (LanguageType)EditorGUILayout.EnumPopup(Localize.Translate("language"), settings.languageType);
 
                     EditorGUILayout.Space();
 
-                    EditorGUILayout.LabelField(Localize.Tr("EnableRules"), EditorStyles.boldLabel);
+                    EditorGUILayout.LabelField(Localize.Translate("EnableRules"), EditorStyles.boldLabel);
 
                     var ruleNames = settings.rules.Select(rule => rule.Name).ToArray();
                     var rules = settings.rules.Select(x => RuleUtility.FilePath2IRule(x.FilePath)).ToArray();

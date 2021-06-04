@@ -21,7 +21,7 @@ namespace VRCAvatars3Validator.Rules
     /// </summary>
     public class HaveExParamsInControllersRule : IRule
     {
-        public string RuleSummary => Localize.Tr("HaveExParamsInControllersRule_summary");
+        public string RuleSummary => Localize.Translate("HaveExParamsInControllersRule_summary");
 
         public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, ValidatorSettings settings)
         {

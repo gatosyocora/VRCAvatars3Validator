@@ -20,7 +20,7 @@ namespace VRCAvatars3Validator.Rules
     /// </summary>
     public class ExpressionsSubMenuRule : IRule
     {
-        public string RuleSummary => Localize.Tr("ExpressionsSubMenuRule_summary");
+        public string RuleSummary => Localize.Translate("ExpressionsSubMenuRule_summary");
 
         public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, ValidatorSettings settings)
         {
