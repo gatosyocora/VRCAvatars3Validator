@@ -15,6 +15,18 @@ namespace VRCAvatars3Validator.Models
             ",{\"key\":\"HaveTransformAnimationRule_summary\",\"value\":\"Have other than Transform Animation in other than FX\"}\n" +
             ",{\"key\":\"HaveExParamsInControllersRule_summary\",\"value\":\"Missing Expression Parameter\"}\n" +
             ",{\"key\":\"HaveNoMissingAnimationPathRule_summary\",\"value\":\"Exists missing path in AnimationClips\"}\n" +
+            ",{\"key\":\"language\",\"value\":\"Language\"}\n" +
+            ",{\"key\":\"ValidateOnUploadAvatar\",\"value\":\"Validate OnUploadAvatar\"}\n" +
+            ",{\"key\":\"SuspendWarning\",\"value\":\"Suspend uploading by warning message\"}\n" +
+            ",{\"key\":\"EnableRules\",\"value\":\"Enable Rules\"}\n" +
+            ",{\"key\":\"Settings\",\"value\":\"Settings\"}\n" +
+            ",{\"key\":\"Avatar\",\"value\":\"Avatar\"}\n" +
+            ",{\"key\":\"Rules\",\"value\":\"Rules\"}\n" +
+            ",{\"key\":\"Validate\",\"value\":\"Validate\"}\n" +
+            ",{\"key\":\"Errors\",\"value\":\"Errors\"}\n" +
+            ",{\"key\":\"NoError\",\"value\":\"No Error\"}\n" +
+            ",{\"key\":\"Select\",\"value\":\"Select\"}\n" +
+            ",{\"key\":\"AutoFix\",\"value\":\"AutoFix\"}\n" +
             "]\n" +
         "}";
     }
