@@ -18,7 +18,7 @@ namespace VRCAvatars3Validator
 
         public static JsonDictionary translateDictionary;
 
-        public static string Translate(string textId)
+        public static string Translate(string textId, params string[] values)
         {
             if (languageType != settings.languageType)
             {
@@ -36,7 +36,12 @@ namespace VRCAvatars3Validator
             {
                 translateDictionary = JsonUtility.FromJson<JsonDictionary>(languagePack.data);
             }
-            return translateDictionary.Dictionary[textId];
+            var text = translateDictionary.Dictionary[textId];
+            for(int i = 0; i < values.Length; i++)
+            {
+                text = text.Replace($"<{i + 1}>", values[i]);
+            }
+            return text;
         }
     }
 }
