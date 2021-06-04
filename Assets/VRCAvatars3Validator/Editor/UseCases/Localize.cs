@@ -28,7 +28,7 @@ namespace VRCAvatars3Validator
             {
                 translateDictionary = JsonUtility.FromJson<JsonDictionary>(languagePack.data);
             }
-            return translateDictionary[textId];
+            return translateDictionary.Dictionary[textId];
         }
     }
 }
