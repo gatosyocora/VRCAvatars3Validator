@@ -31,7 +31,17 @@ namespace VRCAvatars3Validator.Views
             var y = position.y;
             var dictionary = Deserialize(property.stringValue);
             var keys = dictionary.Dictionary.Keys.Select(key => key).ToArray();
-            enable = EditorGUI.Toggle(new Rect(position.x, y += H, position.width, position.height), enable);
+            if (GUI.Button(NewRect(position, ref y), "Toggle Enable"))
+            {
+                enable = !enable;
+            }
+            if (GUI.Button(NewRect(position, ref y), "Copy"))
+            {
+                EditorGUIUtility.systemCopyBuffer = property.stringValue;
+            }
+            if (GUI.Button(NewRect(position, ref y), "Fetch"))
+            {
+            }
             using (new EditorGUI.DisabledGroupScope(!enable))
             {
                 for (int i = 0; i < keys.Length; i++)
@@ -41,7 +51,7 @@ namespace VRCAvatars3Validator.Views
                     {
                         var key = keys[i];
                         var value = dictionary.Dictionary[key];
-                        var newValue = EditorGUI.TextField(new Rect(position.x, y += H, position.width, position.height), key, value);
+                        var newValue = EditorGUI.TextField(NewRect(position, ref y), key, value);
 
                         if (check.changed)
                         {
@@ -62,6 +72,8 @@ namespace VRCAvatars3Validator.Views
         {
             return JsonUtility.FromJson<JsonDictionary>(data);
         }
+
+        private Rect NewRect(Rect position, ref float y) => new Rect(position.x, y += H, position.width, position.height);
     }
 }
 
