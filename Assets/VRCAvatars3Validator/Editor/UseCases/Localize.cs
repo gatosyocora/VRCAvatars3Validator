@@ -3,6 +3,7 @@ using System;
 using UnityEditor;
 using UnityEngine;
 using VRCAvatars3Validator.Models;
+using VRCAvatars3Validator.Utilities;
 
 namespace VRCAvatars3Validator 
 {
@@ -10,7 +11,8 @@ namespace VRCAvatars3Validator
     {
         public static string LANGUAGE_PACK_FOLDER = "Assets/VRCAvatars3Validator/Editor/Langs/";
 
-        public static LanguageType languageType = LanguageType.EN;
+        public static ValidatorSettings settings = ValidatorSettingsUtility.GetOrCreateSettings();
+        public static LanguageType languageType;
 
         public static LanguagePack languagePack;
 
@@ -18,10 +20,16 @@ namespace VRCAvatars3Validator
 
         public static string Tr(string textId)
         {
+            if (languageType != settings.languageType)
+            {
+                languageType = settings.languageType;
+                languagePack = null;
+                translateDictionary = null;
+            }
+
             if (languagePack == null)
             {
                 languagePack = AssetDatabase.LoadAssetAtPath<LanguagePack>($"{LANGUAGE_PACK_FOLDER}{languageType}.asset");
-                Debug.Log($"{LANGUAGE_PACK_FOLDER}{languageType}.asset");
             }
 
             if (translateDictionary == null)

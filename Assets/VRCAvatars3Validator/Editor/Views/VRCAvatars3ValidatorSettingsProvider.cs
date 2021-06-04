@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
+using VRCAvatars3Validator.Models;
 using VRCAvatars3Validator.Utilities;
 
 namespace VRCAvatars3Validator.Views
@@ -24,6 +25,10 @@ namespace VRCAvatars3Validator.Views
                     EditorGUILayout.Space();
 
                     settings.suspendUploadingByWarningMessage = EditorGUILayout.ToggleLeft("Suspend uploading by warning message", settings.suspendUploadingByWarningMessage);
+
+                    EditorGUILayout.Space();
+
+                    settings.languageType = (LanguageType)EditorGUILayout.EnumPopup("Language", settings.languageType);
 
                     EditorGUILayout.Space();
 
