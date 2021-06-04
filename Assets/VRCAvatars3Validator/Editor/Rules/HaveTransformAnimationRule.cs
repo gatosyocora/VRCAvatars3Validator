@@ -53,7 +53,7 @@ namespace VRCAvatars3Validator.Rules
                             yield return new ValidateResult(
                                 clip,
                                 ValidateResult.ValidateResultType.Error,
-                                $"{clip.name} have key changed other than Transform");
+                                Localize.Translate("HaveTransformAnimationRule_result", clip.name));
                         }
                     }
                 }

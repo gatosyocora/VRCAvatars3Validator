@@ -40,7 +40,7 @@ namespace VRCAvatars3Validator.Rules
                     yield return new ValidateResult(
                         expressionsMenu,
                         ValidateResultType.Error,
-                        $"`{control.name}` exists unset SubMenu.");
+                        Localize.Translate("ExpressionsSubMenuRule_result", expressionsMenu.name));
                 }
                 else
                 {

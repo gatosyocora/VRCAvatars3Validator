@@ -27,6 +27,11 @@ namespace VRCAvatars3Validator.Models
             ",{\"key\":\"NoError\",\"value\":\"No Error\"}\n" +
             ",{\"key\":\"Select\",\"value\":\"Select\"}\n" +
             ",{\"key\":\"AutoFix\",\"value\":\"AutoFix\"}\n" +
+            ",{\"key\":\"ControllerLayerWeightRule_result\",\"value\":\"`<1>` Layer in <2> is weight 0.\"}\n" +
+            ",{\"key\":\"HaveExParamsInControllersRule_result\",\"value\":\"<1> is not found in AnimatorControllers\"}\n" +
+            ",{\"key\":\"ExpressionsSubMenuRule_result\",\"value\":\"`<1>` exists unset SubMenu.\"}\n" +
+            ",{\"key\":\"HaveTransformAnimationRule_result\",\"value\":\"<1> have key changed other than Transform\"}\n" +
+            ",{\"key\":\"HaveNoMissingAnimationPathRule_result\",\"value\":\"`<1>` have missing path. (<2>)\"}\n" +
             "]\n" +
         "}";
     }

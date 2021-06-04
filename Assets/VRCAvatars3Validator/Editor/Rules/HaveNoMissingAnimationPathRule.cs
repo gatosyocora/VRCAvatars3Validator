@@ -29,7 +29,7 @@ namespace VRCAvatars3Validator.Rules
                         yield return new ValidateResult(
                             animationClip,
                             ValidateResult.ValidateResultType.Warning,
-                            $"`{animationClip.name}` have missing path. ({binding.path})");
+                            Localize.Translate("HaveNoMissingAnimationPathRule_result", animationClip.name, binding.path));
                     }
                 }
             }

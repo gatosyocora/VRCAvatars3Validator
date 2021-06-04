@@ -55,7 +55,7 @@ namespace VRCAvatars3Validator.Rules
                     yield return new ValidateResult(
                                     exParamsAsset,
                                     ValidateResult.ValidateResultType.Error,
-                                    $"{exParamName} is not found in AnimatorControllers");
+                                    Localize.Translate("HaveExParamsInControllersRule_result", exParamName));
                 }
             }
         }
