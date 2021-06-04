@@ -18,6 +18,7 @@ namespace VRCAvatars3Validator.Views
     public class LanguagePackDrawer : PropertyDrawer
     {
         public static int H = 18;
+        private bool enable = false;
 
         public class Pair
         {
@@ -30,19 +31,23 @@ namespace VRCAvatars3Validator.Views
             var y = position.y;
             var dictionary = Deserialize(property.stringValue);
             var keys = dictionary.Dictionary.Keys.Select(key => key).ToArray();
-            for (int i = 0; i < keys.Length; i++)
+            enable = EditorGUI.Toggle(new Rect(position.x, y += H, position.width, position.height), enable);
+            using (new EditorGUI.DisabledGroupScope(!enable))
             {
-                var pair = dictionary.Dictionary.Keys;
-                using (var check = new EditorGUI.ChangeCheckScope())
+                for (int i = 0; i < keys.Length; i++)
                 {
-                    var key = keys[i];
-                    var value = dictionary.Dictionary[key];
-                    var newValue = EditorGUI.TextField(new Rect(position.x, y += H, position.width, position.height), key, value);
-
-                    if (check.changed)
+                    var pair = dictionary.Dictionary.Keys;
+                    using (var check = new EditorGUI.ChangeCheckScope())
                     {
-                        dictionary.Dictionary[key] = newValue;
-                        property.stringValue = Serialize(dictionary);
+                        var key = keys[i];
+                        var value = dictionary.Dictionary[key];
+                        var newValue = EditorGUI.TextField(new Rect(position.x, y += H, position.width, position.height), key, value);
+
+                        if (check.changed)
+                        {
+                            dictionary.Dictionary[key] = newValue;
+                            property.stringValue = Serialize(dictionary);
+                        }
                     }
                 }
             }
