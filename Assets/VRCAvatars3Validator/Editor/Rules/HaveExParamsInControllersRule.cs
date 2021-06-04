@@ -21,7 +21,7 @@ namespace VRCAvatars3Validator.Rules
     /// </summary>
     public class HaveExParamsInControllersRule : IRule
     {
-        public string RuleSummary => "Missing Expression Parameter";
+        public string RuleSummary => Localize.Translate("HaveExParamsInControllersRule_summary");
 
         public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, ValidatorSettings settings)
         {
@@ -55,7 +55,7 @@ namespace VRCAvatars3Validator.Rules
                     yield return new ValidateResult(
                                     exParamsAsset,
                                     ValidateResult.ValidateResultType.Error,
-                                    $"{exParamName} is not found in AnimatorControllers");
+                                    Localize.Translate("HaveExParamsInControllersRule_result", exParamName));
                 }
             }
         }

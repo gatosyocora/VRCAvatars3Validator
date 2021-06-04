@@ -15,7 +15,7 @@ namespace VRCAvatars3Validator.Rules
     /// </summary>
     public class HaveNoMissingAnimationPathRule : IRule
     {
-        public string RuleSummary => "Exists missing path in AnimationClips";
+        public string RuleSummary => Localize.Translate("HaveNoMissingAnimationPathRule_summary");
 
         public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, ValidatorSettings settings)
         {
@@ -29,7 +29,7 @@ namespace VRCAvatars3Validator.Rules
                         yield return new ValidateResult(
                             animationClip,
                             ValidateResult.ValidateResultType.Warning,
-                            $"`{animationClip.name}` have missing path. ({binding.path})");
+                            Localize.Translate("HaveNoMissingAnimationPathRule_result", animationClip.name, binding.path));
                     }
                 }
             }
