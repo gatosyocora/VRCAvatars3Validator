@@ -1,4 +1,5 @@
 ﻿using Kogane;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
+using VRCAvatars3Validator.Models;
 
 namespace VRCAvatars3Validator.Views
 {
@@ -41,6 +43,17 @@ namespace VRCAvatars3Validator.Views
             }
             if (GUI.Button(NewRect(position, ref y), "Fetch"))
             {
+                var classType = fieldInfo.DeclaringType;
+                var languagePack = Activator.CreateInstance(classType) as LanguagePack;
+                var masterDictionary = JsonUtility.FromJson<JsonDictionary>(languagePack.data);
+                foreach (var key in masterDictionary.Dictionary.Keys)
+                {
+                    if(!dictionary.Dictionary.TryGetValue(key, out string value))
+                    {
+                        dictionary.Dictionary.Add(key, masterDictionary.Dictionary[key]);
+                    }
+                }
+                property.stringValue = Serialize(dictionary);
             }
             using (new EditorGUI.DisabledGroupScope(!enable))
             {
