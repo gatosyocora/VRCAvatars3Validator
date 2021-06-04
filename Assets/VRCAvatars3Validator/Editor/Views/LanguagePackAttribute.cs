@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using Kogane;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using UnityEditor;
@@ -26,51 +28,34 @@ namespace VRCAvatars3Validator.Views
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             var y = position.y;
-            var pairs = Deserialize(property.stringValue);
-            for (int i = 0; i < pairs.Length; i++)
+            var dictionary = Deserialize(property.stringValue);
+            var keys = dictionary.Dictionary.Keys.Select(key => key).ToArray();
+            for (int i = 0; i < keys.Length; i++)
             {
-                var pair = pairs[i];
+                var pair = dictionary.Dictionary.Keys;
                 using (var check = new EditorGUI.ChangeCheckScope())
                 {
-                    var newValue = EditorGUI.TextField(new Rect(position.x, y += H, position.width, position.height), pair.key, pair.value);
+                    var key = keys[i];
+                    var value = dictionary.Dictionary[key];
+                    var newValue = EditorGUI.TextField(new Rect(position.x, y += H, position.width, position.height), key, value);
 
                     if (check.changed)
                     {
-                        pairs[i].value = newValue;
-                        property.stringValue = Serialize(pairs);
+                        dictionary.Dictionary[key] = newValue;
+                        property.stringValue = Serialize(dictionary);
                     }
                 }
             }
         }
 
-        private string Serialize(Pair[] pairs)
+        private string Serialize(JsonDictionary dictionary)
         {
-            var sb = new StringBuilder();
-            sb.Append("{");
-            sb.Append("\"dictionary\":[");
-            sb.Append("{\"key\":\"hogehoge\",\"value\":\"hogehoge\"}");
-            foreach (var pair in pairs)
-            {
-                sb.Append($",{{\"key\":\"{pair.key}\",\"value\":\"{pair.value}\"}}");
-            }
-            sb.Append("]");
-            sb.Append("}");
-            return sb.ToString();
+            return JsonUtility.ToJson(dictionary);
         }
 
-        private Pair[] Deserialize(string data)
+        private JsonDictionary Deserialize(string data)
         {
-            var pairList = new List<Pair>();
-            var matches = Regex.Matches(data, @",{\x22key\x22:\x22(?<key>(\w|\s|\.)+)\x22,\x22value\x22:\x22(?<value>(\w|\s|\.)+)\x22}");
-            foreach (Match match in matches)
-            {
-                pairList.Add(new Pair
-                {
-                    key = match.Groups["key"].Value,
-                    value = match.Groups["value"].Value
-                });
-            }
-            return pairList.ToArray();
+            return JsonUtility.FromJson<JsonDictionary>(data);
         }
     }
 }

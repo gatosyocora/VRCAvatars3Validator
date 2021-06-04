@@ -47,8 +47,8 @@ namespace Kogane
 
         void ISerializationCallbackReceiver.OnAfterDeserialize()
         {
-            //m_dictionary = dictionary.ToDictionary(x => x.Key, x => x.Value);
-            //dictionary = null;
+            m_dictionary = dictionary.ToDictionary(x => x.Key, x => x.Value);
+            dictionary = null;
         }
     }
 }

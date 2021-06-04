@@ -9,9 +9,8 @@ namespace VRCAvatars3Validator.Models
         [LanguagePack]
         public string data =
         "{\n" +
-            "\"dictionary\":[\n" + 
-            "{\"key\":\"hogehoge\",\"value\":\"hogehoge\"}\n" +
-            ",{\"key\":\"ExpressionsSubMenuRule_summary\",\"value\":\"Exists unset SubMenu\"}\n" +
+            "\"dictionary\":[\n" +
+            " {\"key\":\"ExpressionsSubMenuRule_summary\",\"value\":\"Exists unset SubMenu\"}\n" +
             ",{\"key\":\"ControllerLayerWeightRule_summary\",\"value\":\"Have weight 0 layer\"}\n" +
             ",{\"key\":\"HaveTransformAnimationRule_summary\",\"value\":\"Have other than Transform Animation in other than FX\"}\n" +
             ",{\"key\":\"HaveExParamsInControllersRule_summary\",\"value\":\"Missing Expression Parameter\"}\n" +

@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e5494b88e46dca47947ab5b0186d7a8, type: 3}
   m_Name: EN
   m_EditorClassIdentifier: 
-  data: '{"dictionary":[{"key":"hogehoge","value":"hogehoge"},{"key":"ExpressionsSubMenuRule_summary","value":"hogehoge"},{"key":"ControllerLayerWeightRule_summary","value":"Have
-    weight 0 layer"},{"key":"HaveTransformAnimationRule_summary","value":"Have other
-    than Transform Animation in other than FX"},{"key":"HaveExParamsInControllersRule_summary","value":"Missing
-    Expression Parameter"},{"key":"HaveNoMissingAnimationPathRule_summary","value":"Exists
-    missing path in AnimationClips"}]}'
+  data: "{\n\"dictionary\":[\n {\"key\":\"ExpressionsSubMenuRule_summary\",\"value\":\"Exists
+    unset SubMenu\"}\n,{\"key\":\"ControllerLayerWeightRule_summary\",\"value\":\"Have
+    weight 0 layer\"}\n,{\"key\":\"HaveTransformAnimationRule_summary\",\"value\":\"Have
+    other than Transform Animation in other than FX\"}\n,{\"key\":\"HaveExParamsInControllersRule_summary\",\"value\":\"Missing
+    Expression Parameter\"}\n,{\"key\":\"HaveNoMissingAnimationPathRule_summary\",\"value\":\"Exists
+    missing path in AnimationClips\"}\n]\n}"
