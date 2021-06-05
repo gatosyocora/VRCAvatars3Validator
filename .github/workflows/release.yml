@@ -39,6 +39,8 @@ jobs:
           cp -f README.md.meta ./Assets/VRCAvatars3Validator/README.md.meta
           cp -f LICENSE ./Assets/VRCAvatars3Validator/LICENSE
           cp -f LICENSE.meta ./Assets/VRCAvatars3Validator/LICENSE.meta
+          cp -f CHANGELOG.md ./Assets/VRCAvatars3Validator/CHANGELOG.md
+          cp -f CHANGELOG.md.meta ./Assets/VRCAvatars3Validator/CHANGELOG.md.meta
           
       - name: git commit & push
         run: |
@@ -62,6 +64,7 @@ jobs:
           cp -f ${{ steps.outputdata.outputs.filename }} $DIR/${{ steps.outputdata.outputs.filename }}
           cp -f README.md $DIR/README.md
           cp -f LICENSE $DIR/LICENSE
+          cp -f CHANGELOG.md $DIR/CHANGELOG.md
           zip -r $DIR.zip $DIR
           
       - name: create release
