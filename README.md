@@ -61,6 +61,10 @@ Unity 2018.4.20f1
 本ツールはMITライセンスで運用されます  
 詳しくは[LICENSE](https://github.com/gatosyocora/VRCAvatars3Validator/blob/master/LICENSE)をご覧ください
 
+## 変更履歴
+
+[CHANGELOG.md](./CHANGELOG.md)を確認してください
+
 ## 連絡先
 
 - Twitter : [@gatosyocora](https://twitter.com/gatosyocora)
@@ -120,6 +124,10 @@ The author gatosyocora cannot be held responsible for any problems that may aris
 
 This tool is MIT License 
 It reads [LICENSE](https://github.com/gatosyocora/VRCAvatars3Validator/blob/master/LICENSE) in detail.
+
+## Changelog
+
+see [CHANGELOG.md](./CHANGELOG.md)
 
 ## Contact
 
