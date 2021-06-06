@@ -19,7 +19,7 @@ namespace VRCAvatars3Validator.Rules
     {
         public string RuleSummary => "Have other than Transform Animation in other than FX";
 
-        public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, ValidatorSettings settings, RuleItem ruleItem)
+        public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, ValidatorSettings settings, RuleItemOptions options)
         {
             var humanoidBoneNames = Enum.GetNames(typeof(HumanBodyBones))
                                         .SelectMany(n => new string[] { n, ToContainSpace(n) })

@@ -16,7 +16,7 @@ namespace VRCAvatars3Validator.Rules
     {
         public string RuleSummary => "Have weight 0 layer";
 
-        public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, ValidatorSettings settings, RuleItem ruleItem)
+        public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, ValidatorSettings settings, RuleItemOptions options)
         {
             var controllers = VRCAvatarUtility.GetControllers(avatar);
 
