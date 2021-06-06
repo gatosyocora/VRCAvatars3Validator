@@ -6,5 +6,6 @@
         public string Name;
         public string FilePath;
         public bool Enabled;
+        public RuleItemOptions Options;
     }
 }

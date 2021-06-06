@@ -17,7 +17,7 @@ namespace VRCAvatars3Validator.Rules
     {
         public string RuleSummary => Localize.Translate("HaveNoMissingAnimationPathRule_summary");
 
-        public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, ValidatorSettings settings)
+        public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, ValidatorSettings settings, RuleItemOptions options)
         {
             var animationClips = VRCAvatarUtility.GetAnimationClips(avatar);
             foreach (var animationClip in animationClips)

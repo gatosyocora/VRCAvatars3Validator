@@ -20,6 +20,6 @@ namespace VRCAvatars3Validator
         /// </summary>
         /// <param name="avatar">Validated avatar</param>
         /// <returns>Validate results</returns>
-        IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, ValidatorSettings settings);
+        IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, ValidatorSettings settings, RuleItemOptions options);
     }
 }

@@ -33,7 +33,8 @@ namespace VRCAvatars3Validator.Tests
             };
 
             var settings = ScriptableObject.CreateInstance<ValidatorSettings>();
-            var results = new ExpressionsSubMenuRule().Validate(vrcAvatarDescriptor, settings).ToArray();
+            settings.rules.Add(new RuleItem());
+            var results = new ExpressionsSubMenuRule().Validate(vrcAvatarDescriptor, settings, settings.rules[0].Options).ToArray();
 
             Assert.AreEqual(4, results.Length);
 
