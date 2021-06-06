@@ -58,9 +58,11 @@ namespace VRCAvatars3Validator.Rules
                 GUILayout.FlexibleSpace();
                 if (GUILayout.Button(Localize.Translate("Add"))) {
                     options.ChangeOptions<HaveNoMissingAnimationPathRuleOptions>(option => option.IgnoreAnimationFileRegexs.Add(""));
+                    EditorUtility.SetDirty(settings);
                 }
                 if (GUILayout.Button(Localize.Translate("Reset"))) {
                     options.ChangeOptions<HaveNoMissingAnimationPathRuleOptions>(option => option.IgnoreAnimationFileRegexs = ignoreAnimationFileRegexsDefault);
+                    EditorUtility.SetDirty(settings);
                 }
             }
             var haveNoMissingAnimationPathRuleOption = options.ReadOptions<HaveNoMissingAnimationPathRuleOptions>();
@@ -75,11 +77,13 @@ namespace VRCAvatars3Validator.Rules
 
                     if (check.changed) {
                         options.ChangeOptions<HaveNoMissingAnimationPathRuleOptions>(option => option.IgnoreAnimationFileRegexs = ignoreAnimationFileRegexs);
+                        EditorUtility.SetDirty(settings);
                     }
 
                     if (GUILayout.Button("×")) {
                         ignoreAnimationFileRegexs.RemoveAt(i);
                         options.ChangeOptions<HaveNoMissingAnimationPathRuleOptions>(option => option.IgnoreAnimationFileRegexs = ignoreAnimationFileRegexs);
+                        EditorUtility.SetDirty(settings);
                     }
                 }
             }
