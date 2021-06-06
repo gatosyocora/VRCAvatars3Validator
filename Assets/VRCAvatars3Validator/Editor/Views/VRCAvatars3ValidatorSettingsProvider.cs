@@ -51,7 +51,7 @@ namespace VRCAvatars3Validator.Views
                         if (rule is Settingable settingableRule)
                         {
                             EditorGUILayout.LabelField(rule.GetType().Name, EditorStyles.boldLabel);
-                            settingableRule.OnGUI(settings, settings.rules[i]);
+                            settingableRule.OnGUI(settings, settings.rules[i].Options);
                         }
                         EditorGUILayout.Space();
                     }
