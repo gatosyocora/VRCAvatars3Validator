@@ -32,9 +32,7 @@ namespace VRCAvatars3Validator.Tests
                 new ValidateResult(vrcAvatarDescriptor.expressionsMenu.controls[2].subMenu.controls[1].subMenu, ValidateResult.ValidateResultType.Error, "`Unset Sub Menu 4` exists unset SubMenu."),
             };
 
-            var settings = ScriptableObject.CreateInstance<ValidatorSettings>();
-            settings.rules.Add(new RuleItem());
-            var results = new ExpressionsSubMenuRule().Validate(vrcAvatarDescriptor, settings, settings.rules[0].Options).ToArray();
+            var results = new ExpressionsSubMenuRule().Validate(vrcAvatarDescriptor, new RuleItemOptions()).ToArray();
 
             Assert.AreEqual(4, results.Length);
 
