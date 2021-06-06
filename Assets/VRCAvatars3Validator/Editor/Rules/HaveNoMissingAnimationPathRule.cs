@@ -65,7 +65,9 @@ namespace VRCAvatars3Validator.Rules
                     EditorUtility.SetDirty(settings);
                 }
             }
-            var ignoreAnimationFileRegexs = options.ReadOptions<HaveNoMissingAnimationPathRuleOptions>().IgnoreAnimationFileRegexs;
+            var haveNoMissingAnimationPathRuleOption = options.ReadOptions<HaveNoMissingAnimationPathRuleOptions>();
+            if (haveNoMissingAnimationPathRuleOption == null) return;
+            var ignoreAnimationFileRegexs = haveNoMissingAnimationPathRuleOption.IgnoreAnimationFileRegexs;
             for (int i = 0; i < ignoreAnimationFileRegexs.Count; i++) {
                 var ignoreAnimationFileRegex = ignoreAnimationFileRegexs[i];
 
