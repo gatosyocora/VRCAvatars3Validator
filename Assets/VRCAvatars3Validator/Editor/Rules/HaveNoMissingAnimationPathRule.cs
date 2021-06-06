@@ -21,10 +21,13 @@ namespace VRCAvatars3Validator.Rules
     {
         public string RuleSummary => "Exists missing path in AnimationClips";
 
-        public static List<string> ignoreAnimationFileRegexsDefault = new List<string>
+        public static List<string> ignoreAnimationFileRegexsDefault
         {
-            "^proxy_*"
-        };
+            get => new List<string>
+            {
+                "^proxy_*"
+            };
+        }
 
         public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, ValidatorSettings settings, RuleItemOptions options)
         {
@@ -85,7 +88,7 @@ namespace VRCAvatars3Validator.Rules
         }
 
         class HaveNoMissingAnimationPathRuleOptions {
-            public List<string> IgnoreAnimationFileRegexs;
+            public List<string> IgnoreAnimationFileRegexs = ignoreAnimationFileRegexsDefault;
         }
     }
 }
