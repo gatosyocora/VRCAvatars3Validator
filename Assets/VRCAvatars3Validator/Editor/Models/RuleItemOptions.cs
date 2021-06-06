@@ -1,5 +1,7 @@
 ﻿using System;
+using UnityEditor;
 using UnityEngine;
+using VRCAvatars3Validator.Utilities;
 
 namespace VRCAvatars3Validator.Models
 {
@@ -19,6 +21,7 @@ namespace VRCAvatars3Validator.Models
         public void WriteOptions(object options)
         {
             jsonText = JsonUtility.ToJson(options);
+            EditorUtility.SetDirty(ValidatorSettingsUtility.GetOrCreateSettings());
         }
 
         public void ChangeOptions<T>(ChangeOptionsValueDelegate<T> changeOptionsDelegate) where T : class
@@ -32,7 +35,7 @@ namespace VRCAvatars3Validator.Models
             if (options == null)
                 options = new T();
             changeOptionsDelegate(options);
-            WriteOptions(options);
+            WriteOptions(options);;
         }
 
         public void ChangeOptions<T>(ChangeOptionsVoidDelegate<T> changeOptionsDelegate, ChangeOptionsIfNullDelegate<T> changeOptionsIfNullDelegate) where T : class
