@@ -52,17 +52,15 @@ namespace VRCAvatars3Validator.Rules
             }
         }
 
-        public void OnGUI(ValidatorSettings settings, RuleItemOptions options) {
+        public void OnGUI(RuleItemOptions options) {
             EditorGUILayout.LabelField("Ignore animation file name pattern");
             using (new EditorGUILayout.HorizontalScope()) {
                 GUILayout.FlexibleSpace();
                 if (GUILayout.Button("Add")) {
                     options.ChangeOptions<HaveNoMissingAnimationPathRuleOptions>(option => option.IgnoreAnimationFileRegexs.Add(""));
-                    EditorUtility.SetDirty(settings);
                 }
                 if (GUILayout.Button("Reset")) {
                     options.ChangeOptions<HaveNoMissingAnimationPathRuleOptions>(option => option.IgnoreAnimationFileRegexs = ignoreAnimationFileRegexsDefault);
-                    EditorUtility.SetDirty(settings);
                 }
             }
             var haveNoMissingAnimationPathRuleOption = options.ReadOptions<HaveNoMissingAnimationPathRuleOptions>();
@@ -77,13 +75,11 @@ namespace VRCAvatars3Validator.Rules
 
                     if (check.changed) {
                         options.ChangeOptions<HaveNoMissingAnimationPathRuleOptions>(option => option.IgnoreAnimationFileRegexs = ignoreAnimationFileRegexs);
-                        EditorUtility.SetDirty(settings);
                     }
 
                     if (GUILayout.Button("×")) {
                         ignoreAnimationFileRegexs.RemoveAt(i);
                         options.ChangeOptions<HaveNoMissingAnimationPathRuleOptions>(option => option.IgnoreAnimationFileRegexs = ignoreAnimationFileRegexs);
-                        EditorUtility.SetDirty(settings);
                     }
                 }
             }
