@@ -53,6 +53,7 @@ namespace VRCAvatars3Validator.Rules
         }
 
         public void OnGUI(ValidatorSettings settings, RuleItemOptions options) {
+            EditorGUILayout.LabelField("Ignore animation file name pattern");
             using (new EditorGUILayout.HorizontalScope()) {
                 GUILayout.FlexibleSpace();
                 if (GUILayout.Button("Add")) {
