@@ -14,7 +14,7 @@ namespace VRCAvatars3Validator.Rules
     /// </summary>
     public class ControllerLayerWeightRule : IRule
     {
-        public string RuleSummary => "Have weight 0 layer";
+        public string RuleSummary => Localize.Translate("ControllerLayerWeightRule_summary");
 
         public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, ValidatorSettings settings, RuleItemOptions options)
         {
@@ -31,7 +31,7 @@ namespace VRCAvatars3Validator.Rules
                         yield return new ValidateResult(
                                         controller,
                                         ValidateResult.ValidateResultType.Warning,
-                                        $"`{layer.name}` Layer in {controller.name} is weight 0.");
+                                        Localize.Translate("ControllerLayerWeightRule_result", layer.name, controller.name));
                     }
                 }
             }

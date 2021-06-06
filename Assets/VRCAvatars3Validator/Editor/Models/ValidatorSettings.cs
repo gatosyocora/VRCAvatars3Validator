@@ -12,6 +12,8 @@ namespace VRCAvatars3Validator.Models
         public bool validateOnUploadAvatar = true;
         public bool suspendUploadingByWarningMessage = true;
 
+        public LanguageType languageType = LanguageType.EN;
+
         public List<RuleItem> rules = new List<RuleItem>();
     }
 }

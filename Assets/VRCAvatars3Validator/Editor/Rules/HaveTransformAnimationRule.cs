@@ -17,7 +17,7 @@ namespace VRCAvatars3Validator.Rules
 {
     public class HaveTransformAnimationRule : IRule
     {
-        public string RuleSummary => "Have other than Transform Animation in other than FX";
+        public string RuleSummary => Localize.Translate("HaveTransformAnimationRule_summary");
 
         public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, ValidatorSettings settings, RuleItemOptions options)
         {
@@ -53,7 +53,7 @@ namespace VRCAvatars3Validator.Rules
                             yield return new ValidateResult(
                                 clip,
                                 ValidateResult.ValidateResultType.Error,
-                                $"{clip.name} have key changed other than Transform");
+                                Localize.Translate("HaveTransformAnimationRule_result", clip.name));
                         }
                     }
                 }

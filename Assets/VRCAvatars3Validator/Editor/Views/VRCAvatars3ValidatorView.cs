@@ -39,7 +39,7 @@ namespace VRCAvatars3Validator.Views
             {
                 GUILayout.FlexibleSpace();
 
-                if (GUILayout.Button("Settings"))
+                if (GUILayout.Button(Localize.Translate("Settings")))
                 {
                     _viewModel.OnSettingsClick();
                 }
@@ -48,7 +48,7 @@ namespace VRCAvatars3Validator.Views
             using (var check = new EditorGUI.ChangeCheckScope())
             {
                 var avatar = EditorGUILayout.ObjectField(
-                                "Avatar",
+                                Localize.Translate("Avatar"),
                                 _viewModel.avatar,
                                 typeof(VRCAvatarDescriptor),
                                 true) as VRCAvatarDescriptor;
@@ -61,7 +61,7 @@ namespace VRCAvatars3Validator.Views
 
             EditorGUILayout.Space();
 
-            EditorGUILayout.LabelField("Rules", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField(Localize.Translate("Rules"), EditorStyles.boldLabel);
 
             using (new EditorGUI.IndentLevelScope())
             {
@@ -82,7 +82,7 @@ namespace VRCAvatars3Validator.Views
 
             using (new EditorGUI.DisabledGroupScope(_viewModel.IsSelectionAvatar()))
             {
-                if (GUILayout.Button("Validate"))
+                if (GUILayout.Button(Localize.Translate("Validate")))
                 {
                     _viewModel.OnValidateClick();
                 }
@@ -90,7 +90,7 @@ namespace VRCAvatars3Validator.Views
 
             EditorGUILayout.Space();
 
-            EditorGUILayout.LabelField("Errors", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField(Localize.Translate("Errors"), EditorStyles.boldLabel);
 
             if (_viewModel.HasNeverValided) return;
 
@@ -113,7 +113,7 @@ namespace VRCAvatars3Validator.Views
             }
             else
             {
-                EditorGUILayout.HelpBox("No Error", MessageType.Info);
+                EditorGUILayout.HelpBox(Localize.Translate("NoError"), MessageType.Info);
             }
 
         }
@@ -128,14 +128,14 @@ namespace VRCAvatars3Validator.Views
 
                 using (new EditorGUILayout.VerticalScope(GUILayout.Width(60f)))
                 {
-                    if (GUILayout.Button("Select", GUILayout.Width(60f)))
+                    if (GUILayout.Button(Localize.Translate("Select"), GUILayout.Width(60f)))
                     {
                         _viewModel.OnSelectClick(result);
                     }
 
                     using (new EditorGUI.DisabledGroupScope(!result.CanAutoFix))
                     {
-                        if (GUILayout.Button("AutoFix", GUILayout.Width(60f)))
+                        if (GUILayout.Button(Localize.Translate("AutoFix"), GUILayout.Width(60f)))
                         {
                             _viewModel.OnAutoFixClick(result);
                         }

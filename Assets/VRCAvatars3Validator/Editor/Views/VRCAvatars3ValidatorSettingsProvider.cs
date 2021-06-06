@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
+using VRCAvatars3Validator.Models;
 using VRCAvatars3Validator.Utilities;
 
 namespace VRCAvatars3Validator.Views
@@ -19,15 +20,19 @@ namespace VRCAvatars3Validator.Views
                 guiHandler = (searchContext) =>
                 {
                     var settings = ValidatorSettingsUtility.GetOrCreateSettings();
-                    settings.validateOnUploadAvatar = EditorGUILayout.Toggle("Validate OnUploadAvatar", settings.validateOnUploadAvatar);
+                    settings.validateOnUploadAvatar = EditorGUILayout.Toggle(Localize.Translate("ValidateOnUploadAvatar"), settings.validateOnUploadAvatar);
 
                     EditorGUILayout.Space();
 
-                    settings.suspendUploadingByWarningMessage = EditorGUILayout.ToggleLeft("Suspend uploading by warning message", settings.suspendUploadingByWarningMessage);
+                    settings.suspendUploadingByWarningMessage = EditorGUILayout.ToggleLeft(Localize.Translate("SuspendWarning"), settings.suspendUploadingByWarningMessage);
 
                     EditorGUILayout.Space();
 
-                    EditorGUILayout.LabelField("Enable Rules", EditorStyles.boldLabel);
+                    settings.languageType = (LanguageType)EditorGUILayout.EnumPopup(Localize.Translate("language"), settings.languageType);
+
+                    EditorGUILayout.Space();
+
+                    EditorGUILayout.LabelField(Localize.Translate("EnableRules"), EditorStyles.boldLabel);
 
                     var ruleNames = settings.rules.Select(rule => rule.Name).ToArray();
                     var rules = settings.rules.Select(x => RuleUtility.FilePath2IRule(x.FilePath)).ToArray();

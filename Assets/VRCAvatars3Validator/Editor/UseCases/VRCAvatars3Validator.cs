@@ -15,6 +15,8 @@ namespace VRCAvatars3Validator
         public static Dictionary<int, IEnumerable<ValidateResult>> ValidateAvatars3(VRCAvatarDescriptor avatar, IEnumerable<RuleItem> rules)
         {
             var settings = ValidatorSettingsUtility.GetOrCreateSettings();
+            if (avatar == null)
+                return new Dictionary<int, IEnumerable<ValidateResult>>();
             return rules.Select((rule, index) => new { Rule = rule, Index = index})
                 .Where(rulePair => rulePair.Rule.Enabled)
                 .Select(rulePair =>

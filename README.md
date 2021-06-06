@@ -1,5 +1,7 @@
 # VRCAvatars3Validator
-[![Release](https://github.com/gatosyocora/VRCAvatars3Validator/actions/workflows/release.yml/badge.svg)](https://github.com/gatosyocora/VRCAvatars3Validator/actions/workflows/release.yml)
+
+[![Release](https://img.shields.io/github/v/release/gatosyocora/VRCAvatars3Validator?sort=semver)](https://img.shields.io/github/v/release/gatosyocora/VRCAvatars3Validator?sort=semver)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](https://img.shields.io/badge/License-MIT-green.svg)
 
 [JP](#jp) / [EN](#en)
 
@@ -58,6 +60,10 @@ Unity 2018.4.20f1
 
 本ツールはMITライセンスで運用されます  
 詳しくは[LICENSE](https://github.com/gatosyocora/VRCAvatars3Validator/blob/master/LICENSE)をご覧ください
+
+## 変更履歴
+
+[CHANGELOG.md](./CHANGELOG.md)を確認してください
 
 ## 連絡先
 
@@ -118,6 +124,10 @@ The author gatosyocora cannot be held responsible for any problems that may aris
 
 This tool is MIT License 
 It reads [LICENSE](https://github.com/gatosyocora/VRCAvatars3Validator/blob/master/LICENSE) in detail.
+
+## Changelog
+
+see [CHANGELOG.md](./CHANGELOG.md)
 
 ## Contact
 
