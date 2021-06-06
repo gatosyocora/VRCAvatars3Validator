@@ -29,7 +29,7 @@ namespace VRCAvatars3Validator.Rules
             };
         }
         
-        public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, ValidatorSettings settings, RuleItemOptions options)
+        public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, RuleItemOptions options)
         {
             var animationClips = VRCAvatarUtility.GetAnimationClips(avatar);
             var ignoreAnimationFileRegexs = (options.ReadOptions<HaveNoMissingAnimationPathRuleOptions>() ?? new HaveNoMissingAnimationPathRuleOptions()).IgnoreAnimationFileRegexs;

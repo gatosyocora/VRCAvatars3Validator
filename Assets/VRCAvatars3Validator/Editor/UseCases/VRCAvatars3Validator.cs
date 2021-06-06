@@ -14,7 +14,6 @@ namespace VRCAvatars3Validator
     {
         public static Dictionary<int, IEnumerable<ValidateResult>> ValidateAvatars3(VRCAvatarDescriptor avatar, IEnumerable<RuleItem> rules)
         {
-            var settings = ValidatorSettingsUtility.GetOrCreateSettings();
             if (avatar == null)
                 return new Dictionary<int, IEnumerable<ValidateResult>>();
             return rules.Select((rule, index) => new { Rule = rule, Index = index})
@@ -22,7 +21,7 @@ namespace VRCAvatars3Validator
                 .Select(rulePair =>
                 {
                     var rule = RuleUtility.FilePath2IRule(rulePair.Rule.FilePath);
-                    var results = rule.Validate(avatar, settings, rulePair.Rule.Options);
+                    var results = rule.Validate(avatar, rulePair.Rule.Options);
                     return new KeyValuePair<int, IEnumerable<ValidateResult>>(rulePair.Index + 1, results);
                 })
                 .ToDictionary(resultPair => resultPair.Key, resultPair => resultPair.Value);

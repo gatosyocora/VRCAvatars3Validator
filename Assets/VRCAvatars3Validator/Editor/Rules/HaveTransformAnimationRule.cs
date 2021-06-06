@@ -19,7 +19,7 @@ namespace VRCAvatars3Validator.Rules
     {
         public string RuleSummary => Localize.Translate("HaveTransformAnimationRule_summary");
 
-        public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, ValidatorSettings settings, RuleItemOptions options)
+        public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, RuleItemOptions options)
         {
             var humanoidBoneNames = Enum.GetNames(typeof(HumanBodyBones))
                                         .SelectMany(n => new string[] { n, ToContainSpace(n) })
