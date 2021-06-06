@@ -57,7 +57,6 @@ namespace VRCAvatars3Validator.Rules
                 GUILayout.FlexibleSpace();
                 if (GUILayout.Button("Add")) {
                     options.ChangeOptions<HaveNoMissingAnimationPathRuleOptions>(option => option.IgnoreAnimationFileRegexs.Add(""));
-                    Debug.Log(options);
                     EditorUtility.SetDirty(settings);
                 }
                 if (GUILayout.Button("Reset")) {
