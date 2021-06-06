@@ -21,10 +21,15 @@ namespace VRCAvatars3Validator.Rules
     {
         public string RuleSummary => "Exists missing path in AnimationClips";
 
+        public static List<string> ignoreAnimationFileRegexsDefault = new List<string>
+        {
+            "^proxy_*"
+        };
+
         public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, ValidatorSettings settings, RuleItemOptions options)
         {
             var animationClips = VRCAvatarUtility.GetAnimationClips(avatar);
-            var ignoreAnimationFileRegexs = (ruleItem.ReadOptions<Options>() ?? new Options()).IgnoreAnimationFileRegexs;
+            var ignoreAnimationFileRegexs = (options.ReadOptions<HaveNoMissingAnimationPathRuleOptions>() ?? new HaveNoMissingAnimationPathRuleOptions()).IgnoreAnimationFileRegexs;
             foreach (var animationClip in animationClips)
             {
                 var fileName = Path.GetFileName(AssetDatabase.GetAssetPath(animationClip));
@@ -44,20 +49,20 @@ namespace VRCAvatars3Validator.Rules
             }
         }
 
-        public void OnGUI(ValidatorSettings settings, RuleItem ruleItem) {
+        public void OnGUI(ValidatorSettings settings, RuleItemOptions options) {
             using (new EditorGUILayout.HorizontalScope()) {
                 GUILayout.FlexibleSpace();
                 if (GUILayout.Button("Add")) {
-                    ruleItem.ChangeOptions<Options>(options => options.IgnoreAnimationFileRegexs.Add(""));
-                    Debug.Log(ruleItem.Options);
+                    options.ChangeOptions<HaveNoMissingAnimationPathRuleOptions>(option => option.IgnoreAnimationFileRegexs.Add(""));
+                    Debug.Log(options);
                     EditorUtility.SetDirty(settings);
                 }
                 if (GUILayout.Button("Reset")) {
-                    ruleItem.ChangeOptions<Options>(options => options.IgnoreAnimationFileRegexs = ignoreAnimationFileRegexsDefault);
+                    options.ChangeOptions<HaveNoMissingAnimationPathRuleOptions>(option => option.IgnoreAnimationFileRegexs = ignoreAnimationFileRegexsDefault);
                     EditorUtility.SetDirty(settings);
                 }
             }
-            var ignoreAnimationFileRegexs = ruleItem.ReadOptions<Options>().IgnoreAnimationFileRegexs;
+            var ignoreAnimationFileRegexs = options.ReadOptions<HaveNoMissingAnimationPathRuleOptions>().IgnoreAnimationFileRegexs;
             for (int i = 0; i < ignoreAnimationFileRegexs.Count; i++) {
                 var ignoreAnimationFileRegex = ignoreAnimationFileRegexs[i];
 
@@ -66,20 +71,20 @@ namespace VRCAvatars3Validator.Rules
                     ignoreAnimationFileRegexs[i] = EditorGUILayout.TextField(ignoreAnimationFileRegex);
 
                     if (check.changed) {
-                        ruleItem.ChangeOptions<Options>(options => options.IgnoreAnimationFileRegexs = ignoreAnimationFileRegexs);
+                        options.ChangeOptions<HaveNoMissingAnimationPathRuleOptions>(option => option.IgnoreAnimationFileRegexs = ignoreAnimationFileRegexs);
                         EditorUtility.SetDirty(settings);
                     }
 
                     if (GUILayout.Button("×")) {
                         ignoreAnimationFileRegexs.RemoveAt(i);
-                        ruleItem.ChangeOptions<Options>(options => options.IgnoreAnimationFileRegexs = ignoreAnimationFileRegexs);
+                        options.ChangeOptions<HaveNoMissingAnimationPathRuleOptions>(option => option.IgnoreAnimationFileRegexs = ignoreAnimationFileRegexs);
                         EditorUtility.SetDirty(settings);
                     }
                 }
             }
         }
 
-        class Options {
+        class HaveNoMissingAnimationPathRuleOptions {
             public List<string> IgnoreAnimationFileRegexs;
         }
     }
