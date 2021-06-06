@@ -53,13 +53,13 @@ namespace VRCAvatars3Validator.Rules
         }
 
         public void OnGUI(RuleItemOptions options) {
-            EditorGUILayout.LabelField("Ignore animation file name pattern");
+            EditorGUILayout.LabelField(Localize.Translate("HaveNoMissingAnimationPathRule_options_ignoreFileNameRegex"));
             using (new EditorGUILayout.HorizontalScope()) {
                 GUILayout.FlexibleSpace();
-                if (GUILayout.Button("Add")) {
+                if (GUILayout.Button(Localize.Translate("Add"))) {
                     options.ChangeOptions<HaveNoMissingAnimationPathRuleOptions>(option => option.IgnoreAnimationFileRegexs.Add(""));
                 }
-                if (GUILayout.Button("Reset")) {
+                if (GUILayout.Button(Localize.Translate("Reset"))) {
                     options.ChangeOptions<HaveNoMissingAnimationPathRuleOptions>(option => option.IgnoreAnimationFileRegexs = ignoreAnimationFileRegexsDefault);
                 }
             }
