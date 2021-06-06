@@ -1,4 +1,5 @@
 # VRCAvatars3Validator
+[![Release](https://github.com/gatosyocora/VRCAvatars3Validator/actions/workflows/release.yml/badge.svg)](https://github.com/gatosyocora/VRCAvatars3Validator/actions/workflows/release.yml)
 
 [![Release](https://img.shields.io/github/v/release/gatosyocora/VRCAvatars3Validator?sort=semver)](https://img.shields.io/github/v/release/gatosyocora/VRCAvatars3Validator?sort=semver)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](https://img.shields.io/badge/License-MIT-green.svg)
