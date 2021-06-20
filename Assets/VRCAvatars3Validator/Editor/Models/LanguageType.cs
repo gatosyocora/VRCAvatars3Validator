@@ -6,6 +6,6 @@ namespace VRCAvatars3Validator.Models
 {
     public enum LanguageType
     {
-        JP, EN
+        JA, EN
     }
 }
