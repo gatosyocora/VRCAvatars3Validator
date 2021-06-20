@@ -1,10 +1,10 @@
 # CHANGELOG
 
-## [v1.1] - 2021-06-06
+## [v1.1] - 2021-06-20
 
 ### **Feature**
 
-- Multilingal support (EN/JP)
+- Multilingal support (EN/JA)
 - Settingable rule by rule options
 - Add option to setting window to make no stop by waring message on uploading
 - Add setting button to tool window for open setting window
@@ -21,6 +21,10 @@
 #### HaveExParamsInControllersRule
 
 - Bool parameter can not validate
+
+#### HaveTransformAnimationRule
+
+- Detect animation keys that deform humanoid bones transform
 
 ## [v1.0] - 2021-05-26
 
