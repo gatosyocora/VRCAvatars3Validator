@@ -16,7 +16,7 @@ namespace VRCAvatars3Validator.Rules
     {
         public string RuleSummary => Localize.Translate("ControllerLayerWeightRule_summary");
 
-        public RuleItemOptions Options => null;
+        public object Options => null;
 
         public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, RuleItemOptions options)
         {

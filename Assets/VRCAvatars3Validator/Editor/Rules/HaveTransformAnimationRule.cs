@@ -19,7 +19,7 @@ namespace VRCAvatars3Validator.Rules
     {
         public string RuleSummary => Localize.Translate("HaveTransformAnimationRule_summary");
 
-        public RuleItemOptions Options => null;
+        public object Options => null;
 
         private static string[] humanoidBoneNamesMissingInHumanBodyBones = new string[]
         {

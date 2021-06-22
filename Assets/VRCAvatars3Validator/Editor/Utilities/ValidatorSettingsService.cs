@@ -81,7 +81,7 @@ namespace VRCAvatars3Validator.Utilities
                 Name = RuleUtility.FilePath2RuleName(filePath),
                 Enabled = true,
                 FilePath = filePath,
-                Options = RuleUtility.FilePath2IRule(filePath).Options,
+                Options = new RuleItemOptions(RuleUtility.FilePath2IRule(filePath).Options),
             });
     }
 }

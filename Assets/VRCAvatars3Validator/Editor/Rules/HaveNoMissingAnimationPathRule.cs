@@ -29,7 +29,7 @@ namespace VRCAvatars3Validator.Rules
             };
         }
 
-        public RuleItemOptions Options => new RuleItemOptions(new HaveNoMissingAnimationPathRuleOptions());
+        public object Options => new HaveNoMissingAnimationPathRuleOptions();
 
 
         public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, RuleItemOptions options)

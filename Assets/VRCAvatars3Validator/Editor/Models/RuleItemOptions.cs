@@ -10,6 +10,7 @@ namespace VRCAvatars3Validator.Models
     {
         public RuleItemOptions(object options)
         {
+            if (options == null) return;
             jsonText = JsonUtility.ToJson(options);
         }
 
