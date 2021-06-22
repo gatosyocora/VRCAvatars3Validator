@@ -28,7 +28,10 @@ namespace VRCAvatars3Validator.Rules
                 "^proxy_*"
             };
         }
-        
+
+        public object Options => new HaveNoMissingAnimationPathRuleOptions();
+
+
         public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, RuleItemOptions options)
         {
             var animationClips = VRCAvatarUtility.GetAnimationClips(avatar);
@@ -85,7 +88,8 @@ namespace VRCAvatars3Validator.Rules
             }
         }
 
-        class HaveNoMissingAnimationPathRuleOptions {
+        class HaveNoMissingAnimationPathRuleOptions
+        {
             public List<string> IgnoreAnimationFileRegexs = ignoreAnimationFileRegexsDefault;
         }
     }

@@ -33,6 +33,13 @@ namespace VRCAvatars3Validator.Utilities
             return Activator.CreateInstance(type) as IRule;
         }
 
+        public static Settingable FilePath2Settingable(string filePath)
+        {
+            var ruleAsset = AssetDatabase.LoadAssetAtPath<MonoScript>(filePath);
+            var type = ruleAsset.GetClass();
+            return Activator.CreateInstance(type) as Settingable;
+        }
+
         public static string FilePath2RuleName(string filePath)
             => Path.GetFileNameWithoutExtension(filePath);
     }

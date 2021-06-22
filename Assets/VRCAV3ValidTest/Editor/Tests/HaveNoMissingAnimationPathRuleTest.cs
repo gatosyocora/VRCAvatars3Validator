@@ -31,7 +31,7 @@ namespace VRCAvatars3Validator.Tests
                 new ValidateResult(AssetDatabase.LoadAssetAtPath<AnimationClip>(AssetDatabase.GUIDToAssetPath("7a10dddcd1fb33c48b79d0eafe93949f")), ValidateResult.ValidateResultType.Warning, "`HaveMissing2` have missing path. (Parent/Capsules)"),
             };
 
-            var results = new HaveNoMissingAnimationPathRule().Validate(vrcAvatarDescriptor, new RuleItemOptions()).ToArray();
+            var results = new HaveNoMissingAnimationPathRule().Validate(vrcAvatarDescriptor, new RuleItemOptions(null)).ToArray();
 
             Assert.AreEqual(3, results.Length);
 
