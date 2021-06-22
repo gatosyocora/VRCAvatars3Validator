@@ -76,12 +76,20 @@ namespace VRCAvatars3Validator.Utilities
         }
 
         private static void AddRule(ValidatorSettings settings, string filePath)
-            => settings.rules.Add(new RuleItem
+        {
+            var settingable = RuleUtility.FilePath2Settingable(filePath);
+            object options = null;
+            if (settingable != null)
+            {
+                options = settingable.Options;
+            }
+            settings.rules.Add(new RuleItem
             {
                 Name = RuleUtility.FilePath2RuleName(filePath),
                 Enabled = true,
                 FilePath = filePath,
-                Options = new RuleItemOptions(RuleUtility.FilePath2IRule(filePath).Options),
+                Options = new RuleItemOptions(options),
             });
+        }
     }
 }

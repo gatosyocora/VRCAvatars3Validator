@@ -22,8 +22,6 @@ namespace VRCAvatars3Validator.Rules
     {
         public string RuleSummary => Localize.Translate("ExpressionsSubMenuRule_summary");
 
-        public object Options => null;
-
         public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, RuleItemOptions options)
         {
             if (avatar.expressionsMenu is null) return Enumerable.Empty<ValidateResult>();
