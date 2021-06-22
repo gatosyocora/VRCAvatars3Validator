@@ -8,6 +8,11 @@ namespace VRCAvatars3Validator.Models
     [Serializable]
     public class RuleItemOptions
     {
+        public RuleItemOptions(object options)
+        {
+            jsonText = JsonUtility.ToJson(options);
+        }
+
         [SerializeField]
         private string jsonText;
 

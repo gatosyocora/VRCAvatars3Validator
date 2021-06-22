@@ -15,6 +15,8 @@ namespace VRCAvatars3Validator
         /// </summary>
         string RuleSummary { get; }
 
+        RuleItemOptions Options { get; }
+
         /// <summary>
         /// Run validation by defined rules.
         /// </summary>
