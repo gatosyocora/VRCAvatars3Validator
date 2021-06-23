@@ -22,8 +22,10 @@ namespace VRCAvatars3Validator
                 {
                     var rule = RuleUtility.FilePath2IRule(rulePair.Rule.FilePath);
                     var results = rule.Validate(avatar, rulePair.Rule.Options);
+                    if (!results.Any()) return new KeyValuePair<int, IEnumerable<ValidateResult>>(0, null);
                     return new KeyValuePair<int, IEnumerable<ValidateResult>>(rulePair.Index + 1, results);
                 })
+                .Where(x => x.Key > 0)
                 .ToDictionary(resultPair => resultPair.Key, resultPair => resultPair.Value);
         }
     }
