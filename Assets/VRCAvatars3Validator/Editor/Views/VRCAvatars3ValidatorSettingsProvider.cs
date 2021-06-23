@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
+using VRCAvatars3Validator.Models;
 using VRCAvatars3Validator.Utilities;
 
 namespace VRCAvatars3Validator.Views
@@ -19,23 +20,45 @@ namespace VRCAvatars3Validator.Views
                 guiHandler = (searchContext) =>
                 {
                     var settings = ValidatorSettingsUtility.GetOrCreateSettings();
-                    settings.validateOnUploadAvatar = EditorGUILayout.Toggle("Validate OnUploadAvatar", settings.validateOnUploadAvatar);
+                    settings.validateOnUploadAvatar = EditorGUILayout.Toggle(Localize.Translate("ValidateOnUploadAvatar"), settings.validateOnUploadAvatar);
 
                     EditorGUILayout.Space();
 
-                    EditorGUILayout.LabelField("Enable Rules", EditorStyles.boldLabel);
+                    settings.suspendUploadingByWarningMessage = EditorGUILayout.ToggleLeft(Localize.Translate("SuspendWarning"), settings.suspendUploadingByWarningMessage);
+
+                    EditorGUILayout.Space();
+
+                    settings.languageType = (LanguageType)EditorGUILayout.EnumPopup(Localize.Translate("language"), settings.languageType);
+
+                    EditorGUILayout.Space();
+
+                    EditorGUILayout.LabelField(Localize.Translate("EnableRules"), EditorStyles.boldLabel);
 
                     var ruleNames = settings.rules.Select(rule => rule.Name).ToArray();
+                    var rules = settings.rules.Select(x => RuleUtility.FilePath2IRule(x.FilePath)).ToArray();
 
                     for (int i = 0; i < ruleNames.Length; i++)
                     {
                         var validateRule = settings.rules[i].Enabled;
                         var ruleName = ruleNames[i];
-                        var ruleSummary = RuleUtility.FilePath2IRule(settings.rules[i].FilePath).RuleSummary;
+                        var ruleSummary = rules[i].RuleSummary;
                         using (var check = new EditorGUI.ChangeCheckScope())
                         {
                             settings.rules[i].Enabled = EditorGUILayout.ToggleLeft($"[{ruleName}] {ruleSummary}", validateRule);
                         }
+                    }
+
+                    EditorGUILayout.Space();
+
+                    for (int i = 0; i < rules.Length; i++)
+                    {
+                        var rule = rules[i];
+                        if (rule is Settingable settingableRule)
+                        {
+                            EditorGUILayout.LabelField(rule.GetType().Name, EditorStyles.boldLabel);
+                            settingableRule.OnGUI(settings.rules[i].Options);
+                        }
+                        EditorGUILayout.Space();
                     }
                 }
             };

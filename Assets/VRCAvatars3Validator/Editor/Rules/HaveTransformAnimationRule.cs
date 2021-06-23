@@ -17,12 +17,23 @@ namespace VRCAvatars3Validator.Rules
 {
     public class HaveTransformAnimationRule : IRule
     {
-        public string RuleSummary => "Have other than Transform Animation in other than FX";
+        public string RuleSummary => Localize.Translate("HaveTransformAnimationRule_summary");
 
-        public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar)
+        private static string[] humanoidBoneNamesMissingInHumanBodyBones = new string[]
+        {
+            "Left Arm ",
+            "Left Forearm ",
+            "Right Arm ",
+            "Right Forearm ",
+            "RootT",
+            "RootQ"
+        };
+
+        public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, RuleItemOptions options)
         {
             var humanoidBoneNames = Enum.GetNames(typeof(HumanBodyBones))
                                         .SelectMany(n => new string[] { n, ToContainSpace(n) })
+                                        .Concat(humanoidBoneNamesMissingInHumanBodyBones)
                                         .Distinct()
                                         .ToArray();
 
@@ -53,7 +64,7 @@ namespace VRCAvatars3Validator.Rules
                             yield return new ValidateResult(
                                 clip,
                                 ValidateResult.ValidateResultType.Error,
-                                $"{clip.name} have key changed other than Transform");
+                                Localize.Translate("HaveTransformAnimationRule_result", clip.name));
                         }
                     }
                 }

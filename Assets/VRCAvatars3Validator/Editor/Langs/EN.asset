@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e5494b88e46dca47947ab5b0186d7a8, type: 3}
+  m_Name: EN
+  m_EditorClassIdentifier: 
+  data: '{"dictionary":[{"key":"ExpressionsSubMenuRule_summary","value":"Exists unset
+    SubMenu"},{"key":"ControllerLayerWeightRule_summary","value":"Have weight 0 layer"},{"key":"HaveTransformAnimationRule_summary","value":"Have
+    other than Transform Animation in other than FX"},{"key":"HaveExParamsInControllersRule_summary","value":"Missing
+    Expression Parameter"},{"key":"HaveNoMissingAnimationPathRule_summary","value":"Exists
+    missing path in AnimationClips"},{"key":"language","value":"Language"},{"key":"ValidateOnUploadAvatar","value":"Validate
+    OnUploadAvatar"},{"key":"SuspendWarning","value":"Suspend uploading by warning
+    message"},{"key":"EnableRules","value":"Enable Rules"},{"key":"Settings","value":"Settings"},{"key":"Avatar","value":"Avatar"},{"key":"Rules","value":"Rules"},{"key":"Validate","value":"Validate"},{"key":"Errors","value":"Errors"},{"key":"NoError","value":"No
+    Error"},{"key":"Select","value":"Select"},{"key":"AutoFix","value":"AutoFix"},{"key":"ControllerLayerWeightRule_result","value":"`<1>`
+    Layer in <2> is weight 0."},{"key":"HaveExParamsInControllersRule_result","value":"<1>
+    is not found in AnimatorControllers"},{"key":"ExpressionsSubMenuRule_result","value":"`<1>`
+    exists unset SubMenu."},{"key":"HaveTransformAnimationRule_result","value":"<1>
+    have key changed other than Transform"},{"key":"HaveNoMissingAnimationPathRule_result","value":"`<1>`
+    have missing path. (<2>)"},{"key":"HaveNoMissingAnimationPathRule_options_ignoreFileNameRegex","value":"Ignore
+    animation file name pattern"},{"key":"Add","value":"Add"},{"key":"Reset","value":"Reset"}]}'

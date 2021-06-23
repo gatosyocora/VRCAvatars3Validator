@@ -21,9 +21,9 @@ namespace VRCAvatars3Validator.Rules
     /// </summary>
     public class HaveExParamsInControllersRule : IRule
     {
-        public string RuleSummary => "Missing Expression Parameter";
+        public string RuleSummary => Localize.Translate("HaveExParamsInControllersRule_summary");
 
-        public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar)
+        public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, RuleItemOptions options)
         {
             var exParamsAsset = VRCAvatarUtility.GetExpressionParametersAsset(avatar);
 
@@ -39,9 +39,7 @@ namespace VRCAvatars3Validator.Rules
             foreach (var exParam in exParams)
             {
                 var exParamName = exParam.name;
-                var exParamType = exParam.valueType == VRCExpressionParameters.ValueType.Float ?
-                                    AnimatorControllerParameterType.Float :
-                                    AnimatorControllerParameterType.Int;
+                var exParamType = ParamTypeMap[exParam.valueType];
 
                 found = false;
                 foreach (var param in parameterlist)
@@ -57,9 +55,16 @@ namespace VRCAvatars3Validator.Rules
                     yield return new ValidateResult(
                                     exParamsAsset,
                                     ValidateResult.ValidateResultType.Error,
-                                    $"{exParamName} is not found in AnimatorControllers");
+                                    Localize.Translate("HaveExParamsInControllersRule_result", exParamName));
                 }
             }
         }
+
+        Dictionary<VRCExpressionParameters.ValueType, AnimatorControllerParameterType> ParamTypeMap =
+            new Dictionary<VRCExpressionParameters.ValueType, AnimatorControllerParameterType> {
+                { VRCExpressionParameters.ValueType.Int, AnimatorControllerParameterType.Int },
+                { VRCExpressionParameters.ValueType.Float, AnimatorControllerParameterType.Float },
+                { VRCExpressionParameters.ValueType.Bool, AnimatorControllerParameterType.Bool },
+            };
     }
 }

@@ -15,7 +15,8 @@ namespace VRCAvatars3Validator.Mocks
         public enum ValueType
         {
             Int = 0,
-            Float = 1
+            Float = 1,
+            Bool = 2
         }
 
         public class Parameter
