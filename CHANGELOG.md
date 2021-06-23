@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## [v1.1] - 2021-06-20
+## [v1.1] - 2021-06-24
 
 ### **Feature**
 
@@ -17,6 +17,7 @@
 ### **Fix**
 
 - Failed when missing VRCAvatarDescripter
+- Performance optimisation
 
 #### HaveExParamsInControllersRule
 
