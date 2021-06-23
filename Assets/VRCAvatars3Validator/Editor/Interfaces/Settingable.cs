@@ -4,6 +4,7 @@ namespace VRCAvatars3Validator
 {
     public interface Settingable
     {
+        object Options { get; }
         void OnGUI(RuleItemOptions options);
     }
 }
