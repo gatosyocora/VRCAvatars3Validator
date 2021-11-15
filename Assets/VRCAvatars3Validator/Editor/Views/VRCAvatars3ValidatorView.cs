@@ -27,6 +27,14 @@ namespace VRCAvatars3Validator.Views
             GetWindow<VRCAvatars3ValidatorView>(VRCAvatars3ValidatorViewModel.EDITOR_NAME);
         }
 
+#if VRC_SDK_VRCSDK3
+        [MenuItem("VRCAvatars3Validator/Setting")]
+#endif
+        public static void OpenSetting()
+        {
+            SettingsService.OpenProjectSettings("Project/VRCAvatars3Validator");
+        }
+
         private void OnOpen() => _viewModel.OnOpen();
 
         public void OnGUI()
