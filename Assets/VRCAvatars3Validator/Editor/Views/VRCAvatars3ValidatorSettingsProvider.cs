@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
+using UnityEngine;
 using VRCAvatars3Validator.Models;
 using VRCAvatars3Validator.Utilities;
 
@@ -42,10 +43,7 @@ namespace VRCAvatars3Validator.Views
                         var validateRule = settings.rules[i].Enabled;
                         var ruleName = ruleNames[i];
                         var ruleSummary = rules[i].RuleSummary;
-                        using (var check = new EditorGUI.ChangeCheckScope())
-                        {
-                            settings.rules[i].Enabled = EditorGUILayout.ToggleLeft($"[{ruleName}] {ruleSummary}", validateRule);
-                        }
+                        settings.rules[i].Enabled = EditorGUILayout.ToggleLeft($"[{ruleName}] {ruleSummary}", validateRule);
                     }
 
                     EditorGUILayout.Space();
@@ -59,6 +57,18 @@ namespace VRCAvatars3Validator.Views
                             settingableRule.OnGUI(settings.rules[i].Options);
                         }
                         EditorGUILayout.Space();
+                    }
+
+                    using (new EditorGUILayout.HorizontalScope())
+                    {
+                        GUILayout.FlexibleSpace();
+
+                        if (GUILayout.Button(Localize.Translate("Save")))
+                        {
+                            EditorUtility.SetDirty(settings);
+                            AssetDatabase.SaveAssets();
+                            AssetDatabase.Refresh();
+                        }
                     }
                 }
             };

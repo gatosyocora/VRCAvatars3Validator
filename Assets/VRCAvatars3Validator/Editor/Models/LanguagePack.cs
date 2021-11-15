@@ -37,6 +37,7 @@ namespace VRCAvatars3Validator.Models
             ",{\"key\":\"HaveEmptyStateRule_result\",\"value\":\"`<1>` has not animation clip in <2> layer of <3>.\"}\n" +
             ",{\"key\":\"Add\",\"value\":\"Add\"}\n" +
             ",{\"key\":\"Reset\",\"value\":\"Reset\"}\n" +
+            ",{\"key\":\"Save\",\"value\":\"Save\"}\n" +
             "]\n" +
         "}";
     }
