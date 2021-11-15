@@ -11,7 +11,7 @@ namespace VRCAvatars3Validator.Rules
 {
     public class HaveEmptyStateRule : IRule
     {
-        public string RuleSummary => "Have empty state";
+        public string RuleSummary => Localize.Translate("HaveEmptyStateRule_summary");
 
         public IEnumerable<ValidateResult> Validate(VRCAvatarDescriptor avatar, RuleItemOptions options)
         {
@@ -30,7 +30,7 @@ namespace VRCAvatars3Validator.Rules
                             result.Add(new ValidateResult(
                                 controller,
                                 ValidateResult.ValidateResultType.Error,
-                                $"{childState.state.name} has not animation clip in {layer.name} layer of {controller}"
+                                Localize.Translate("HaveEmptyStateRule_result", childState.state.name, layer.name, controller.name)
                             ));
                         }
                     }
