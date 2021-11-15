@@ -30,18 +30,20 @@ namespace VRCAvatars3Validator.Views
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
+            EditorGUI.BeginProperty(position, label, property);
+
             var y = position.y;
             var dictionary = Deserialize(property.stringValue);
             var keys = dictionary.Dictionary.Keys.Select(key => key).ToArray();
-            if (GUI.Button(NewRect(position, ref y), "Toggle Enable"))
+            if (GUI.Button(NewRect(position, y, H), "Toggle Enable"))
             {
                 enable = !enable;
             }
-            if (GUI.Button(NewRect(position, ref y), "Copy"))
+            if (GUI.Button(NewRect(position, y + H, H), "Copy"))
             {
                 EditorGUIUtility.systemCopyBuffer = property.stringValue;
             }
-            if (GUI.Button(NewRect(position, ref y), "Fetch"))
+            if (GUI.Button(NewRect(position, y + 2 * H, H), "Fetch"))
             {
                 var classType = fieldInfo.DeclaringType;
                 var languagePack = Activator.CreateInstance(classType) as LanguagePack;
@@ -64,7 +66,7 @@ namespace VRCAvatars3Validator.Views
                     {
                         var key = keys[i];
                         var value = dictionary.Dictionary[key];
-                        var newValue = EditorGUI.TextField(NewRect(position, ref y), key, value);
+                        var newValue = EditorGUI.TextField(NewRect(position, y + (3 + i) * H, H), key, value);
 
                         if (check.changed)
                         {
@@ -74,6 +76,15 @@ namespace VRCAvatars3Validator.Views
                     }
                 }
             }
+
+            EditorGUI.EndProperty();
+        }
+
+        public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+        {
+            var dictionary = Deserialize(property.stringValue);
+            var keys = dictionary.Dictionary.Keys.Select(key => key).ToArray();
+            return H * (3 + keys.Length);
         }
 
         private string Serialize(JsonDictionary dictionary)
@@ -86,7 +97,7 @@ namespace VRCAvatars3Validator.Views
             return JsonUtility.FromJson<JsonDictionary>(data);
         }
 
-        private Rect NewRect(Rect position, ref float y) => new Rect(position.x, y += H, position.width, position.height);
+        private Rect NewRect(Rect position, float y, float height) => new Rect(position.x, y, position.width, height);
     }
 }
 
